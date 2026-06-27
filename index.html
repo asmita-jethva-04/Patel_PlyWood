@@ -10,7 +10,940 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
   <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
- <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* ===== CUSTOM VARIABLES ===== */
+    :root {
+      --gold: #B57A2B;
+      --gold-dark: #94611D;
+      --gold-light: #D5A54D;
+      --gold-gradient: linear-gradient(135deg, #B57A2B, #D5A54D);
+      --charcoal: #1B1B1B;
+      --heading: #111111;
+      --paragraph: #666666;
+      --bg-light: #F8F7F3;
+      --white: #FFFFFF;
+      --shadow-sm: 0 10px 30px -10px rgba(0,0,0,0.06);
+      --shadow-hover: 0 25px 50px -12px rgba(0,0,0,0.15);
+      --radius: 16px;
+      --transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', sans-serif;
+      color: var(--paragraph);
+      background: var(--bg-light);
+      overflow-x: hidden;
+      padding-top: 0;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 600;
+      color: var(--heading);
+    }
+    .gold-text { color: var(--gold); }
+    .bg-soft-gold { background: #fcf8f0; }
+
+    /* ===== BUTTONS ===== */
+    .btn-gold {
+      background: var(--gold-gradient);
+      color: #fff;
+      border: none;
+      padding: 14px 36px;
+      font-weight: 600;
+      border-radius: 50px;
+      transition: var(--transition);
+      letter-spacing: 0.5px;
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+    }
+    .btn-gold::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: var(--gold-dark);
+      transition: var(--transition);
+      z-index: -1;
+      border-radius: 50px;
+    }
+    .btn-gold:hover::before { left: 0; }
+    .btn-gold:hover {
+      color: #fff;
+      transform: translateY(-3px);
+      box-shadow: 0 15px 35px rgba(181, 122, 43, 0.4);
+    }
+    .btn-outline-gold {
+      background: transparent;
+      color: var(--gold);
+      border: 2px solid var(--gold);
+      padding: 12px 34px;
+      font-weight: 600;
+      border-radius: 50px;
+      transition: var(--transition);
+    }
+    .btn-outline-gold:hover {
+      background: var(--gold);
+      color: #fff;
+      transform: translateY(-3px);
+      box-shadow: 0 15px 35px rgba(181, 122, 43, 0.3);
+    }
+
+    /* ===== SECTION TITLES ===== */
+    .section-title {
+      font-size: 2.8rem;
+      font-weight: 800;
+      letter-spacing: -1px;
+      margin-bottom: 0.5rem;
+    }
+    .section-subtitle {
+      color: var(--gold);
+      font-weight: 600;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      font-size: 0.85rem;
+    }
+    .gold-divider-center {
+      width: 70px;
+      height: 4px;
+      background: var(--gold-gradient);
+      border-radius: 10px;
+      margin: 16px auto 24px;
+    }
+    .section-padding { padding: 90px 0; }
+
+    /* ===== CARDS ===== */
+    .card-premium {
+      background: var(--white);
+      border: none;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-sm);
+      transition: var(--transition);
+      overflow: hidden;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      border-bottom: 4px solid transparent;
+    }
+    .card-premium:hover {
+      transform: translateY(-10px);
+      box-shadow: var(--shadow-hover);
+      border-bottom-color: var(--gold);
+    }
+    .card-premium .card-icon-wrap {
+      width: 64px;
+      height: 64px;
+      background: rgba(181,122,43,0.08);
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+      transition: var(--transition);
+    }
+    .card-premium:hover .card-icon-wrap {
+      background: var(--gold-gradient);
+      transform: scale(1.05) rotate(-3deg);
+    }
+    .card-premium:hover .card-icon-wrap i {
+      color: #fff !important;
+    }
+    .card-premium .card-icon-wrap i {
+      font-size: 2rem;
+      transition: var(--transition);
+    }
+
+    /* ===== TOP BAR ===== */
+    .top-bar {
+      background: var(--charcoal);
+      padding: 8px 0;
+      position: relative;
+      z-index: 1060;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .top-bar .contact-info a,
+    .top-bar .contact-info span {
+      color: rgba(255,255,255,0.7);
+      text-decoration: none;
+      font-size: 0.78rem;
+      transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .top-bar .contact-info a:hover { color: var(--gold); }
+    .top-bar .contact-info .divider {
+      color: rgba(255,255,255,0.1);
+      font-size: 1.2rem;
+      font-weight: 100;
+    }
+    .top-bar .social-icons a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.05);
+      color: rgba(255,255,255,0.6);
+      font-size: 0.75rem;
+      transition: var(--transition);
+      text-decoration: none;
+    }
+    .top-bar .social-icons a:hover {
+      background: var(--gold);
+      color: #fff;
+      transform: translateY(-2px);
+    }
+
+    /* ===== MAIN NAV ===== */
+    .navbar-main {
+      background: #000000b0;
+      backdrop-filter: blur(25px);
+      transition: var(--transition);
+      position: sticky;
+      z-index: 1050;
+    }
+    .navbar-main.scrolled {
+      background: #000000b0;
+      backdrop-filter: blur(15px);
+      box-shadow: 0 8px 40px rgba(0,0,0,0.2);
+      padding: 8px 0;
+    }
+    .navbar-main .brand-logo {
+      height: 90px;
+      width: auto;
+      object-fit: contain;
+      transition: 0.3s ease;
+    }
+    .navbar-main.scrolled .brand-logo { height: 70px; }
+    .navbar-main .brand-logo:hover { transform: scale(1.05); }
+    .navbar-main .nav-link {
+      color: rgba(255,255,255,0.85);
+      font-weight: 500;
+      font-size: 0.88rem;
+      padding: 8px 16px !important;
+      transition: var(--transition);
+      position: relative;
+      letter-spacing: 0.3px;
+    }
+    .navbar-main .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: 4px;
+      left: 50%;
+      width: 0;
+      height: 2px;
+      background: var(--gold-gradient);
+      transition: var(--transition);
+      transform: translateX(-50%);
+    }
+    .navbar-main .nav-link:hover::after,
+    .navbar-main .nav-link.active::after { width: 60%; }
+    .navbar-main .nav-link:hover,
+    .navbar-main .nav-link.active { color: var(--gold); }
+
+    /* Dropdown Categories */
+    .nav-item.dropdown-categories .dropdown-menu {
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%) translateY(10px);
+      background: rgba(27,27,27,0.97);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 16px;
+      padding: 16px 8px;
+      min-width: 520px;
+      box-shadow: 0 30px 60px rgba(0,0,0,0.4);
+      opacity: 0;
+      visibility: hidden;
+      transition: var(--transition);
+      display: grid !important;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 4px;
+    }
+    .nav-item.dropdown-categories:hover .dropdown-menu {
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(-50%) translateY(4px);
+    }
+    .nav-item.dropdown-categories .dropdown-menu .dropdown-item {
+      color: rgba(255,255,255,0.8);
+      padding: 8px 14px;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      transition: var(--transition);
+      white-space: nowrap;
+    }
+    .nav-item.dropdown-categories .dropdown-menu .dropdown-item:hover {
+      background: rgba(181,122,43,0.15);
+      color: var(--gold);
+      transform: translateX(4px);
+    }
+    .nav-item.dropdown-categories .dropdown-menu .dropdown-item i {
+      margin-right: 8px;
+      color: var(--gold);
+      font-size: 0.7rem;
+    }
+    .nav-item.dropdown-categories .nav-link i.bi-chevron-down {
+      font-size: 0.6rem;
+      margin-left: 4px;
+      transition: var(--transition);
+    }
+    .nav-item.dropdown-categories:hover .nav-link i.bi-chevron-down {
+      transform: rotate(180deg);
+    }
+
+    /* Nav Actions */
+    .navbar-main .nav-actions .btn-nav {
+      padding: 10px 24px;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 0.82rem;
+      transition: var(--transition);
+      border: none;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .navbar-main .nav-actions .btn-nav-call {
+      background: rgba(255,255,255,0.06);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+    .navbar-main .nav-actions .btn-nav-call:hover {
+      background: rgba(255,255,255,0.12);
+      transform: translateY(-2px);
+    }
+    .navbar-main .nav-actions .btn-nav-quote {
+      background: var(--gold-gradient);
+      color: #fff;
+      box-shadow: 0 8px 24px rgba(181,122,43,0.25);
+    }
+    .navbar-main .nav-actions .btn-nav-quote:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 32px rgba(181,122,43,0.4);
+    }
+    .navbar-toggler {
+      border: none;
+      padding: 8px 10px;
+      background: rgba(255,255,255,0.06);
+      border-radius: 10px;
+    }
+    .navbar-toggler:focus { box-shadow: none; }
+    .navbar-toggler-icon {
+      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(255,255,255,0.9)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") !important;
+    }
+
+    /* ===== HERO ===== */
+    .hero-wrapper {
+      position: relative;
+      height: 100vh;
+      min-height: 700px;
+      width: 100%;
+      overflow: hidden;
+      margin-top: -10px;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background: url('https://images.unsplash.com/photo-1618220179428-22790b461013?w=1600&q=80') center/cover no-repeat;
+      transform: scale(1.05);
+      animation: heroZoom 20s ease-in-out infinite alternate;
+    }
+    @keyframes heroZoom {
+      0% { transform: scale(1.05); }
+      100% { transform: scale(1.15); }
+    }
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0.5) 100%);
+      z-index: 1;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      padding-top: 70px;
+      padding-bottom: 220px;
+    }
+    .hero-content-inner { max-width: 650px; }
+    .hero-badge {
+      display: inline-block;
+      background: rgba(181,122,43,0.2);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(181,122,43,0.3);
+      padding: 8px 24px;
+      border-radius: 50px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--gold-light);
+      margin-bottom: 24px;
+    }
+    .hero-content-inner h1 {
+      font-size: 4.8rem;
+      font-weight: 800;
+      line-height: 1.05;
+      color: #fff;
+      letter-spacing: -2px;
+    }
+    .hero-content-inner h1 .highlight {
+      background: var(--gold-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-content-inner p {
+      font-size: 1.2rem;
+      color: rgba(255,255,255,0.75);
+      max-width: 540px;
+      line-height: 1.8;
+      margin: 20px 0 32px;
+    }
+    .hero-actions .btn-hero-primary {
+      background: var(--gold-gradient);
+      color: #fff;
+      border: none;
+      padding: 16px 40px;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: var(--transition);
+      box-shadow: 0 12px 40px rgba(181,122,43,0.35);
+      text-decoration: none;
+    }
+    .hero-actions .btn-hero-primary:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 50px rgba(181,122,43,0.5);
+    }
+    .hero-actions .btn-hero-secondary {
+      background: rgba(255,255,255,0.08);
+      backdrop-filter: blur(8px);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.2);
+      padding: 16px 40px;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: var(--transition);
+      text-decoration: none;
+    }
+    .hero-actions .btn-hero-secondary:hover {
+      background: rgba(255,255,255,0.15);
+      transform: translateY(-4px);
+    }
+
+    /* Hero Stats */
+    .hero-floating-stats {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 35px;
+      z-index: 5;
+    }
+    .hero-floating-stats .stat-card {
+      background: rgba(255,255,255,0.08);
+      backdrop-filter: blur(18px);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 18px;
+      padding: 28px 20px;
+      text-align: center;
+      height: 100%;
+      transition: 0.4s;
+    }
+    .hero-floating-stats .stat-card:hover {
+      transform: translateY(-8px);
+      background: rgba(255,255,255,0.12);
+    }
+    .hero-floating-stats .stat-number {
+      font-size: 3rem;
+      font-weight: 800;
+      color: var(--gold);
+      margin-bottom: 8px;
+      display: inline-flex;
+      align-items: center;
+    }
+    .hero-floating-stats .stat-number .plus-sign {
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--gold);
+      margin-left: 2px;
+      display: inline-block;
+    }
+    .hero-floating-stats .stat-label {
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.75);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-weight: 600;
+    }
+    .scroll-indicator {
+      position: absolute;
+      bottom: 140px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 3;
+      color: rgba(255,255,255,0.4);
+      font-size: 1.6rem;
+      animation: scrollBounce 2s infinite;
+      cursor: pointer;
+    }
+    @keyframes scrollBounce {
+      0%,100% { transform: translateX(-50%) translateY(0); opacity: 0.4; }
+      50% { transform: translateX(-50%) translateY(12px); opacity: 1; }
+    }
+
+    /* ===== ABOUT ===== */
+    .about-image-block {
+      position: relative;
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 30px 60px rgba(0,0,0,0.12);
+    }
+    .about-image-block img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      min-height: 380px;
+      transition: var(--transition);
+    }
+    .about-image-block:hover img { transform: scale(1.02); }
+    .about-image-block .floating-badge {
+      position: absolute;
+      bottom: 30px;
+      right: -20px;
+      background: var(--gold-gradient);
+      color: #fff;
+      padding: 24px 28px;
+      border-radius: 20px;
+      box-shadow: 0 20px 40px rgba(181,122,43,0.3);
+      text-align: center;
+      min-width: 140px;
+      backdrop-filter: blur(4px);
+    }
+    .about-image-block .floating-badge .number {
+      font-size: 3rem;
+      font-weight: 800;
+      line-height: 1;
+      display: block;
+    }
+    .about-image-block .floating-badge .label {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-weight: 500;
+      opacity: 0.9;
+    }
+    .about-unique .about-badge {
+      display: inline-block;
+      background: rgba(181,122,43,0.08);
+      color: var(--gold);
+      font-weight: 600;
+      font-size: 0.75rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 6px 18px;
+      border-radius: 50px;
+      margin-bottom: 12px;
+      border: 1px solid rgba(181,122,43,0.15);
+    }
+    .about-unique .about-title .gold-text {
+      background: var(--gold-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .feature-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px 30px;
+      margin: 25px 0 30px;
+    }
+    .feature-grid .feature-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 500;
+      color: #222;
+    }
+    .feature-grid .feature-item i {
+      color: var(--gold);
+      font-size: 1.2rem;
+    }
+
+    /* ===== CATEGORIES ===== */
+    .category-card .card-img-top {
+      height: 220px;
+      object-fit: cover;
+      transition: var(--transition);
+    }
+    .category-card:hover .card-img-top { transform: scale(1.05); }
+    .category-card .card-body {
+      padding: 1.5rem;
+      background: var(--white);
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .category-card .card-body .btn-wrap { margin-top: auto; padding-top: 12px; }
+
+    /* ===== PROJECTS ===== */
+    .project-item {
+      position: relative;
+      border-radius: var(--radius);
+      overflow: hidden;
+      margin-bottom: 24px;
+      height: 300px;
+    }
+    .project-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: var(--transition);
+    }
+    .project-item:hover img { transform: scale(1.06); }
+    .project-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.5);
+      opacity: 0;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-weight: 500;
+    }
+    .project-item:hover .project-overlay { opacity: 1; }
+
+    /* ===== TESTIMONIALS ===== */
+    .testimonial-carousel .carousel-control-prev,
+    .testimonial-carousel .carousel-control-next {
+      width: 40px;
+      height: 40px;
+      background: var(--gold);
+      border-radius: 50%;
+      top: 50%;
+      transform: translateY(-50%);
+      opacity: 0.7;
+      border: none;
+    }
+    .testimonial-carousel .carousel-control-prev { left: -20px; }
+    .testimonial-carousel .carousel-control-next { right: -20px; }
+    .testimonial-carousel .carousel-control-prev:hover,
+    .testimonial-carousel .carousel-control-next:hover {
+      opacity: 1;
+      background: var(--gold-dark);
+    }
+    .testimonial-carousel .carousel-indicators button {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #ccc;
+      border: none;
+      margin: 0 5px;
+    }
+    .testimonial-carousel .carousel-indicators button.active { background: var(--gold); }
+    .testimonial-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 2rem;
+      box-shadow: var(--shadow-sm);
+      transition: var(--transition);
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+    .testimonial-card:hover {
+      box-shadow: var(--shadow-hover);
+      transform: translateY(-4px);
+    }
+    .testimonial-card .stars-row {
+      display: flex;
+      gap: 2px;
+      flex-wrap: nowrap;
+    }
+    .testimonial-card .card-body-flex {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .testimonial-card .card-body-flex p { flex: 1; }
+
+    /* ===== FAQ ===== */
+    .faq-modern .accordion-item {
+      border: none;
+      background: transparent;
+      margin-bottom: 12px;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.04);
+    }
+    .faq-modern .accordion-item:hover { box-shadow: 0 8px 24px rgba(0,0,0,0.06); }
+    .faq-modern .accordion-button {
+      background: #fff;
+      font-weight: 600;
+      color: var(--heading);
+      padding: 18px 24px;
+      border-radius: 16px !important;
+      box-shadow: none;
+      font-size: 1rem;
+      border: 1px solid rgba(0,0,0,0.04);
+    }
+    .faq-modern .accordion-button:not(.collapsed) {
+      background: #fff;
+      color: var(--gold);
+      border-bottom: 2px solid var(--gold);
+      border-radius: 16px 16px 0 0 !important;
+    }
+    .faq-modern .accordion-button:focus { box-shadow: none; }
+    .faq-modern .accordion-button::after {
+      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23B57A2B'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+    }
+    .faq-modern .accordion-body {
+      background: #fff;
+      padding: 20px 24px 24px;
+      border-radius: 0 0 16px 16px;
+      color: var(--paragraph);
+      line-height: 1.8;
+      border: 1px solid rgba(0,0,0,0.04);
+      border-top: none;
+    }
+
+    /* ===== FORM ===== */
+    .form-premium .form-control {
+      background: rgba(255,255,255,0.06) !important;
+      border: 1px solid rgba(255,255,255,0.12) !important;
+      color: #fff !important;
+      padding: 14px 20px !important;
+      border-radius: 12px !important;
+      transition: var(--transition) !important;
+      font-size: 0.95rem !important;
+    }
+    .form-premium .form-control:focus {
+      background: rgba(255,255,255,0.1) !important;
+      border-color: var(--gold) !important;
+      box-shadow: 0 0 0 3px rgba(181,122,43,0.15) !important;
+    }
+    .form-premium .form-control::placeholder {
+      color: rgba(255,255,255,0.4) !important;
+      font-weight: 300;
+      letter-spacing: 0.5px;
+    }
+
+    /* ===== FOOTER ===== */
+    .footer-unique {
+      background: #1b1b1be8;
+      color: #bbb;
+      padding: 60px 0 20px;
+      position: relative;
+      overflow: hidden;
+    }
+    .footer-unique::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: var(--gold-gradient);
+    }
+    .footer-unique .footer-social a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.06);
+      color: #bbb;
+      font-size: 1.1rem;
+      transition: var(--transition);
+      margin-right: 10px;
+      text-decoration: none;
+    }
+    .footer-unique .footer-social a:hover {
+      background: var(--gold);
+      color: #fff;
+      transform: translateY(-4px);
+      box-shadow: 0 10px 24px rgba(181,122,43,0.3);
+    }
+    .footer-unique .footer-contact-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 16px;
+    }
+    .footer-unique .footer-contact-item i {
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(181,122,43,0.12);
+      border-radius: 50%;
+      color: var(--gold);
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+    .footer-unique .footer-contact-item a {
+      color: #bbb;
+      text-decoration: none;
+      transition: var(--transition);
+    }
+    .footer-unique .footer-contact-item a:hover { color: var(--gold); }
+    .footer-unique .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding-top: 20px;
+      margin-top: 40px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+    .footer-unique .footer-bottom a {
+      color: var(--gold);
+      text-decoration: none;
+    }
+    .footer-unique .footer-bottom a:hover { text-decoration: underline; }
+    .footer-unique .footer-badge {
+      display: inline-block;
+      background: rgba(181,122,43,0.12);
+      color: var(--gold-light);
+      padding: 6px 18px;
+      border-radius: 50px;
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 1px;
+      border: 1px solid rgba(181,122,43,0.15);
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 1399.98px) {
+      .hero-content-inner h1 { font-size: 4.2rem; }
+      .section-title { font-size: 2.5rem; }
+    }
+    @media (max-width: 1199.98px) {
+      .hero-content-inner h1 { font-size: 3.8rem; }
+      .section-title { font-size: 2.3rem; }
+      .about-unique .about-title { font-size: 2.5rem; }
+    }
+    @media (max-width: 991.98px) {
+      .hero-wrapper { min-height: 900px; }
+      .hero-content { padding-bottom: 380px; }
+      .hero-content-inner h1 { font-size: 3.5rem; }
+      .hero-floating-stats { bottom: 20px; }
+      .stat-card { margin-bottom: 15px; }
+      .nav-item.dropdown-categories .dropdown-menu {
+        min-width: 100%;
+        grid-template-columns: repeat(2, 1fr);
+        left: 0;
+        transform: translateX(0) translateY(10px);
+      }
+      .nav-item.dropdown-categories:hover .dropdown-menu { transform: translateX(0) translateY(4px); }
+      .section-title { font-size: 2.2rem; }
+      .about-unique .about-title { font-size: 2.2rem; }
+      .hero-floating-stats .stat-number { font-size: 2.5rem; }
+      .hero-floating-stats .stat-number .plus-sign { font-size: 1.8rem; }
+      .project-item { height: 250px; }
+      .about-image-block .floating-badge { right: 10px; bottom: 20px; padding: 18px 20px; min-width: 110px; }
+      .about-image-block .floating-badge .number { font-size: 2.2rem; }
+    }
+    @media (max-width: 767.98px) {
+      .hero-wrapper { min-height: 1050px; }
+      .hero-content { padding-bottom: 480px; }
+      .hero-content-inner h1 { font-size: 2.8rem; }
+      .hero-content-inner p { font-size: 1rem; }
+      .scroll-indicator { bottom: 80px; }
+      .top-bar .contact-info { gap: 4px 12px; }
+      .top-bar .contact-info a,
+      .top-bar .contact-info span { font-size: 0.7rem; }
+      .nav-item.dropdown-categories .dropdown-menu {
+        grid-template-columns: repeat(2, 1fr);
+        min-width: 280px;
+        left: 0;
+        transform: translateX(0) translateY(10px);
+      }
+      .section-title { font-size: 2rem; }
+      .about-unique .about-title { font-size: 2rem; }
+      .hero-floating-stats .stat-number { font-size: 2.2rem; }
+      .hero-floating-stats .stat-number .plus-sign { font-size: 1.6rem; }
+      .about-image-block .floating-badge { right: 10px; bottom: 15px; padding: 14px 16px; min-width: 90px; }
+      .about-image-block .floating-badge .number { font-size: 1.8rem; }
+      .about-image-block .floating-badge .label { font-size: 0.65rem; }
+      .testimonial-carousel .carousel-control-prev { left: -10px; }
+      .testimonial-carousel .carousel-control-next { right: -10px; }
+      .testimonial-carousel .carousel-control-prev,
+      .testimonial-carousel .carousel-control-next { width: 30px; height: 30px; }
+      .project-item { height: 220px; }
+      .footer-unique .footer-bottom { flex-direction: column; text-align: center; }
+      .feature-grid { grid-template-columns: 1fr 1fr; gap: 10px 16px; }
+    }
+    @media (max-width: 575.98px) {
+      .hero-wrapper { min-height: 1150px; }
+      .hero-content { padding-bottom: 520px; }
+      .hero-content-inner h1 { font-size: 2.2rem; }
+      .hero-actions { flex-direction: column; }
+      .hero-actions a { width: 100%; text-align: center; }
+      .section-title { font-size: 1.8rem; }
+      .about-unique .about-title { font-size: 1.8rem; }
+      .nav-item.dropdown-categories .dropdown-menu {
+        grid-template-columns: 1fr 1fr;
+        min-width: 260px;
+      }
+      .navbar-main .nav-actions .btn-nav { padding: 8px 16px; font-size: 0.75rem; }
+      .hero-floating-stats .stat-number { font-size: 1.8rem; }
+      .hero-floating-stats .stat-number .plus-sign { font-size: 1.3rem; }
+      .hero-floating-stats .stat-label { font-size: 0.7rem; }
+      .about-image-block img { min-height: 260px; }
+      .about-image-block .floating-badge { right: 5px; bottom: 10px; padding: 12px 14px; min-width: 70px; }
+      .about-image-block .floating-badge .number { font-size: 1.5rem; }
+      .about-image-block .floating-badge .label { font-size: 0.55rem; }
+      .about-unique .feature-grid { grid-template-columns: 1fr; gap: 8px 0; }
+      .category-card .card-img-top { height: 160px; }
+      .project-item { height: 180px; }
+      .testimonial-card { padding: 1.5rem; min-height: 180px; }
+      .testimonial-carousel .carousel-item .row .col-md-4 { flex: 0 0 100%; max-width: 100%; }
+      .testimonial-carousel .carousel-item .row { flex-direction: column; }
+      .testimonial-card { margin-bottom: 10px; }
+      .footer-unique .footer-brand img { width: 120px; height: auto; }
+      .card-premium .card-icon-wrap { width: 50px; height: 50px; }
+      .card-premium .card-icon-wrap i { font-size: 1.5rem; }
+    }
+    @media (max-width: 400px) {
+      .hero-content-inner h1 { font-size: 1.8rem; }
+      .hero-badge { font-size: 0.6rem; padding: 6px 16px; }
+      .hero-content-inner p { font-size: 0.9rem; }
+      .hero-floating-stats .stat-card { padding: 18px 12px; }
+      .hero-floating-stats .stat-number { font-size: 1.5rem; }
+      .hero-floating-stats .stat-number .plus-sign { font-size: 1.1rem; }
+      .hero-floating-stats .stat-label { font-size: 0.6rem; }
+      .section-title { font-size: 1.5rem; }
+      .about-unique .about-title { font-size: 1.5rem; }
+      .project-item { height: 150px; }
+    }
+
+    /* Disable AOS on mobile */
+    @media (max-width: 768px) {
+      [data-aos] {
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
+        pointer-events: auto !important;
+      }
+      .aos-animate { opacity: 1 !important; transform: none !important; }
+    }
+  </style>
 </head>
 <body>
 
@@ -19,18 +952,18 @@
     <div class="container">
       <div class="row align-items-center">
         <div class="col-md-8">
-          <div class="contact-info">
+          <div class="contact-info d-flex flex-wrap align-items-center gap-2 gap-lg-3">
             <a href="#"><i class="bi bi-telephone-fill gold-text"></i> +91 98765 43210</a>
-            <span class="divider">|</span>
+            <span class="divider d-none d-sm-inline">|</span>
             <a href="#"><i class="bi bi-envelope-fill gold-text"></i> info@patelplywood.com</a>
-            <span class="divider">|</span>
+            <span class="divider d-none d-sm-inline">|</span>
             <a href="#"><i class="bi bi-geo-alt-fill gold-text"></i> Ahmedabad, India</a>
-            <span class="divider">|</span>
+            <span class="divider d-none d-sm-inline">|</span>
             <span><i class="bi bi-clock-fill gold-text"></i> Mon–Sat 9:00–7:00</span>
           </div>
         </div>
         <div class="col-md-4 d-flex justify-content-end">
-          <div class="social-icons">
+          <div class="social-icons d-flex gap-1">
             <a href="#"><i class="bi bi-facebook"></i></a>
             <a href="#"><i class="bi bi-instagram"></i></a>
             <a href="#"><i class="bi bi-youtube"></i></a>
@@ -86,7 +1019,7 @@
             <li class="nav-item"><a class="nav-link" href="#">Blog</a></li>
             <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
           </ul>
-          <div class="nav-actions">
+          <div class="nav-actions d-flex gap-2">
             <a href="#" class="btn-nav btn-nav-call"><i class="bi bi-telephone-fill"></i>Call Now</a>
             <a href="#" class="btn-nav btn-nav-quote">Get Quote</a>
           </div>
@@ -104,7 +1037,7 @@
         <div class="hero-badge"><i class="bi bi-star-fill me-2"></i> Premium Since 2010</div>
         <h1>Total Interior <br><span class="highlight">Solutions</span></h1>
         <p>The finest plywood, veneers, laminates & hardware for architects, designers, and homeowners who demand excellence.</p>
-        <div class="hero-actions">
+        <div class="hero-actions d-flex flex-wrap gap-3">
           <a href="#" class="btn-hero-primary"><i class="bi bi-grid-3x3-gap-fill me-2"></i>Explore Products</a>
           <a href="#" class="btn-hero-secondary"><i class="bi bi-file-earmark-text me-2"></i>Get Quote</a>
         </div>
@@ -143,14 +1076,16 @@
     <div class="scroll-indicator"><i class="bi bi-chevron-down"></i></div>
   </section>
 
-  <!-- ===== UNIQUE ABOUT US SECTION ===== -->
+  <!-- ===== ABOUT US ===== -->
   <section class="about-unique section-padding">
     <div class="container">
       <div class="row align-items-center g-5">
         <div class="col-lg-6 order-lg-1 order-2" data-aos="fade-right">
           <div class="about-badge"><i class="bi bi-building me-1"></i> About Patel Plywood</div>
-          <h2 class="about-title">Crafting Premium <br><span class="gold-text">Interior Spaces</span></h2>
-          <p class="about-description">Patel Plywood Centre has been delivering premium plywood, laminates, veneers, decorative panels, hardware and interior solutions since 2010. Our mission is to provide world-class products that transform residential and commercial spaces into timeless masterpieces.</p>
+          <h2 class="about-title display-4 fw-bold">Crafting Premium <br><span class="gold-text">Interior Spaces</span></h2>
+          <p class="text-muted mt-3 mb-4" style="line-height:1.9; font-size:1.05rem;">
+            Patel Plywood Centre has been delivering premium plywood, laminates, veneers, decorative panels, hardware and interior solutions since 2010. Our mission is to provide world-class products that transform residential and commercial spaces into timeless masterpieces.
+          </p>
           <div class="feature-grid">
             <div class="feature-item"><i class="bi bi-check-circle-fill"></i> Premium Quality Products</div>
             <div class="feature-item"><i class="bi bi-check-circle-fill"></i> Trusted by 850+ Customers</div>
@@ -181,12 +1116,48 @@
       <h2 class="section-title">Built on <span class="gold-text">Trust & Quality</span></h2>
       <div class="gold-divider-center"></div>
       <div class="row g-4 mt-4">
-        <div class="col-md-4" data-aos="fade-up"><div class="card-premium p-4 text-start"><div class="card-icon-wrap"><i class="bi bi-gem gold-text"></i></div><h5>Premium Quality</h5><p>Best-in-class materials sourced globally.</p></div></div>
-        <div class="col-md-4" data-aos="fade-up" data-aos-delay="100"><div class="card-premium p-4 text-start"><div class="card-icon-wrap"><i class="bi bi-award gold-text"></i></div><h5>Trusted Brand</h5><p>14 years of excellence and reliability.</p></div></div>
-        <div class="col-md-4" data-aos="fade-up" data-aos-delay="200"><div class="card-premium p-4 text-start"><div class="card-icon-wrap"><i class="bi bi-grid-3x3-gap gold-text"></i></div><h5>Wide Range</h5><p>Over 21 categories & 1000+ products.</p></div></div>
-        <div class="col-md-4" data-aos="fade-up"><div class="card-premium p-4 text-start"><div class="card-icon-wrap"><i class="bi bi-people gold-text"></i></div><h5>Expert Guidance</h5><p>Design consultation & technical support.</p></div></div>
-        <div class="col-md-4" data-aos="fade-up" data-aos-delay="100"><div class="card-premium p-4 text-start"><div class="card-icon-wrap"><i class="bi bi-tag gold-text"></i></div><h5>Competitive Pricing</h5><p>Best value without compromising quality.</p></div></div>
-        <div class="col-md-4" data-aos="fade-up" data-aos-delay="200"><div class="card-premium p-4 text-start"><div class="card-icon-wrap"><i class="bi bi-truck gold-text"></i></div><h5>Fast Delivery</h5><p>Pan-India delivery & site support.</p></div></div>
+        <div class="col-md-4" data-aos="fade-up">
+          <div class="card-premium p-4 text-start">
+            <div class="card-icon-wrap"><i class="bi bi-gem gold-text"></i></div>
+            <h5>Premium Quality</h5>
+            <p class="text-muted">Best-in-class materials sourced globally.</p>
+          </div>
+        </div>
+        <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+          <div class="card-premium p-4 text-start">
+            <div class="card-icon-wrap"><i class="bi bi-award gold-text"></i></div>
+            <h5>Trusted Brand</h5>
+            <p class="text-muted">14 years of excellence and reliability.</p>
+          </div>
+        </div>
+        <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+          <div class="card-premium p-4 text-start">
+            <div class="card-icon-wrap"><i class="bi bi-grid-3x3-gap gold-text"></i></div>
+            <h5>Wide Range</h5>
+            <p class="text-muted">Over 21 categories & 1000+ products.</p>
+          </div>
+        </div>
+        <div class="col-md-4" data-aos="fade-up">
+          <div class="card-premium p-4 text-start">
+            <div class="card-icon-wrap"><i class="bi bi-people gold-text"></i></div>
+            <h5>Expert Guidance</h5>
+            <p class="text-muted">Design consultation & technical support.</p>
+          </div>
+        </div>
+        <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+          <div class="card-premium p-4 text-start">
+            <div class="card-icon-wrap"><i class="bi bi-tag gold-text"></i></div>
+            <h5>Competitive Pricing</h5>
+            <p class="text-muted">Best value without compromising quality.</p>
+          </div>
+        </div>
+        <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+          <div class="card-premium p-4 text-start">
+            <div class="card-icon-wrap"><i class="bi bi-truck gold-text"></i></div>
+            <h5>Fast Delivery</h5>
+            <p class="text-muted">Pan-India delivery & site support.</p>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -205,7 +1176,7 @@
             <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=400&q=80" class="card-img-top" alt="Plywood Doors" />
             <div class="card-body">
               <h5>Plywood Doors</h5>
-              <span class="category-count">12 Products</span>
+              <span class="category-count text-gold small">12 Products</span>
               <div class="btn-wrap"><a href="#" class="btn btn-outline-gold btn-sm">Explore</a></div>
             </div>
           </div>
@@ -215,7 +1186,7 @@
             <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=400&q=80" class="card-img-top" alt="Veneers" />
             <div class="card-body">
               <h5>Veneers</h5>
-              <span class="category-count">8 Products</span>
+              <span class="category-count text-gold small">8 Products</span>
               <div class="btn-wrap"><a href="#" class="btn btn-outline-gold btn-sm">Explore</a></div>
             </div>
           </div>
@@ -225,7 +1196,7 @@
             <img src="https://images.unsplash.com/photo-1618220179428-22790b461013?w=400&q=80" class="card-img-top" alt="Laminates" />
             <div class="card-body">
               <h5>Laminates</h5>
-              <span class="category-count">15 Products</span>
+              <span class="category-count text-gold small">15 Products</span>
               <div class="btn-wrap"><a href="#" class="btn btn-outline-gold btn-sm">Explore</a></div>
             </div>
           </div>
@@ -235,7 +1206,7 @@
             <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=400&q=80" class="card-img-top" alt="Sagwan Timber" />
             <div class="card-body">
               <h5>Sagwan Timber</h5>
-              <span class="category-count">6 Products</span>
+              <span class="category-count text-gold small">6 Products</span>
               <div class="btn-wrap"><a href="#" class="btn btn-outline-gold btn-sm">Explore</a></div>
             </div>
           </div>
@@ -254,15 +1225,21 @@
         <div class="gold-divider-center"></div>
       </div>
       <div class="row g-4 mt-3">
-        <div class="col-md-4 col-6" data-aos="flip-up"><div class="project-item"><img src="https://images.unsplash.com/photo-1618220179428-22790b461013?w=600&q=80" alt="Project"/><div class="project-overlay">Residential Villa</div></div></div>
-        <div class="col-md-4 col-6" data-aos="flip-up" data-aos-delay="100"><div class="project-item"><img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&q=80" alt="Project"/><div class="project-overlay">Office Interior</div></div></div>
-        <div class="col-md-4 col-6" data-aos="flip-up" data-aos-delay="200"><div class="project-item"><img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=600&q=80" alt="Project"/><div class="project-overlay">Hotel Lobby</div></div></div>
+        <div class="col-md-4 col-6" data-aos="flip-up">
+          <div class="project-item"><img src="https://images.unsplash.com/photo-1618220179428-22790b461013?w=600&q=80" alt="Project"/><div class="project-overlay">Residential Villa</div></div>
+        </div>
+        <div class="col-md-4 col-6" data-aos="flip-up" data-aos-delay="100">
+          <div class="project-item"><img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&q=80" alt="Project"/><div class="project-overlay">Office Interior</div></div>
+        </div>
+        <div class="col-md-4 col-6" data-aos="flip-up" data-aos-delay="200">
+          <div class="project-item"><img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=600&q=80" alt="Project"/><div class="project-overlay">Hotel Lobby</div></div>
+        </div>
       </div>
       <div class="text-center mt-4"><a href="#" class="btn btn-gold">View All Projects</a></div>
     </div>
   </section>
 
-  <!-- ===== TESTIMONIALS CAROUSEL ===== -->
+  <!-- ===== TESTIMONIALS ===== -->
   <section class="section-padding bg-white">
     <div class="container">
       <div class="text-center">
@@ -273,53 +1250,51 @@
       </div>
       <div id="testimonialCarousel" class="carousel slide testimonial-carousel" data-bs-ride="carousel" data-bs-interval="5000">
         <div class="carousel-indicators">
-          <button type="button" data-bs-target="#testimonialCarousel" data-bs-slide-to="0" class="active" aria-current="true"></button>
+          <button type="button" data-bs-target="#testimonialCarousel" data-bs-slide-to="0" class="active"></button>
           <button type="button" data-bs-target="#testimonialCarousel" data-bs-slide-to="1"></button>
           <button type="button" data-bs-target="#testimonialCarousel" data-bs-slide-to="2"></button>
         </div>
         <div class="carousel-inner">
           <div class="carousel-item active">
             <div class="row g-3">
-              <div class="col-md-4"><div class="testimonial-card"><div class="card-body-flex"><div class="stars-row"><i class="bi bi-star-fill gold-text"></i><i class="bi bi-star-fill gold-text"></i><i class="bi bi-star-fill gold-text"></i><i class="bi bi-star-fill gold-text"></i><i class="bi bi-star-fill gold-text"></i></div><p class="mt-3">“Incredible quality and service. PPC transformed our home with their premium veneers and laminates.”</p><h6 class="mt-2">— Ar. Mehta</h6><small>Interior Designer</small></div></div></div>
-              <div class="col-md-4"><div class="testimonial-card"><div class="card-body-flex"><div class="stars-row"><i class="bi bi-star-fill gold-text"></i><i class="bi bi-star-fill gold-text"></i><i class="bi bi-star-fill gold-text"></i><i class="bi bi-star-fill gold-text"></i><i class="bi bi-star-fill gold-text"></i></div><p class="mt-3">“Patel Plywood is our go-to for all projects. Consistent quality and on-time delivery.”</p><h6 class="mt-2">— Mr. Shah</h6><small>Builder</small></div></div></div>
-              <div class="col-md-4"><div class="testimonial-card"><div class="card-body-flex"><div class="stars-row"><i class="bi bi-star-fill gold-text"></i><i class="bi bi-star-fill gold-text"></i><i class="bi bi-star-fill gold-text"></i><i class="bi bi-star-fill gold-text"></i><i class="bi bi-star-fill gold-text"></i></div><p class="mt-3">“The range of products and expert guidance made our renovation seamless. Highly recommend.”</p><h6 class="mt-2">— Mrs. Desai</h6><small>Homeowner</small></div></div></div>
+              <div class="col-md-4"><div class="testimonial-card"><div class="card-body-flex"><div class="stars-row mb-2"><i class="bi bi-star-fill gold-text"></i><i class="bi bi-star-fill gold-text"></i><i class="bi bi-star-fill gold-text"></i><i class="bi bi-star-fill gold-text"></i><i class="bi bi-star-fill gold-text"></i></div><p>“Incredible quality and service. PPC transformed our home with their premium veneers and laminates.”</p><h6 class="mt-2">— Ar. Mehta</h6><small class="text-muted">Interior Designer</small></div></div></div>
+              <div class="col-md-4"><div class="testimonial-card"><div class="card-body-flex"><div class="stars-row mb-2"><i class="bi bi-star-fill gold-text"></i><i class="bi bi-star-fill gold-text"></i><i class="bi bi-star-fill gold-text"></i><i class="bi bi-star-fill gold-text"></i><i class="bi bi-star-fill gold-text"></i></div><p>“Patel Plywood is our go-to for all projects. Consistent quality and on-time delivery.”</p><h6 class="mt-2">— Mr. Shah</h6><small class="text-muted">Builder</small></div></div></div>
+              <div class="col-md-4"><div class="testimonial-card"><div class="card-body-flex"><div class="stars-row mb-2"><i class="bi bi-star-fill gold-text"></i><i class="bi bi-star-fill gold-text"></i><i class="bi bi-star-fill gold-text"></i><i class="bi bi-star-fill gold-text"></i><i class="bi bi-star-fill gold-text"></i></div><p>“The range of products and expert guidance made our renovation seamless. Highly recommend.”</p><h6 class="mt-2">— Mrs. Desai</h6><small class="text-muted">Homeowner</small></div></div></div>
             </div>
           </div>
           <div class="carousel-item">
             <div class="row g-3">
-              <div class="col-md-4"><div class="testimonial-card"><div class="card-body-flex"><div class="stars-row"><i class="bi bi-star-fill gold-text"></i><i class="bi bi-star-fill gold-text"></i><i class="bi bi-star-fill gold-text"></i><i class="bi bi-star-fill gold-text"></i><i class="bi bi-star-fill gold-text"></i></div><p class="mt-3">“Best plywood and hardware in town. Their team is always helpful and professional.”</p><h6 class="mt-2">— Mr. Patel</h6><small>Contractor</small></div></div></div>
-              <div class="col-md-4"><div class="testimonial-card"><div class="card-body-flex"><div class="stars-row"><i class="bi bi-star-fill gold-text"></i><i class="bi bi-star-fill gold-text"></i><i class="bi bi-star-fill gold-text"></i><i class="bi bi-star-fill gold-text"></i><i class="bi bi-star-fill gold-text"></i></div><p class="mt-3">“We used PPC products for our new office. The finish and durability are outstanding.”</p><h6 class="mt-2">— Ms. Sharma</h6><small>Architect</small></div></div></div>
-              <div class="col-md-4"><div class="testimonial-card"><div class="card-body-flex"><div class="stars-row"><i class="bi bi-star-fill gold-text"></i><i class="bi bi-star-fill gold-text"></i><i class="bi bi-star-fill gold-text"></i><i class="bi bi-star-fill gold-text"></i><i class="bi bi-star-fill gold-text"></i></div><p class="mt-3">“Great variety and competitive prices. They made our dream home a reality.”</p><h6 class="mt-2">— Mr. & Mrs. Rao</h6><small>Homeowners</small></div></div></div>
+              <div class="col-md-4"><div class="testimonial-card"><div class="card-body-flex"><div class="stars-row mb-2"><i class="bi bi-star-fill gold-text"></i><i class="bi bi-star-fill gold-text"></i><i class="bi bi-star-fill gold-text"></i><i class="bi bi-star-fill gold-text"></i><i class="bi bi-star-fill gold-text"></i></div><p>“Best plywood and hardware in town. Their team is always helpful and professional.”</p><h6 class="mt-2">— Mr. Patel</h6><small class="text-muted">Contractor</small></div></div></div>
+              <div class="col-md-4"><div class="testimonial-card"><div class="card-body-flex"><div class="stars-row mb-2"><i class="bi bi-star-fill gold-text"></i><i class="bi bi-star-fill gold-text"></i><i class="bi bi-star-fill gold-text"></i><i class="bi bi-star-fill gold-text"></i><i class="bi bi-star-fill gold-text"></i></div><p>“We used PPC products for our new office. The finish and durability are outstanding.”</p><h6 class="mt-2">— Ms. Sharma</h6><small class="text-muted">Architect</small></div></div></div>
+              <div class="col-md-4"><div class="testimonial-card"><div class="card-body-flex"><div class="stars-row mb-2"><i class="bi bi-star-fill gold-text"></i><i class="bi bi-star-fill gold-text"></i><i class="bi bi-star-fill gold-text"></i><i class="bi bi-star-fill gold-text"></i><i class="bi bi-star-fill gold-text"></i></div><p>“Great variety and competitive prices. They made our dream home a reality.”</p><h6 class="mt-2">— Mr. & Mrs. Rao</h6><small class="text-muted">Homeowners</small></div></div></div>
             </div>
           </div>
           <div class="carousel-item">
             <div class="row g-3">
-              <div class="col-md-4"><div class="testimonial-card"><div class="card-body-flex"><div class="stars-row"><i class="bi bi-star-fill gold-text"></i><i class="bi bi-star-fill gold-text"></i><i class="bi bi-star-fill gold-text"></i><i class="bi bi-star-fill gold-text"></i><i class="bi bi-star-fill gold-text"></i></div><p class="mt-3">“PPC's laminates and veneers gave our restaurant a luxurious feel. Highly recommended!”</p><h6 class="mt-2">— Chef Kumar</h6><small>Restaurant Owner</small></div></div></div>
-              <div class="col-md-4"><div class="testimonial-card"><div class="card-body-flex"><div class="stars-row"><i class="bi bi-star-fill gold-text"></i><i class="bi bi-star-fill gold-text"></i><i class="bi bi-star-fill gold-text"></i><i class="bi bi-star-fill gold-text"></i><i class="bi bi-star-fill gold-text"></i></div><p class="mt-3">“Excellent customer service and premium quality products. A trusted partner for our projects.”</p><h6 class="mt-2">— Mr. Deshmukh</h6><small>Project Manager</small></div></div></div>
-              <div class="col-md-4"><div class="testimonial-card"><div class="card-body-flex"><div class="stars-row"><i class="bi bi-star-fill gold-text"></i><i class="bi bi-star-fill gold-text"></i><i class="bi bi-star-fill gold-text"></i><i class="bi bi-star-fill gold-text"></i><i class="bi bi-star-fill gold-text"></i></div><p class="mt-3">“The flooring and panels from PPC are top-notch. Our clients love the finish.”</p><h6 class="mt-2">— Ms. Joshi</h6><small>Interior Designer</small></div></div></div>
+              <div class="col-md-4"><div class="testimonial-card"><div class="card-body-flex"><div class="stars-row mb-2"><i class="bi bi-star-fill gold-text"></i><i class="bi bi-star-fill gold-text"></i><i class="bi bi-star-fill gold-text"></i><i class="bi bi-star-fill gold-text"></i><i class="bi bi-star-fill gold-text"></i></div><p>“PPC's laminates and veneers gave our restaurant a luxurious feel. Highly recommended!”</p><h6 class="mt-2">— Chef Kumar</h6><small class="text-muted">Restaurant Owner</small></div></div></div>
+              <div class="col-md-4"><div class="testimonial-card"><div class="card-body-flex"><div class="stars-row mb-2"><i class="bi bi-star-fill gold-text"></i><i class="bi bi-star-fill gold-text"></i><i class="bi bi-star-fill gold-text"></i><i class="bi bi-star-fill gold-text"></i><i class="bi bi-star-fill gold-text"></i></div><p>“Excellent customer service and premium quality products. A trusted partner for our projects.”</p><h6 class="mt-2">— Mr. Deshmukh</h6><small class="text-muted">Project Manager</small></div></div></div>
+              <div class="col-md-4"><div class="testimonial-card"><div class="card-body-flex"><div class="stars-row mb-2"><i class="bi bi-star-fill gold-text"></i><i class="bi bi-star-fill gold-text"></i><i class="bi bi-star-fill gold-text"></i><i class="bi bi-star-fill gold-text"></i><i class="bi bi-star-fill gold-text"></i></div><p>“The flooring and panels from PPC are top-notch. Our clients love the finish.”</p><h6 class="mt-2">— Ms. Joshi</h6><small class="text-muted">Interior Designer</small></div></div></div>
             </div>
           </div>
         </div>
         <button class="carousel-control-prev" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="prev">
-          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Previous</span>
+          <span class="carousel-control-prev-icon"></span>
         </button>
         <button class="carousel-control-next" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="next">
-          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Next</span>
+          <span class="carousel-control-next-icon"></span>
         </button>
       </div>
     </div>
   </section>
 
-  <!-- ===== FAQ SECTION - MODERN ACCORDION ===== -->
+  <!-- ===== FAQ + CTA ===== -->
   <section class="section-padding bg-soft-gold">
     <div class="container">
       <div class="row g-5 align-items-center">
         <div class="col-lg-6" data-aos="fade-right">
           <span class="section-subtitle">FAQ</span>
           <h2 class="section-title">Frequently Asked <span class="gold-text">Questions</span></h2>
-          <div class="gold-divider"></div>
+          <div class="gold-divider-center" style="margin-left:0;"></div>
           <p class="text-muted mb-4">Find quick answers to the most common questions about our products and services.</p>
           <div class="faq-modern accordion" id="faqAccordion">
             <div class="accordion-item">
@@ -357,7 +1332,7 @@
           </div>
         </div>
         <div class="col-lg-6" data-aos="fade-left">
-          <div class="card-premium p-4" style="background:var(--charcoal);color:#fff;border:1px solid rgba(255,255,255,0.06);border-bottom:4px solid var(--gold);">
+          <div class="card-premium p-4" style="background:var(--charcoal);color:#fff;border-bottom:4px solid var(--gold);">
             <h4 class="text-white">Have a Project? <span class="gold-text">Let’s Talk</span></h4>
             <p class="text-light opacity-75">Get a free consultation & quote for your interior needs.</p>
             <form class="form-premium">
@@ -383,13 +1358,13 @@
     </div>
   </section>
 
-  <!-- ===== UNIQUE FOOTER ===== -->
+  <!-- ===== FOOTER ===== -->
   <footer class="footer-unique">
     <div class="container">
       <div class="row g-4">
         <div class="col-lg-5">
-          <div class="footer-brand"><img src="images/headerlogo.png" alt="logo" width="150px" height="150px"></div>
-          <p class="footer-desc">Total Interior Solutions since 2010. Premium plywood, veneers, laminates & hardware for discerning clients who value quality and craftsmanship.</p>
+          <div class="footer-brand"><img src="images/headerlogo.png" alt="logo" class="img-fluid" style="max-width:150px; height:auto;"></div>
+          <p class="footer-desc mt-3">Total Interior Solutions since 2010. Premium plywood, veneers, laminates & hardware for discerning clients who value quality and craftsmanship.</p>
           <div class="footer-social mt-3">
             <a href="#"><i class="bi bi-facebook"></i></a>
             <a href="#"><i class="bi bi-instagram"></i></a>
@@ -453,11 +1428,14 @@
       AOS.init({ duration: 800, once: true, offset: 40, disable: 'mobile' });
     }
 
+    // Sticky header
     window.addEventListener('scroll', function() {
       const header = document.getElementById('mainHeader');
       if (window.scrollY > 60) header.classList.add('scrolled');
       else header.classList.remove('scrolled');
     });
+
+    // Counter animation
     function animateCounters() {
       document.querySelectorAll('.counter-value').forEach(el => {
         const target = parseInt(el.getAttribute('data-count'));
@@ -471,6 +1449,8 @@
       });
     }
     window.addEventListener('load', animateCounters);
+
+    // Close mobile menu on link click
     document.querySelectorAll('#mainNav .nav-link, #mainNav .dropdown-item, #mainNav .btn-nav').forEach(link => {
       link.addEventListener('click', () => {
         const menu = document.getElementById('mainNav');
