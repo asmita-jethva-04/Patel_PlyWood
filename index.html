@@ -2,409 +2,484 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
   <title>Patel Plywood Centre · Total Interior Solutions</title>
-  <!-- Bootstrap 5 + Icons + Fonts -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz@14..32&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet" />
-  <!-- AOS & Swiper -->
-  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-      font-family: 'Inter', sans-serif;
-      background: #F8F7F3;
-      color: #1B1B1B;
-      overflow-x: hidden;
-    }
-    h1, h2, h3, h4, h5, .heading-font {
-      font-family: 'Poppins', sans-serif;
-      font-weight: 600;
-    }
-    .gold { color: #B57A2B; }
-    .bg-gold { background: #B57A2B; }
-    .bg-dark-gold { background: #94611D; }
-    .btn-gold {
-      background: #B57A2B;
-      color: #fff !important;
-      border: none;
-      padding: 12px 32px;
-      border-radius: 50px;
-      font-weight: 500;
-      transition: 0.3s;
-      box-shadow: 0 10px 20px -8px rgba(181, 122, 43, 0.3);
-    }
-    .btn-gold:hover {
-      background: #94611D;
-      color: #fff;
-      transform: translateY(-2px);
-      box-shadow: 0 14px 28px -10px rgba(148, 97, 29, 0.4);
-    }
-    .btn-outline-gold {
-      background: transparent;
-      color: #B57A2B;
-      border: 1.5px solid #B57A2B;
-      padding: 12px 32px;
-      border-radius: 50px;
-      font-weight: 500;
-      transition: 0.3s;
-    }
-    .btn-outline-gold:hover {
-      background: #B57A2B;
-      color: #fff;
-      transform: translateY(-2px);
-    }
-    .text-charcoal { color: #1B1B1B; }
-    .bg-charcoal { background: #1B1B1B; }
-    .section-padding { padding: 90px 0; }
-    .card-premium {
-      background: #fff;
-      border: none;
-      border-radius: 24px;
-      box-shadow: 0 12px 40px rgba(0,0,0,0.04), 0 4px 12px rgba(0,0,0,0.02);
-      transition: 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-      overflow: hidden;
-    }
-    .card-premium:hover {
-      transform: translateY(-12px);
-      box-shadow: 0 30px 60px -20px rgba(0,0,0,0.15);
-    }
-    .glass-card {
-      background: rgba(255,255,255,0.7);
-      backdrop-filter: blur(6px);
-      -webkit-backdrop-filter: blur(6px);
-      border-radius: 32px;
-      border: 1px solid rgba(255,255,255,0.25);
-      box-shadow: 0 8px 32px rgba(0,0,0,0.05);
-    }
-    /* header */
-    .top-bar {
-      background: #1B1B1B;
-      color: #F8F7F3;
-      font-size: 0.8rem;
-      padding: 8px 0;
-      border-bottom: 1px solid #333;
-    }
-    .top-bar a { color: #D5A54D; text-decoration: none; margin: 0 6px; }
-    .top-bar a:hover { color: #fff; }
-    .navbar-brand img { height: 44px; }
-    .navbar {
-      background: transparent;
-      transition: 0.3s;
-      padding: 12px 0;
-    }
-    .navbar.scrolled {
-      background: rgba(255,255,255,0.95);
-      backdrop-filter: blur(8px);
-      box-shadow: 0 4px 24px rgba(0,0,0,0.05);
-    }
-    .navbar-nav .nav-link {
-      font-weight: 500;
-      color: #1B1B1B;
-      padding: 0 16px !important;
-      transition: 0.3s;
-      font-size: 0.95rem;
-    }
-    .navbar-nav .nav-link:hover { color: #B57A2B; }
-    .dropdown-menu { border: none; border-radius: 20px; box-shadow: 0 20px 40px -12px rgba(0,0,0,0.15); }
-    /* hero */
-    .hero {
-      min-height: 100vh;
-      background: linear-gradient(135deg, rgba(27,27,27,0.6) 0%, rgba(27,27,27,0.2) 100%), url('https://images.unsplash.com/photo-1618220179428-22790b461013?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80') no-repeat center center/cover;
-      display: flex;
-      align-items: center;
-      position: relative;
-    }
-    .hero-content { padding: 100px 0; }
-    .hero h1 {
-      font-size: 4.2rem;
-      font-weight: 700;
-      line-height: 1.1;
-      color: #fff;
-      text-shadow: 0 4px 20px rgba(0,0,0,0.2);
-    }
-    .hero h1 span { color: #D5A54D; }
-    .hero p { color: rgba(255,255,255,0.85); font-size: 1.2rem; max-width: 500px; }
-    .floating-stat {
-      background: rgba(255,255,255,0.15);
-      backdrop-filter: blur(6px);
-      border-radius: 60px;
-      padding: 10px 28px;
-      color: #fff;
-      border: 1px solid rgba(255,255,255,0.1);
-    }
-    .scroll-indicator {
-      position: absolute;
-      bottom: 40px;
-      left: 50%;
-      transform: translateX(-50%);
-      color: #fff;
-      font-size: 1.8rem;
-      animation: bounce 2s infinite;
-    }
-    @keyframes bounce { 0%,100%{transform:translateX(-50%) translateY(0);} 50%{transform:translateX(-50%) translateY(10px);} }
-    /* category card */
-    .category-card .card-img-top { height: 200px; object-fit: cover; }
-    .category-card .card-body { padding: 24px; }
-    .category-card .card-title { font-weight: 600; }
-    /* brands swiper */
-    .brand-swiper .swiper-slide { display: flex; justify-content: center; align-items: center; height: 80px; filter: grayscale(0.2); opacity: 0.7; transition: 0.3s; }
-    .brand-swiper .swiper-slide:hover { filter: grayscale(0); opacity: 1; }
-    .brand-swiper .swiper-slide img { max-height: 50px; width: auto; }
-    /* project masonry */
-    .project-grid .project-item { border-radius: 24px; overflow: hidden; position: relative; cursor: pointer; }
-    .project-grid .project-item img { width: 100%; height: 280px; object-fit: cover; transition: 0.6s; }
-    .project-grid .project-item:hover img { transform: scale(1.05); }
-    .project-item .overlay {
-      position: absolute; bottom: 0; left: 0; right: 0;
-      background: linear-gradient(transparent, rgba(27,27,27,0.7));
-      padding: 24px 16px 16px;
-      color: #fff;
-    }
-    /* testimonial */
-    .testimonial-card {
-      background: #fff;
-      border-radius: 32px;
-      padding: 32px;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.04);
-    }
-    .testimonial-card .stars { color: #D5A54D; letter-spacing: 2px; }
-    /* footer */
-    .footer {
-      background: #111;
-      color: #ccc;
-      padding: 60px 0 30px;
-    }
-    .footer a { color: #aaa; text-decoration: none; transition: 0.3s; }
-    .footer a:hover { color: #D5A54D; }
-    .footer .social a { font-size: 1.2rem; margin-right: 12px; color: #888; }
-    .footer .social a:hover { color: #D5A54D; }
-    .footer hr { border-color: #333; }
-    /* responsive */
-    @media (max-width: 768px) {
-      .hero h1 { font-size: 2.6rem; }
-      .section-padding { padding: 60px 0; }
-    }
-  </style>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz@14..32&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
+ <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <!-- TOP BAR -->
-  <div class="top-bar d-none d-md-block">
-    <div class="container d-flex justify-content-between align-items-center">
-      <div>
-        <i class="fas fa-phone-alt gold me-1"></i> +91 98765 43210 &nbsp;|&nbsp;
-        <i class="fas fa-envelope gold me-1"></i> info@patelply.com
-      </div>
-      <div>
-        <i class="fas fa-map-marker-alt gold me-1"></i> 42, Wood Street, Mumbai &nbsp;|&nbsp;
-        <i class="far fa-clock gold me-1"></i> Mon-Sat 9:30AM – 7:30PM
-        <a href="#" class="ms-3"><i class="fab fa-facebook-f"></i></a>
-        <a href="#"><i class="fab fa-instagram"></i></a>
-        <a href="#"><i class="fab fa-youtube"></i></a>
+
+  <!-- ===== TOP BAR ===== -->
+  <div class="top-bar">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-md-8">
+          <div class="contact-info">
+            <a href="#"><i class="bi bi-telephone-fill gold-text"></i> +91 98765 43210</a>
+            <span class="divider">|</span>
+            <a href="#"><i class="bi bi-envelope-fill gold-text"></i> info@patelplywood.com</a>
+            <span class="divider">|</span>
+            <a href="#"><i class="bi bi-geo-alt-fill gold-text"></i> Ahmedabad, India</a>
+            <span class="divider">|</span>
+            <span><i class="bi bi-clock-fill gold-text"></i> Mon–Sat 9:00–7:00</span>
+          </div>
+        </div>
+        <div class="col-md-4 d-flex justify-content-end">
+          <div class="social-icons">
+            <a href="#"><i class="bi bi-facebook"></i></a>
+            <a href="#"><i class="bi bi-instagram"></i></a>
+            <a href="#"><i class="bi bi-youtube"></i></a>
+            <a href="#"><i class="bi bi-linkedin"></i></a>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 
-  <!-- HEADER / NAV -->
-  <header class="sticky-top">
-    <nav class="navbar navbar-expand-lg" id="mainNav">
+  <!-- ===== MAIN NAV ===== -->
+  <header class="navbar-main fixed-top" id="mainHeader">
+    <nav class="navbar navbar-expand-lg">
       <div class="container">
         <a class="navbar-brand" href="#">
-          <img src="https://placehold.co/180x50/B57A2B/FFFFFF?text=PPC" alt="Patel Plywood Centre" style="height:44px;">
+          <img src="images/headerlogo.png" alt="Patel Plywood Centre" class="brand-logo">
         </a>
-        <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
           <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navMenu">
-          <ul class="navbar-nav mx-auto">
+        <div class="collapse navbar-collapse" id="mainNav">
+          <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
             <li class="nav-item"><a class="nav-link active" href="#">Home</a></li>
             <li class="nav-item"><a class="nav-link" href="#">About</a></li>
             <li class="nav-item"><a class="nav-link" href="#">Services</a></li>
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Categories</a>
-              <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">Plywood Doors</a></li>
-                <li><a class="dropdown-item" href="#">Veneers</a></li>
-                <li><a class="dropdown-item" href="#">Laminates</a></li>
-                <li><a class="dropdown-item" href="#">Sagwan Timber</a></li>
-                <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="#">View all</a></li>
-              </ul>
+            <li class="nav-item dropdown-categories">
+              <a class="nav-link" href="#">Categories <i class="bi bi-chevron-down"></i></a>
+              <div class="dropdown-menu">
+                <a class="dropdown-item" href="#"><i class="bi bi-door-open"></i> Plywood Doors</a>
+                <a class="dropdown-item" href="#"><i class="bi bi-layers"></i> Veneers</a>
+                <a class="dropdown-item" href="#"><i class="bi bi-grid"></i> Laminates</a>
+                <a class="dropdown-item" href="#"><i class="bi bi-tree"></i> Sagwan Timber</a>
+                <a class="dropdown-item" href="#"><i class="bi bi-border-all"></i> Decorative Panels</a>
+                <a class="dropdown-item" href="#"><i class="bi bi-building"></i> ACP Sheets</a>
+                <a class="dropdown-item" href="#"><i class="bi bi-layers-half"></i> HPL & Cladding</a>
+                <a class="dropdown-item" href="#"><i class="bi bi-images"></i> Wallpapers</a>
+                <a class="dropdown-item" href="#"><i class="bi bi-grid-3x3-gap"></i> Mosaic Sheets</a>
+                <a class="dropdown-item" href="#"><i class="bi bi-window"></i> Acrylic Sheets</a>
+                <a class="dropdown-item" href="#"><i class="bi bi-flower1"></i> Green Grass</a>
+                <a class="dropdown-item" href="#"><i class="bi bi-flower2"></i> Decorative Flowers</a>
+                <a class="dropdown-item" href="#"><i class="bi bi-house"></i> Wooden Flooring</a>
+                <a class="dropdown-item" href="#"><i class="bi bi-grid-1x2"></i> Vinyl Flooring</a>
+                <a class="dropdown-item" href="#"><i class="bi bi-border-width"></i> Exterior Planks</a>
+                <a class="dropdown-item" href="#"><i class="bi bi-tools"></i> Hardware</a>
+                <a class="dropdown-item" href="#"><i class="bi bi-box"></i> WPC Chokat</a>
+                <a class="dropdown-item" href="#"><i class="bi bi-box-seam"></i> Zero Wood NFC</a>
+                <a class="dropdown-item" href="#"><i class="bi bi-layers"></i> MDF Boards</a>
+                <a class="dropdown-item" href="#"><i class="bi bi-palette"></i> CNC Design Panels</a>
+                <a class="dropdown-item" href="#"><i class="bi bi-droplet"></i> Fevicol</a>
+              </div>
             </li>
             <li class="nav-item"><a class="nav-link" href="#">Projects</a></li>
-            <li class="nav-item"><a class="nav-link" href="#">Blogs</a></li>
+            <li class="nav-item"><a class="nav-link" href="#">Blog</a></li>
             <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
           </ul>
-          <div class="d-flex gap-2">
-            <a href="#" class="btn btn-gold btn-sm"><i class="fas fa-phone-alt me-1"></i> Call</a>
-            <a href="#" class="btn btn-outline-gold btn-sm">Quote</a>
+          <div class="nav-actions">
+            <a href="#" class="btn-nav btn-nav-call"><i class="bi bi-telephone-fill"></i>Call Now</a>
+            <a href="#" class="btn-nav btn-nav-quote">Get Quote</a>
           </div>
         </div>
       </div>
     </nav>
   </header>
 
-  <!-- HERO -->
-  <section class="hero" id="home">
-    <div class="container hero-content" data-aos="fade-up" data-aos-duration="1200">
-      <div class="row align-items-center">
-        <div class="col-lg-7">
-          <span class="badge bg-gold mb-3 px-4 py-2 rounded-pill" style="font-weight:400;">Since 2010 · Total Interior Solutions</span>
-          <h1 class="display-2 fw-bold">Crafting <span>Luxury</span> Interiors</h1>
-          <p class="lead my-4">Premium plywood, veneers, laminates & hardware — designed for timeless elegance.</p>
-          <div class="d-flex flex-wrap gap-3">
-            <a href="#" class="btn btn-gold">Explore Products</a>
-            <a href="#" class="btn btn-outline-gold text-white border-white" style="border-color:rgba(255,255,255,0.5);">Get Quote</a>
+  <!-- ===== HERO ===== -->
+  <section class="hero-wrapper">
+    <div class="hero-bg"></div>
+    <div class="hero-overlay"></div>
+    <div class="container hero-content">
+      <div class="hero-content-inner" data-aos="fade-up" data-aos-duration="800">
+        <div class="hero-badge"><i class="bi bi-star-fill me-2"></i> Premium Since 2010</div>
+        <h1>Total Interior <br><span class="highlight">Solutions</span></h1>
+        <p>The finest plywood, veneers, laminates & hardware for architects, designers, and homeowners who demand excellence.</p>
+        <div class="hero-actions">
+          <a href="#" class="btn-hero-primary"><i class="bi bi-grid-3x3-gap-fill me-2"></i>Explore Products</a>
+          <a href="#" class="btn-hero-secondary"><i class="bi bi-file-earmark-text me-2"></i>Get Quote</a>
+        </div>
+      </div>
+    </div>
+    <div class="hero-floating-stats">
+      <div class="container">
+        <div class="row g-3">
+          <div class="col-6 col-md-3">
+            <div class="stat-card" data-aos="fade-up" data-aos-delay="0">
+              <div class="stat-number"><span class="counter-value" data-count="14">0</span><span class="plus-sign">+</span></div>
+              <div class="stat-label">Years of Excellence</div>
+            </div>
           </div>
-          <div class="mt-5 d-flex flex-wrap gap-4">
-            <div class="floating-stat"><i class="fas fa-calendar-alt gold me-2"></i> <strong>15+</strong> Years</div>
-            <div class="floating-stat"><i class="fas fa-smile gold me-2"></i> <strong>850+</strong> Clients</div>
-            <div class="floating-stat"><i class="fas fa-check-circle gold me-2"></i> <strong>1200+</strong> Projects</div>
+          <div class="col-6 col-md-3">
+            <div class="stat-card" data-aos="fade-up" data-aos-delay="100">
+              <div class="stat-number"><span class="counter-value" data-count="850">0</span><span class="plus-sign">+</span></div>
+              <div class="stat-label">Happy Clients</div>
+            </div>
+          </div>
+          <div class="col-6 col-md-3">
+            <div class="stat-card" data-aos="fade-up" data-aos-delay="200">
+              <div class="stat-number"><span class="counter-value" data-count="520">0</span><span class="plus-sign">+</span></div>
+              <div class="stat-label">Projects Delivered</div>
+            </div>
+          </div>
+          <div class="col-6 col-md-3">
+            <div class="stat-card" data-aos="fade-up" data-aos-delay="300">
+              <div class="stat-number"><span class="counter-value" data-count="21">0</span><span class="plus-sign">+</span></div>
+              <div class="stat-label">Product Categories</div>
+            </div>
           </div>
         </div>
       </div>
     </div>
-    <div class="scroll-indicator"><i class="fas fa-chevron-down"></i></div>
+    <div class="scroll-indicator"><i class="bi bi-chevron-down"></i></div>
   </section>
 
-  <!-- ABOUT PREVIEW -->
-  <section class="section-padding" data-aos="fade-up">
+  <!-- ===== UNIQUE ABOUT US SECTION ===== -->
+  <section class="about-unique section-padding">
     <div class="container">
-      <div class="row g-5 align-items-center">
-        <div class="col-lg-6" data-aos="fade-right">
-          <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="about" class="img-fluid rounded-4 shadow-lg">
-        </div>
-        <div class="col-lg-6" data-aos="fade-left">
-          <span class="gold fw-semibold text-uppercase small">About PPC</span>
-          <h2 class="display-5 fw-semibold mt-2">Where Craftsmanship Meets Luxury</h2>
-          <p class="text-secondary">Patel Plywood Centre has been the cornerstone of premium interior solutions since 2010. We blend innovation with traditional woodworking to deliver spaces that inspire.</p>
-          <div class="row mt-4 g-3">
-            <div class="col-sm-6"><i class="fas fa-award gold me-2"></i> Trusted since 2010</div>
-            <div class="col-sm-6"><i class="fas fa-trophy gold me-2"></i> 15+ years expertise</div>
-            <div class="col-sm-6"><i class="fas fa-thumbs-up gold me-2"></i> 100% premium quality</div>
-            <div class="col-sm-6"><i class="fas fa-truck gold me-2"></i> Pan-India delivery</div>
+      <div class="row align-items-center g-5">
+        <div class="col-lg-6 order-lg-1 order-2" data-aos="fade-right">
+          <div class="about-badge"><i class="bi bi-building me-1"></i> About Patel Plywood</div>
+          <h2 class="about-title">Crafting Premium <br><span class="gold-text">Interior Spaces</span></h2>
+          <p class="about-description">Patel Plywood Centre has been delivering premium plywood, laminates, veneers, decorative panels, hardware and interior solutions since 2010. Our mission is to provide world-class products that transform residential and commercial spaces into timeless masterpieces.</p>
+          <div class="feature-grid">
+            <div class="feature-item"><i class="bi bi-check-circle-fill"></i> Premium Quality Products</div>
+            <div class="feature-item"><i class="bi bi-check-circle-fill"></i> Trusted by 850+ Customers</div>
+            <div class="feature-item"><i class="bi bi-check-circle-fill"></i> Genuine Branded Materials</div>
+            <div class="feature-item"><i class="bi bi-check-circle-fill"></i> Expert Interior Guidance</div>
+            <div class="feature-item"><i class="bi bi-check-circle-fill"></i> 21+ Product Categories</div>
+            <div class="feature-item"><i class="bi bi-check-circle-fill"></i> Competitive Pricing</div>
           </div>
-          <a href="#" class="btn btn-gold mt-4">Read More <i class="fas fa-arrow-right ms-2"></i></a>
+          <a href="#" class="btn btn-gold"><i class="bi bi-box-seam me-2"></i>Explore Products</a>
+        </div>
+        <div class="col-lg-6 order-lg-2 order-1" data-aos="fade-left">
+          <div class="about-image-block">
+            <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=900&q=80" alt="Interior craftsmanship" class="img-fluid">
+            <div class="floating-badge">
+              <span class="number">14+</span>
+              <span class="label">Years Excellence</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- STATS (animated counters) -->
-  <section class="bg-charcoal py-5" data-aos="zoom-in">
-    <div class="container">
-      <div class="row text-center text-white g-4">
-        <div class="col-6 col-md-3"><h2 class="display-4 fw-bold gold" data-count="15">0</h2><p>Years Experience</p></div>
-        <div class="col-6 col-md-3"><h2 class="display-4 fw-bold gold" data-count="850">0</h2><p>Happy Clients</p></div>
-        <div class="col-6 col-md-3"><h2 class="display-4 fw-bold gold" data-count="1200">0</h2><p>Completed Projects</p></div>
-        <div class="col-6 col-md-3"><h2 class="display-4 fw-bold gold" data-count="18">0</h2><p>Categories</p></div>
+  <!-- ===== WHY CHOOSE US ===== -->
+  <section class="section-padding bg-soft-gold">
+    <div class="container text-center">
+      <span class="section-subtitle">Why Patel Plywood</span>
+      <h2 class="section-title">Built on <span class="gold-text">Trust & Quality</span></h2>
+      <div class="gold-divider-center"></div>
+      <div class="row g-4 mt-4">
+        <div class="col-md-4" data-aos="fade-up"><div class="card-premium p-4 text-start"><div class="card-icon-wrap"><i class="bi bi-gem gold-text"></i></div><h5>Premium Quality</h5><p>Best-in-class materials sourced globally.</p></div></div>
+        <div class="col-md-4" data-aos="fade-up" data-aos-delay="100"><div class="card-premium p-4 text-start"><div class="card-icon-wrap"><i class="bi bi-award gold-text"></i></div><h5>Trusted Brand</h5><p>14 years of excellence and reliability.</p></div></div>
+        <div class="col-md-4" data-aos="fade-up" data-aos-delay="200"><div class="card-premium p-4 text-start"><div class="card-icon-wrap"><i class="bi bi-grid-3x3-gap gold-text"></i></div><h5>Wide Range</h5><p>Over 21 categories & 1000+ products.</p></div></div>
+        <div class="col-md-4" data-aos="fade-up"><div class="card-premium p-4 text-start"><div class="card-icon-wrap"><i class="bi bi-people gold-text"></i></div><h5>Expert Guidance</h5><p>Design consultation & technical support.</p></div></div>
+        <div class="col-md-4" data-aos="fade-up" data-aos-delay="100"><div class="card-premium p-4 text-start"><div class="card-icon-wrap"><i class="bi bi-tag gold-text"></i></div><h5>Competitive Pricing</h5><p>Best value without compromising quality.</p></div></div>
+        <div class="col-md-4" data-aos="fade-up" data-aos-delay="200"><div class="card-premium p-4 text-start"><div class="card-icon-wrap"><i class="bi bi-truck gold-text"></i></div><h5>Fast Delivery</h5><p>Pan-India delivery & site support.</p></div></div>
       </div>
     </div>
   </section>
 
-  <!-- WHY CHOOSE US & CATEGORIES (simplified) -->
-  <section class="section-padding">
-    <div class="container">
-      <div class="text-center mb-5" data-aos="fade-up">
-        <span class="gold fw-semibold">Why PPC</span>
-        <h2 class="display-5 fw-semibold">Built on Premium & Trust</h2>
-      </div>
-      <div class="row g-4" data-aos="fade-up">
-        <div class="col-md-4"><div class="card-premium p-4 text-center"><i class="fas fa-gem gold fs-1 mb-3"></i><h5>Premium Quality</h5><p class="text-secondary">Sourced from finest mills, every sheet is graded for excellence.</p></div></div>
-        <div class="col-md-4"><div class="card-premium p-4 text-center"><i class="fas fa-shield-alt gold fs-1 mb-3"></i><h5>Trusted Products</h5><p class="text-secondary">ISI, BIS certified with international standards.</p></div></div>
-        <div class="col-md-4"><div class="card-premium p-4 text-center"><i class="fas fa-palette gold fs-1 mb-3"></i><h5>Wide Collection</h5><p class="text-secondary">Over 500+ designs in laminates, veneers, and panels.</p></div></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- CATEGORIES CARDS -->
+  <!-- ===== CATEGORIES ===== -->
   <section class="section-padding bg-white">
     <div class="container">
-      <div class="text-center mb-5"><h2 class="display-5 fw-semibold">Explore Categories</h2><p class="text-secondary">Luxury materials for every surface</p></div>
-      <div class="row g-4">
-        <div class="col-md-4 col-lg-3"><div class="card-premium category-card"><img src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" class="card-img-top" alt=""><div class="card-body"><h5 class="card-title">Plywood Doors</h5><p class="card-text small text-secondary">Premium flush & panel doors</p><a href="#" class="btn btn-outline-gold btn-sm">Explore</a></div></div></div>
-        <div class="col-md-4 col-lg-3"><div class="card-premium category-card"><img src="https://images.unsplash.com/photo-1618220179428-22790b461013?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" class="card-img-top" alt=""><div class="card-body"><h5 class="card-title">Veneers</h5><p class="card-text small text-secondary">Natural wood veneer finishes</p><a href="#" class="btn btn-outline-gold btn-sm">Explore</a></div></div></div>
-        <div class="col-md-4 col-lg-3"><div class="card-premium category-card"><img src="https://images.unsplash.com/photo-1616137466211-f939a420be84?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" class="card-img-top" alt=""><div class="card-body"><h5 class="card-title">Laminates</h5><p class="card-text small text-secondary">High-gloss, matte, textured</p><a href="#" class="btn btn-outline-gold btn-sm">Explore</a></div></div></div>
-        <div class="col-md-4 col-lg-3"><div class="card-premium category-card"><img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" class="card-img-top" alt=""><div class="card-body"><h5 class="card-title">Sagwan Timber</h5><p class="card-text small text-secondary">Premium teak wood</p><a href="#" class="btn btn-outline-gold btn-sm">Explore</a></div></div></div>
+      <div class="text-center">
+        <span class="section-subtitle">Categories</span>
+        <h2 class="section-title">Explore Our <span class="gold-text">Premium Range</span></h2>
+        <div class="gold-divider-center"></div>
+      </div>
+      <div class="row g-4 mt-3 category-grid">
+        <div class="col-md-3 col-6" data-aos="zoom-in">
+          <div class="card-premium category-card">
+            <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=400&q=80" class="card-img-top" alt="Plywood Doors" />
+            <div class="card-body">
+              <h5>Plywood Doors</h5>
+              <span class="category-count">12 Products</span>
+              <div class="btn-wrap"><a href="#" class="btn btn-outline-gold btn-sm">Explore</a></div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3 col-6" data-aos="zoom-in" data-aos-delay="100">
+          <div class="card-premium category-card">
+            <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=400&q=80" class="card-img-top" alt="Veneers" />
+            <div class="card-body">
+              <h5>Veneers</h5>
+              <span class="category-count">8 Products</span>
+              <div class="btn-wrap"><a href="#" class="btn btn-outline-gold btn-sm">Explore</a></div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3 col-6" data-aos="zoom-in" data-aos-delay="200">
+          <div class="card-premium category-card">
+            <img src="https://images.unsplash.com/photo-1618220179428-22790b461013?w=400&q=80" class="card-img-top" alt="Laminates" />
+            <div class="card-body">
+              <h5>Laminates</h5>
+              <span class="category-count">15 Products</span>
+              <div class="btn-wrap"><a href="#" class="btn btn-outline-gold btn-sm">Explore</a></div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3 col-6" data-aos="zoom-in" data-aos-delay="300">
+          <div class="card-premium category-card">
+            <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=400&q=80" class="card-img-top" alt="Sagwan Timber" />
+            <div class="card-body">
+              <h5>Sagwan Timber</h5>
+              <span class="category-count">6 Products</span>
+              <div class="btn-wrap"><a href="#" class="btn btn-outline-gold btn-sm">Explore</a></div>
+            </div>
+          </div>
+        </div>
       </div>
       <div class="text-center mt-4"><a href="#" class="btn btn-gold">View All Categories</a></div>
     </div>
   </section>
 
-  <!-- BRANDS CAROUSEL -->
-  <section class="py-4 bg-light">
+  <!-- ===== PROJECTS ===== -->
+  <section class="section-padding bg-soft-gold">
     <div class="container">
-      <div class="swiper brand-swiper">
-        <div class="swiper-wrapper">
-          <div class="swiper-slide"><img src="https://placehold.co/120x40/888/FFF?text=Greenply" alt="brand"></div>
-          <div class="swiper-slide"><img src="https://placehold.co/120x40/888/FFF?text=Century" alt="brand"></div>
-          <div class="swiper-slide"><img src="https://placehold.co/120x40/888/FFF?text=Merino" alt="brand"></div>
-          <div class="swiper-slide"><img src="https://placehold.co/120x40/888/FFF?text=Action+Tesa" alt="brand"></div>
-          <div class="swiper-slide"><img src="https://placehold.co/120x40/888/FFF?text=IKEA" alt="brand"></div>
-          <div class="swiper-slide"><img src="https://placehold.co/120x40/888/FFF?text=Hettich" alt="brand"></div>
-        </div>
+      <div class="text-center">
+        <span class="section-subtitle">Our Work</span>
+        <h2 class="section-title">Featured <span class="gold-text">Projects</span></h2>
+        <div class="gold-divider-center"></div>
       </div>
-    </div>
-  </section>
-
-  <!-- PROJECTS PREVIEW -->
-  <section class="section-padding">
-    <div class="container">
-      <div class="text-center mb-5"><h2 class="display-5 fw-semibold">Our Projects</h2><p class="text-secondary">Luxury interiors crafted with precision</p></div>
-      <div class="row g-4 project-grid">
-        <div class="col-md-4"><div class="project-item"><img src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt=""><div class="overlay"><h6>Residential Villa</h6><small>Mumbai</small></div></div></div>
-        <div class="col-md-4"><div class="project-item"><img src="https://images.unsplash.com/photo-1618220179428-22790b461013?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt=""><div class="overlay"><h6>Office Interior</h6><small>BKC</small></div></div></div>
-        <div class="col-md-4"><div class="project-item"><img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt=""><div class="overlay"><h6>Hotel Suite</h6><small>Goa</small></div></div></div>
+      <div class="row g-4 mt-3">
+        <div class="col-md-4 col-6" data-aos="flip-up"><div class="project-item"><img src="https://images.unsplash.com/photo-1618220179428-22790b461013?w=600&q=80" alt="Project"/><div class="project-overlay">Residential Villa</div></div></div>
+        <div class="col-md-4 col-6" data-aos="flip-up" data-aos-delay="100"><div class="project-item"><img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&q=80" alt="Project"/><div class="project-overlay">Office Interior</div></div></div>
+        <div class="col-md-4 col-6" data-aos="flip-up" data-aos-delay="200"><div class="project-item"><img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=600&q=80" alt="Project"/><div class="project-overlay">Hotel Lobby</div></div></div>
       </div>
       <div class="text-center mt-4"><a href="#" class="btn btn-gold">View All Projects</a></div>
     </div>
   </section>
 
-  <!-- TESTIMONIALS & FAQ (compact) -->
+  <!-- ===== TESTIMONIALS CAROUSEL ===== -->
   <section class="section-padding bg-white">
     <div class="container">
-      <div class="text-center mb-5"><h2 class="display-5 fw-semibold">Client Stories</h2></div>
-      <div class="row g-4">
-        <div class="col-md-4"><div class="testimonial-card"><div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div><p class="mt-3">“PPC delivered premium plywood that elevated our entire home. Flawless!”</p><h6 class="mt-2">— Ananya S.</h6></div></div>
-        <div class="col-md-4"><div class="testimonial-card"><div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div><p class="mt-3">“Their laminates collection is world-class. We used them in our flagship store.”</p><h6 class="mt-2">— Rajesh M.</h6></div></div>
-        <div class="col-md-4"><div class="testimonial-card"><div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div><p class="mt-3">“Professional team, on-time delivery, and unmatched quality. Highly recommend.”</p><h6 class="mt-2">— Priya K.</h6></div></div>
+      <div class="text-center">
+        <span class="section-subtitle">Testimonials</span>
+        <h2 class="section-title">What Our <span class="gold-text">Clients Say</span></h2>
+        <div class="gold-divider-center"></div>
+        <p class="text-muted mb-4">Real feedback from our valued clients</p>
+      </div>
+      <div id="testimonialCarousel" class="carousel slide testimonial-carousel" data-bs-ride="carousel" data-bs-interval="5000">
+        <div class="carousel-indicators">
+          <button type="button" data-bs-target="#testimonialCarousel" data-bs-slide-to="0" class="active" aria-current="true"></button>
+          <button type="button" data-bs-target="#testimonialCarousel" data-bs-slide-to="1"></button>
+          <button type="button" data-bs-target="#testimonialCarousel" data-bs-slide-to="2"></button>
+        </div>
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <div class="row g-3">
+              <div class="col-md-4"><div class="testimonial-card"><div class="card-body-flex"><div class="stars-row"><i class="bi bi-star-fill gold-text"></i><i class="bi bi-star-fill gold-text"></i><i class="bi bi-star-fill gold-text"></i><i class="bi bi-star-fill gold-text"></i><i class="bi bi-star-fill gold-text"></i></div><p class="mt-3">“Incredible quality and service. PPC transformed our home with their premium veneers and laminates.”</p><h6 class="mt-2">— Ar. Mehta</h6><small>Interior Designer</small></div></div></div>
+              <div class="col-md-4"><div class="testimonial-card"><div class="card-body-flex"><div class="stars-row"><i class="bi bi-star-fill gold-text"></i><i class="bi bi-star-fill gold-text"></i><i class="bi bi-star-fill gold-text"></i><i class="bi bi-star-fill gold-text"></i><i class="bi bi-star-fill gold-text"></i></div><p class="mt-3">“Patel Plywood is our go-to for all projects. Consistent quality and on-time delivery.”</p><h6 class="mt-2">— Mr. Shah</h6><small>Builder</small></div></div></div>
+              <div class="col-md-4"><div class="testimonial-card"><div class="card-body-flex"><div class="stars-row"><i class="bi bi-star-fill gold-text"></i><i class="bi bi-star-fill gold-text"></i><i class="bi bi-star-fill gold-text"></i><i class="bi bi-star-fill gold-text"></i><i class="bi bi-star-fill gold-text"></i></div><p class="mt-3">“The range of products and expert guidance made our renovation seamless. Highly recommend.”</p><h6 class="mt-2">— Mrs. Desai</h6><small>Homeowner</small></div></div></div>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <div class="row g-3">
+              <div class="col-md-4"><div class="testimonial-card"><div class="card-body-flex"><div class="stars-row"><i class="bi bi-star-fill gold-text"></i><i class="bi bi-star-fill gold-text"></i><i class="bi bi-star-fill gold-text"></i><i class="bi bi-star-fill gold-text"></i><i class="bi bi-star-fill gold-text"></i></div><p class="mt-3">“Best plywood and hardware in town. Their team is always helpful and professional.”</p><h6 class="mt-2">— Mr. Patel</h6><small>Contractor</small></div></div></div>
+              <div class="col-md-4"><div class="testimonial-card"><div class="card-body-flex"><div class="stars-row"><i class="bi bi-star-fill gold-text"></i><i class="bi bi-star-fill gold-text"></i><i class="bi bi-star-fill gold-text"></i><i class="bi bi-star-fill gold-text"></i><i class="bi bi-star-fill gold-text"></i></div><p class="mt-3">“We used PPC products for our new office. The finish and durability are outstanding.”</p><h6 class="mt-2">— Ms. Sharma</h6><small>Architect</small></div></div></div>
+              <div class="col-md-4"><div class="testimonial-card"><div class="card-body-flex"><div class="stars-row"><i class="bi bi-star-fill gold-text"></i><i class="bi bi-star-fill gold-text"></i><i class="bi bi-star-fill gold-text"></i><i class="bi bi-star-fill gold-text"></i><i class="bi bi-star-fill gold-text"></i></div><p class="mt-3">“Great variety and competitive prices. They made our dream home a reality.”</p><h6 class="mt-2">— Mr. & Mrs. Rao</h6><small>Homeowners</small></div></div></div>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <div class="row g-3">
+              <div class="col-md-4"><div class="testimonial-card"><div class="card-body-flex"><div class="stars-row"><i class="bi bi-star-fill gold-text"></i><i class="bi bi-star-fill gold-text"></i><i class="bi bi-star-fill gold-text"></i><i class="bi bi-star-fill gold-text"></i><i class="bi bi-star-fill gold-text"></i></div><p class="mt-3">“PPC's laminates and veneers gave our restaurant a luxurious feel. Highly recommended!”</p><h6 class="mt-2">— Chef Kumar</h6><small>Restaurant Owner</small></div></div></div>
+              <div class="col-md-4"><div class="testimonial-card"><div class="card-body-flex"><div class="stars-row"><i class="bi bi-star-fill gold-text"></i><i class="bi bi-star-fill gold-text"></i><i class="bi bi-star-fill gold-text"></i><i class="bi bi-star-fill gold-text"></i><i class="bi bi-star-fill gold-text"></i></div><p class="mt-3">“Excellent customer service and premium quality products. A trusted partner for our projects.”</p><h6 class="mt-2">— Mr. Deshmukh</h6><small>Project Manager</small></div></div></div>
+              <div class="col-md-4"><div class="testimonial-card"><div class="card-body-flex"><div class="stars-row"><i class="bi bi-star-fill gold-text"></i><i class="bi bi-star-fill gold-text"></i><i class="bi bi-star-fill gold-text"></i><i class="bi bi-star-fill gold-text"></i><i class="bi bi-star-fill gold-text"></i></div><p class="mt-3">“The flooring and panels from PPC are top-notch. Our clients love the finish.”</p><h6 class="mt-2">— Ms. Joshi</h6><small>Interior Designer</small></div></div></div>
+            </div>
+          </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
       </div>
     </div>
   </section>
 
-  <!-- FOOTER -->
-  <footer class="footer">
+  <!-- ===== FAQ SECTION - MODERN ACCORDION ===== -->
+  <section class="section-padding bg-soft-gold">
+    <div class="container">
+      <div class="row g-5 align-items-center">
+        <div class="col-lg-6" data-aos="fade-right">
+          <span class="section-subtitle">FAQ</span>
+          <h2 class="section-title">Frequently Asked <span class="gold-text">Questions</span></h2>
+          <div class="gold-divider"></div>
+          <p class="text-muted mb-4">Find quick answers to the most common questions about our products and services.</p>
+          <div class="faq-modern accordion" id="faqAccordion">
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">What products do you offer?</button>
+              </h2>
+              <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+                <div class="accordion-body">We offer a comprehensive range including plywood, veneers, laminates, timber, flooring, decorative panels, hardware, WPC, MDF, and more – over 21 categories to meet all interior needs.</div>
+              </div>
+            </div>
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">Do you supply to architects and builders?</button>
+              </h2>
+              <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                <div class="accordion-body">Yes, we have a dedicated B2B division serving architects, interior designers, contractors, and builders with bulk orders, special pricing, and expert technical support.</div>
+              </div>
+            </div>
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">Can I get samples before ordering?</button>
+              </h2>
+              <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                <div class="accordion-body">Absolutely. We provide free samples for all our products so you can see and feel the quality before making a decision. Just reach out to our team.</div>
+              </div>
+            </div>
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq4">Do you offer installation services?</button>
+              </h2>
+              <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                <div class="accordion-body">We partner with trusted installation experts who can handle your project from start to finish. We also provide technical guidance for your own contractors.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6" data-aos="fade-left">
+          <div class="card-premium p-4" style="background:var(--charcoal);color:#fff;border:1px solid rgba(255,255,255,0.06);border-bottom:4px solid var(--gold);">
+            <h4 class="text-white">Have a Project? <span class="gold-text">Let’s Talk</span></h4>
+            <p class="text-light opacity-75">Get a free consultation & quote for your interior needs.</p>
+            <form class="form-premium">
+              <div class="mb-3">
+                <input type="text" class="form-control" placeholder="Your full name" />
+              </div>
+              <div class="mb-3">
+                <input type="email" class="form-control" placeholder="Your email address" />
+              </div>
+              <div class="mb-3">
+                <input type="tel" class="form-control" placeholder="Phone number" />
+              </div>
+              <div class="mb-3">
+                <textarea class="form-control" rows="3" placeholder="Tell us about your project..."></textarea>
+              </div>
+              <button class="btn btn-gold w-100" style="padding:14px;">
+                <i class="bi bi-send me-2"></i>Send Inquiry
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== UNIQUE FOOTER ===== -->
+  <footer class="footer-unique">
     <div class="container">
       <div class="row g-4">
-        <div class="col-lg-4"><img src="https://placehold.co/180x50/B57A2B/FFFFFF?text=PPC" alt="" style="height:44px;"><p class="mt-3 text-secondary">Total Interior Solutions since 2010. Premium plywood, veneers, laminates & hardware.</p><div class="social"><a href="#"><i class="fab fa-facebook-f"></i></a><a href="#"><i class="fab fa-instagram"></i></a><a href="#"><i class="fab fa-youtube"></i></a></div></div>
-        <div class="col-lg-2"><h6 class="text-white">Quick Links</h6><ul class="list-unstyled"><li><a href="#">About</a></li><li><a href="#">Services</a></li><li><a href="#">Categories</a></li><li><a href="#">Projects</a></li></ul></div>
-        <div class="col-lg-3"><h6 class="text-white">Contact</h6><p class="text-secondary"><i class="fas fa-map-marker-alt gold me-2"></i> 42, Wood Street, Mumbai</p><p class="text-secondary"><i class="fas fa-phone gold me-2"></i> +91 98765 43210</p><p class="text-secondary"><i class="fas fa-envelope gold me-2"></i> info@patelply.com</p></div>
-        <div class="col-lg-3"><h6 class="text-white">Newsletter</h6><div class="input-group"><input type="email" class="form-control bg-dark border-0" placeholder="Email"><button class="btn btn-gold">Subscribe</button></div></div>
+        <div class="col-lg-5">
+          <div class="footer-brand"><img src="images/headerlogo.png" alt="logo" width="150px" height="150px"></div>
+          <p class="footer-desc">Total Interior Solutions since 2010. Premium plywood, veneers, laminates & hardware for discerning clients who value quality and craftsmanship.</p>
+          <div class="footer-social mt-3">
+            <a href="#"><i class="bi bi-facebook"></i></a>
+            <a href="#"><i class="bi bi-instagram"></i></a>
+            <a href="#"><i class="bi bi-youtube"></i></a>
+            <a href="#"><i class="bi bi-linkedin"></i></a>
+            <a href="#"><i class="bi bi-pinterest"></i></a>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <h5 class="text-white mb-3" style="font-weight:600;">Get in Touch</h5>
+          <div class="footer-contact-item">
+            <i class="bi bi-geo-alt"></i>
+            <span>Ahmedabad, Gujarat, India</span>
+          </div>
+          <div class="footer-contact-item">
+            <i class="bi bi-telephone"></i>
+            <a href="tel:+919876543210">+91 98765 43210</a>
+          </div>
+          <div class="footer-contact-item">
+            <i class="bi bi-envelope"></i>
+            <a href="mailto:info@patelplywood.com">info@patelplywood.com</a>
+          </div>
+          <div class="footer-contact-item">
+            <i class="bi bi-clock"></i>
+            <span>Mon–Sat: 9:00 AM – 7:00 PM</span>
+          </div>
+        </div>
+        <div class="col-lg-3">
+          <h5 class="text-white mb-3" style="font-weight:600;">Quick Links</h5>
+          <div class="d-flex flex-column gap-2">
+            <a href="#" class="text-decoration-none" style="color:#bbb;transition:var(--transition);">About Us</a>
+            <a href="#" class="text-decoration-none" style="color:#bbb;transition:var(--transition);">Services</a>
+            <a href="#" class="text-decoration-none" style="color:#bbb;transition:var(--transition);">Projects</a>
+            <a href="#" class="text-decoration-none" style="color:#bbb;transition:var(--transition);">Blog</a>
+            <a href="#" class="text-decoration-none" style="color:#bbb;transition:var(--transition);">Contact</a>
+          </div>
+          <div class="mt-3">
+            <span class="footer-badge"><i class="bi bi-shield-check me-1"></i> ISO 9001:2021</span>
+          </div>
+        </div>
       </div>
-      <hr class="my-4">
-      <div class="d-flex justify-content-between text-secondary small"><span>© 2026 Patel Plywood Centre. Made with ❤️ by MDID Infoway</span><span>GST: 22ABCDE1234F1Z5</span></div>
+      <div class="footer-bottom">
+        <span>© 2026 Patel Plywood Centre. All rights reserved.</span>
+        <span>Made with ❤️ by <a href="#">MDIDM Infoway</a></span>
+      </div>
     </div>
   </footer>
 
-  <!-- SCRIPTS -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- ===== SCRIPTS ===== -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
   <script>
-    AOS.init({ duration: 800, easing: 'ease-out', once: true });
-    // nav scroll
+    // Disable AOS on mobile for faster load
+    if (window.innerWidth <= 768) {
+      document.querySelectorAll('[data-aos]').forEach(el => {
+        el.removeAttribute('data-aos');
+        el.removeAttribute('data-aos-delay');
+        el.removeAttribute('data-aos-duration');
+      });
+    } else {
+      AOS.init({ duration: 800, once: true, offset: 40, disable: 'mobile' });
+    }
+
     window.addEventListener('scroll', function() {
-      document.getElementById('mainNav').classList.toggle('scrolled', window.scrollY > 60);
+      const header = document.getElementById('mainHeader');
+      if (window.scrollY > 60) header.classList.add('scrolled');
+      else header.classList.remove('scrolled');
     });
-    // brand swiper
-    new Swiper('.brand-swiper', { slidesPerView: 4, loop: true, autoplay: { delay: 2000 }, breakpoints: { 768: { slidesPerView: 6 } } });
-    // counter animation
-    const counters = document.querySelectorAll('[data-count]');
-    const animateCounter = (el) => { const target = +el.dataset.count; let current = 0; const increment = target/60; const timer = setInterval(()=>{ current += increment; if(current >= target) { el.innerText = target; clearInterval(timer); } else el.innerText = Math.floor(current); }, 25); };
-    const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if(entry.isIntersecting) { animateCounter(entry.target); observer.unobserve(entry.target); } }); }, { threshold: 0.3 });
-    counters.forEach(c => observer.observe(c));
+    function animateCounters() {
+      document.querySelectorAll('.counter-value').forEach(el => {
+        const target = parseInt(el.getAttribute('data-count'));
+        let current = 0;
+        const increment = Math.ceil(target / 60);
+        const timer = setInterval(() => {
+          current += increment;
+          if (current >= target) { el.textContent = target; clearInterval(timer); }
+          else el.textContent = current;
+        }, 25);
+      });
+    }
+    window.addEventListener('load', animateCounters);
+    document.querySelectorAll('#mainNav .nav-link, #mainNav .dropdown-item, #mainNav .btn-nav').forEach(link => {
+      link.addEventListener('click', () => {
+        const menu = document.getElementById('mainNav');
+        if (menu.classList.contains('show')) {
+          const toggler = document.querySelector('.navbar-toggler');
+          toggler.click();
+        }
+      });
+    });
   </script>
 </body>
 </html>
