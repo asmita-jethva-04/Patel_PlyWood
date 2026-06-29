@@ -108,7 +108,6 @@
       background: #fff;
       padding: 20px 0;
       border-bottom: 1px solid var(--border);
-      position: sticky;
       top: 80px;
       z-index: 99;
       box-shadow: 0 4px 20px rgba(0,0,0,0.04);
@@ -367,6 +366,72 @@
       color: rgba(255,255,255,0.7);
     }
 
+    /* ===== PAGINATION - UNIQUE STYLE ===== */
+    .pagination-unique {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      align-items: center;
+      margin-top: 30px;
+    }
+    .pagination-unique a,
+    .pagination-unique span {
+      padding: 8px 16px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.9rem;
+      color: var(--paragraph);
+      background: transparent;
+      border: 2px solid transparent;
+      transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 40px;
+      height: 40px;
+    }
+    .pagination-unique a:hover {
+      background: rgba(181,122,43,0.06);
+      color: var(--gold);
+      border-color: rgba(181,122,43,0.15);
+      border-radius: 8px;
+    }
+    .pagination-unique .active {
+      background: var(--gold-gradient);
+      color: #fff;
+      border-color: var(--gold);
+      box-shadow: 0 8px 25px rgba(181,122,43,0.25);
+      border-radius: 8px;
+    }
+    .pagination-unique .prev-next {
+      gap: 6px;
+      font-weight: 600;
+      color: var(--paragraph);
+      padding: 8px 18px;
+    }
+    .pagination-unique .prev-next:hover {
+      background: rgba(181,122,43,0.06);
+      color: var(--gold);
+      border-color: rgba(181,122,43,0.15);
+    }
+    .pagination-unique .prev-next i {
+      font-size: 0.8rem;
+    }
+    .pagination-unique .disabled {
+      opacity: 0.4;
+      pointer-events: none;
+    }
+    .pagination-unique .ellipsis {
+      color: var(--paragraph);
+      cursor: default;
+      min-width: 30px;
+    }
+    .pagination-unique .ellipsis:hover {
+      background: transparent;
+      border-color: transparent;
+    }
+
     /* ===== RESPONSIVE ===== */
     @media (max-width: 991.98px) {
       .category-single-hero .hero-content h1 { font-size: 3rem; }
@@ -375,6 +440,8 @@
       .product-filters .filter-group select { padding: 6px 12px; font-size: 0.8rem; }
       .product-filters .filter-group .filter-btn { padding: 6px 14px; font-size: 0.8rem; }
       .product-card .product-img { height: 200px; }
+      .pagination-unique a,
+      .pagination-unique span { padding: 6px 12px; font-size: 0.8rem; min-width: 34px; height: 34px; }
     }
     @media (max-width: 767.98px) {
       .category-single-hero { height: 300px; min-height: 250px; }
@@ -385,6 +452,10 @@
       .product-filters .results-count { margin-left: 0; width: 100%; text-align: center; margin-top: 8px; }
       .product-card .product-img { height: 180px; }
       .category-info-section .info-card { padding: 25px; }
+      .pagination-unique { gap: 4px; flex-wrap: wrap; }
+      .pagination-unique a,
+      .pagination-unique span { padding: 4px 10px; font-size: 0.75rem; min-width: 30px; height: 30px; }
+      .pagination-unique .prev-next { padding: 4px 12px; font-size: 0.75rem; }
     }
     @media (max-width: 575.98px) {
       .category-single-hero .hero-content h1 { font-size: 1.8rem; }
@@ -394,6 +465,10 @@
       .product-card .product-body { padding: 16px; }
       .product-card .product-body h5 { font-size: 1rem; }
       .product-card .product-body .product-price .current { font-size: 1.1rem; }
+      .pagination-unique { gap: 3px; }
+      .pagination-unique a,
+      .pagination-unique span { padding: 3px 8px; font-size: 0.7rem; min-width: 26px; height: 26px; }
+      .pagination-unique .prev-next { padding: 3px 10px; font-size: 0.7rem; }
     }
   </style>
 </head>
@@ -810,17 +885,16 @@
           </div>
         </div>
       </div>
-      <!-- Pagination -->
-      <div class="d-flex justify-content-center mt-5">
-        <nav aria-label="Page navigation">
-          <ul class="pagination">
-            <li class="page-item disabled"><span class="page-link">Previous</span></li>
-            <li class="page-item active"><span class="page-link">1</span></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item"><a class="page-link" href="#">Next</a></li>
-          </ul>
-        </nav>
+      
+      <!-- ===== UNIQUE PAGINATION ===== -->
+      <div class="pagination-unique">
+        <a href="#" class="prev-next disabled"><i class="bi bi-chevron-left"></i> Previous</a>
+        <span class="active">1</span>
+        <a href="#">2</a>
+        <a href="#">3</a>
+        <span class="ellipsis">…</span>
+        <a href="#">8</a>
+        <a href="#" class="prev-next">Next <i class="bi bi-chevron-right"></i></a>
       </div>
     </div>
   </section>
