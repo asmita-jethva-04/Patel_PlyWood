@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+  <title>Blog Detail · Patel Plywood Centre</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz@14..32&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* ===== BLOG DETAIL - UNIQUE MAGAZINE STYLE ===== */
+    
+    /* Hero Section - Full Width with Overlay */
+    .blog-detail-hero {
+      position: relative;
+      height: 85vh;
+      min-height: 500px;
+      width: 100%;
+      overflow: hidden;
+      margin-top: -10px;
+      background: url('https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=1600&q=80') center/cover no-repeat;
+      background-attachment: fixed;
+    }
+    .blog-detail-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0.6) 100%);
+      z-index: 1;
+    }
+    .blog-detail-hero .hero-content {
+      position: relative;
+      z-index: 2;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 50px 0 70px;
+    }
+    .blog-detail-hero .hero-content .hero-badge {
+      display: inline-block;
+      background: rgba(181,122,43,0.2);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(181,122,43,0.3);
+      padding: 6px 24px;
+      border-radius: 50px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gold-light);
+      margin-bottom: 12px;
+      width: fit-content;
+    }
+    .blog-detail-hero .hero-content .breadcrumb {
+      background: transparent;
+      padding: 0;
+      margin-bottom: 12px;
+    }
+    .blog-detail-hero .hero-content .breadcrumb-item a {
+      color: rgba(255,255,255,0.7);
+      text-decoration: none;
+      transition: var(--transition);
+      font-size: 0.9rem;
+    }
+    .blog-detail-hero .hero-content .breadcrumb-item a:hover { color: var(--gold); }
+    .blog-detail-hero .hero-content .breadcrumb-item.active {
+      color: var(--gold-light);
+      font-size: 0.9rem;
+    }
+    .blog-detail-hero .hero-content .breadcrumb-item + .breadcrumb-item::before {
+      color: rgba(255,255,255,0.3);
+    }
+    .blog-detail-hero .hero-content h1 {
+      font-size: 3.8rem;
+      font-weight: 800;
+      color: #fff;
+      letter-spacing: -2px;
+      line-height: 1.1;
+      max-width: 800px;
+      text-shadow: 0 4px 40px rgba(0,0,0,0.3);
+    }
+    .blog-detail-hero .hero-content .blog-meta {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-top: 16px;
+      align-items: center;
+    }
+    .blog-detail-hero .hero-content .blog-meta span {
+      color: rgba(255,255,255,0.8);
+      font-size: 0.9rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .blog-detail-hero .hero-content .blog-meta span i {
+      color: var(--gold);
+    }
+    .blog-detail-hero .hero-content .blog-meta .blog-category {
+      background: var(--gold-gradient);
+      color: #fff;
+      padding: 4px 18px;
+      border-radius: 50px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .blog-detail-hero .hero-content .blog-meta .author-avatar {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .blog-detail-hero .hero-content .blog-meta .author-avatar img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 2px solid var(--gold);
+      object-fit: cover;
+    }
+
+    /* Scroll Indicator */
+    .scroll-indicator-blog {
+      position: absolute;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 3;
+      color: rgba(255,255,255,0.4);
+      font-size: 1.6rem;
+      animation: scrollBounce 2s infinite;
+      cursor: pointer;
+    }
+    @keyframes scrollBounce {
+      0%,100% { transform: translateX(-50%) translateY(0); opacity: 0.4; }
+      50% { transform: translateX(-50%) translateY(12px); opacity: 1; }
+    }
+
+    /* Blog Content - Unique Layout */
+    .blog-content-section {
+      background: #fff;
+      padding: 60px 0 50px;
+      position: relative;
+    }
+    .blog-content-section::before {
+      content: '';
+      position: absolute;
+      top: -2px;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: var(--gold-gradient);
+    }
+    .blog-content-section .blog-content p {
+      color: var(--paragraph);
+      line-height: 2;
+      font-size: 1.1rem;
+      margin-bottom: 24px;
+      letter-spacing: 0.2px;
+    }
+    .blog-content-section .blog-content p:first-of-type {
+      font-size: 1.2rem;
+      color: var(--heading);
+      font-weight: 500;
+    }
+    .blog-content-section .blog-content h3 {
+      font-weight: 700;
+      margin-top: 40px;
+      margin-bottom: 18px;
+      font-size: 1.6rem;
+      position: relative;
+      padding-left: 20px;
+    }
+    .blog-content-section .blog-content h3::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 4px;
+      background: var(--gold-gradient);
+      border-radius: 10px;
+    }
+    .blog-content-section .blog-content .blog-image {
+      border-radius: 16px;
+      overflow: hidden;
+      margin: 35px 0;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+      position: relative;
+    }
+    .blog-content-section .blog-content .blog-image img {
+      width: 100%;
+      height: auto;
+      border-radius: 16px;
+      transition: var(--transition);
+    }
+    .blog-content-section .blog-content .blog-image:hover img {
+      transform: scale(1.02);
+    }
+    .blog-content-section .blog-content .blog-image .caption {
+      padding: 14px 0 0;
+      font-size: 0.85rem;
+      color: var(--paragraph);
+      font-style: italic;
+      text-align: center;
+      letter-spacing: 0.3px;
+    }
+    .blog-content-section .blog-content .blog-image .image-badge {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      background: var(--gold-gradient);
+      color: #fff;
+      padding: 4px 18px;
+      border-radius: 50px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .blog-content-section .blog-content .pull-quote {
+      background: var(--bg-light);
+      border-left: 4px solid var(--gold);
+      padding: 25px 30px;
+      margin: 30px 0;
+      border-radius: 0 12px 12px 0;
+    }
+    .blog-content-section .blog-content .pull-quote p {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--heading);
+      margin-bottom: 0;
+      font-style: italic;
+    }
+    .blog-content-section .blog-content .pull-quote .quote-author {
+      font-size: 0.85rem;
+      color: var(--gold);
+      font-weight: 600;
+      font-style: normal;
+      margin-top: 8px;
+      display: block;
+    }
+
+    /* Related Posts - Unique Style */
+    .related-posts {
+      background: var(--bg-light);
+      padding: 70px 0;
+      position: relative;
+    }
+    .related-posts::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: var(--gold-gradient);
+    }
+    .related-posts .section-title h2 {
+      font-size: 2.2rem;
+      font-weight: 800;
+      letter-spacing: -1px;
+    }
+    .related-posts .section-title .gold-divider-center {
+      margin: 12px auto 0;
+    }
+    .related-carousel .carousel-item {
+      padding: 0 15px;
+    }
+    .related-carousel .carousel-control-prev,
+    .related-carousel .carousel-control-next {
+      width: 44px;
+      height: 44px;
+      background: var(--gold);
+      border-radius: 50%;
+      top: 50%;
+      transform: translateY(-50%);
+      opacity: 0.8;
+      border: none;
+      transition: var(--transition);
+    }
+    .related-carousel .carousel-control-prev {
+      left: -15px;
+    }
+    .related-carousel .carousel-control-next {
+      right: -15px;
+    }
+    .related-carousel .carousel-control-prev:hover,
+    .related-carousel .carousel-control-next:hover {
+      opacity: 1;
+      background: var(--gold-dark);
+      transform: translateY(-50%) scale(1.05);
+    }
+    .related-carousel .carousel-control-prev-icon,
+    .related-carousel .carousel-control-next-icon {
+      width: 20px;
+      height: 20px;
+    }
+    .related-carousel .carousel-indicators {
+      bottom: -45px;
+    }
+    .related-carousel .carousel-indicators button {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #ccc;
+      border: none;
+      margin: 0 6px;
+      transition: var(--transition);
+    }
+    .related-carousel .carousel-indicators button.active {
+      background: var(--gold);
+      transform: scale(1.2);
+    }
+    .related-card-unique {
+      background: #fff;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.04);
+      transition: var(--transition);
+      height: 100%;
+      margin: 0 5px;
+      border: 1px solid rgba(0,0,0,0.03);
+    }
+    .related-card-unique:hover {
+      transform: translateY(-12px);
+      box-shadow: 0 30px 70px rgba(0,0,0,0.1);
+      border-color: rgba(181,122,43,0.1);
+    }
+    .related-card-unique .card-img-wrap {
+      position: relative;
+      overflow: hidden;
+      height: 240px;
+    }
+    .related-card-unique .card-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: var(--transition);
+    }
+    .related-card-unique:hover .card-img-wrap img {
+      transform: scale(1.05);
+    }
+    .related-card-unique .card-img-wrap .card-badge {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 40px 20px 20px;
+      background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 100%);
+    }
+    .related-card-unique .card-img-wrap .card-badge .category-tag {
+      display: inline-block;
+      background: var(--gold-gradient);
+      color: #fff;
+      padding: 2px 14px;
+      border-radius: 50px;
+      font-size: 0.6rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .related-card-unique .card-body-unique {
+      padding: 20px 22px 24px;
+    }
+    .related-card-unique .card-body-unique .post-meta {
+      display: flex;
+      gap: 14px;
+      font-size: 0.75rem;
+      color: var(--paragraph);
+      margin-bottom: 8px;
+    }
+    .related-card-unique .card-body-unique .post-meta span i {
+      color: var(--gold);
+    }
+    .related-card-unique .card-body-unique h5 {
+      font-weight: 700;
+      font-size: 1.05rem;
+      margin-bottom: 8px;
+      line-height: 1.4;
+      transition: var(--transition);
+    }
+    .related-card-unique:hover .card-body-unique h5 {
+      color: var(--gold);
+    }
+    .related-card-unique .card-body-unique p {
+      color: var(--paragraph);
+      font-size: 0.9rem;
+      line-height: 1.7;
+      margin-bottom: 14px;
+    }
+    .related-card-unique .card-body-unique .read-link {
+      color: var(--gold);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.85rem;
+      transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .related-card-unique .card-body-unique .read-link:hover {
+      color: var(--gold-dark);
+      gap: 12px;
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 1199.98px) {
+      .blog-detail-hero .hero-content h1 { font-size: 3.2rem; }
+    }
+    @media (max-width: 991.98px) {
+      .blog-detail-hero { height: 70vh; min-height: 400px; }
+      .blog-detail-hero .hero-content h1 { font-size: 2.8rem; }
+      .related-carousel .carousel-control-prev { left: -10px; }
+      .related-carousel .carousel-control-next { right: -10px; }
+      .related-carousel .carousel-control-prev,
+      .related-carousel .carousel-control-next { width: 34px; height: 34px; }
+      .related-card-unique .card-img-wrap { height: 200px; }
+    }
+    @media (max-width: 767.98px) {
+      .blog-detail-hero { height: 60vh; min-height: 350px; background-attachment: scroll; }
+      .blog-detail-hero .hero-content { padding: 30px 0 40px; }
+      .blog-detail-hero .hero-content h1 { font-size: 2rem; }
+      .blog-detail-hero .hero-content .blog-meta { gap: 12px; }
+      .blog-detail-hero .hero-content .blog-meta span { font-size: 0.8rem; }
+      .blog-content-section { padding: 40px 0 30px; }
+      .blog-content-section .blog-content p { font-size: 1rem; }
+      .blog-content-section .blog-content h3 { font-size: 1.3rem; }
+      .blog-content-section .blog-content .pull-quote p { font-size: 1rem; }
+      .related-posts { padding: 50px 0; }
+      .related-posts .section-title h2 { font-size: 1.8rem; }
+      .related-card-unique .card-img-wrap { height: 180px; }
+      .related-card-unique .card-body-unique { padding: 16px 18px 20px; }
+      .related-card-unique .card-body-unique h5 { font-size: 0.95rem; }
+      .scroll-indicator-blog { display: none; }
+    }
+    @media (max-width: 575.98px) {
+      .blog-detail-hero { height: 50vh; min-height: 300px; }
+      .blog-detail-hero .hero-content h1 { font-size: 1.6rem; }
+      .blog-detail-hero .hero-content .blog-meta { gap: 8px; }
+      .blog-detail-hero .hero-content .blog-meta span { font-size: 0.7rem; }
+      .blog-content-section .blog-content .blog-image .image-badge { display: none; }
+      .related-card-unique .card-img-wrap { height: 160px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== TOP BAR ===== -->
+  <div class="top-bar">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-md-8">
+          <div class="contact-info d-flex flex-wrap align-items-center gap-2 gap-lg-3">
+            <a href="#"><i class="bi bi-telephone-fill gold-text"></i> +91 98765 43210</a>
+            <span class="divider d-none d-sm-inline">|</span>
+            <a href="#"><i class="bi bi-envelope-fill gold-text"></i> info@patelplywood.com</a>
+            <span class="divider d-none d-sm-inline">|</span>
+            <a href="#"><i class="bi bi-geo-alt-fill gold-text"></i> Ahmedabad, India</a>
+            <span class="divider d-none d-sm-inline">|</span>
+            <span><i class="bi bi-clock-fill gold-text"></i> Mon–Sat 9:00–7:00</span>
+          </div>
+        </div>
+        <div class="col-md-4 d-flex justify-content-end">
+          <div class="social-icons d-flex gap-1">
+            <a href="#"><i class="bi bi-facebook"></i></a>
+            <a href="#"><i class="bi bi-instagram"></i></a>
+            <a href="#"><i class="bi bi-youtube"></i></a>
+            <a href="#"><i class="bi bi-linkedin"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== MAIN NAV ===== -->
+  <header class="navbar-main fixed-top" id="mainHeader">
+    <nav class="navbar navbar-expand-lg">
+      <div class="container">
+        <a class="navbar-brand" href="index.html">
+          <img src="images/headerlogo.png" alt="Patel Plywood Centre" class="brand-logo">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="mainNav">
+          <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+            <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+            <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+            <li class="nav-item"><a class="nav-link" href="services.html">Services</a></li>
+            <li class="nav-item dropdown-categories">
+              <a class="nav-link" href="category.html">Categories <i class="bi bi-chevron-down"></i></a>
+              <div class="dropdown-menu">
+                <a class="dropdown-item" href="#"><i class="bi bi-door-open"></i> Plywood Doors</a>
+                <a class="dropdown-item" href="#"><i class="bi bi-layers"></i> Veneers</a>
+                <a class="dropdown-item" href="#"><i class="bi bi-grid"></i> Laminates</a>
+                <a class="dropdown-item" href="#"><i class="bi bi-tree"></i> Sagwan Timber</a>
+                <a class="dropdown-item" href="#"><i class="bi bi-border-all"></i> Decorative Panels</a>
+                <a class="dropdown-item" href="#"><i class="bi bi-building"></i> ACP Sheets</a>
+                <a class="dropdown-item" href="#"><i class="bi bi-layers-half"></i> HPL & Cladding</a>
+                <a class="dropdown-item" href="#"><i class="bi bi-images"></i> Wallpapers</a>
+                <a class="dropdown-item" href="#"><i class="bi bi-grid-3x3-gap"></i> Mosaic Sheets</a>
+                <a class="dropdown-item" href="#"><i class="bi bi-window"></i> Acrylic Sheets</a>
+                <a class="dropdown-item" href="#"><i class="bi bi-flower1"></i> Green Grass</a>
+                <a class="dropdown-item" href="#"><i class="bi bi-flower2"></i> Decorative Flowers</a>
+                <a class="dropdown-item" href="#"><i class="bi bi-house"></i> Wooden Flooring</a>
+                <a class="dropdown-item" href="#"><i class="bi bi-grid-1x2"></i> Vinyl Flooring</a>
+                <a class="dropdown-item" href="#"><i class="bi bi-border-width"></i> Exterior Planks</a>
+                <a class="dropdown-item" href="#"><i class="bi bi-tools"></i> Hardware</a>
+                <a class="dropdown-item" href="#"><i class="bi bi-box"></i> WPC Chokat</a>
+                <a class="dropdown-item" href="#"><i class="bi bi-box-seam"></i> Zero Wood NFC</a>
+                <a class="dropdown-item" href="#"><i class="bi bi-layers"></i> MDF Boards</a>
+                <a class="dropdown-item" href="#"><i class="bi bi-palette"></i> CNC Design Panels</a>
+                <a class="dropdown-item" href="#"><i class="bi bi-droplet"></i> Fevicol</a>
+              </div>
+            </li>
+            <li class="nav-item"><a class="nav-link" href="projects.html">Projects</a></li>
+            <li class="nav-item"><a class="nav-link active" href="blog.html">Blog</a></li>
+            <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
+          </ul>
+          <div class="nav-actions d-flex gap-2">
+            <a href="#" class="btn-nav btn-nav-call"><i class="bi bi-telephone-fill"></i>Call Now</a>
+            <a href="#" class="btn-nav btn-nav-quote">Get Quote</a>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <!-- ===== BLOG DETAIL HERO ===== -->
+  <section class="blog-detail-hero">
+    <div class="container hero-content">
+      <span class="hero-badge" data-aos="fade-up"><i class="bi bi-pencil-square me-2"></i>Featured Article</span>
+      <nav aria-label="breadcrumb" data-aos="fade-up" data-aos-delay="50">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+          <li class="breadcrumb-item"><a href="blog.html">Blog</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Interior Design Trends</li>
+        </ol>
+      </nav>
+      <h1 data-aos="fade-up" data-aos-delay="100">10 Interior Design Trends for Modern Homes</h1>
+      <div class="blog-meta" data-aos="fade-up" data-aos-delay="150">
+        <span class="blog-category">Interior Design</span>
+        <span><i class="bi bi-calendar3"></i> June 15, 2024</span>
+        <span><i class="bi bi-clock"></i> 8 min read</span>
+        <span class="author-avatar">
+          <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=100&q=80" alt="Author">
+          <span>By Mr. Patel</span>
+        </span>
+      </div>
+    </div>
+    <div class="scroll-indicator-blog"><i class="bi bi-chevron-down"></i></div>
+  </section>
+
+  <!-- ===== BLOG CONTENT ===== -->
+  <section class="blog-content-section">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-8">
+          <div class="blog-content">
+            <!-- Featured Image -->
+            <div class="blog-image" data-aos="fade-up">
+              <span class="image-badge">Featured</span>
+              <img src="https://images.unsplash.com/photo-1618220179428-22790b461013?w=800&q=80" alt="Modern Interior Design">
+              <div class="caption">Modern interior design embracing natural light and minimalism</div>
+            </div>
+
+            <p data-aos="fade-up">Interior design is constantly evolving, and staying updated with the latest trends can help you create a space that feels fresh, modern, and timeless. In this article, we explore 10 interior design trends that are shaping modern homes in 2024 and beyond.</p>
+
+            <h3 data-aos="fade-up">1. Sustainable Materials</h3>
+            <p data-aos="fade-up">Eco-friendly materials are no longer a niche choice—they're becoming a mainstream preference. From reclaimed wood to bamboo flooring and recycled glass countertops, homeowners are increasingly choosing sustainable options that reduce environmental impact while adding unique character to their spaces.</p>
+
+            <h3 data-aos="fade-up">2. Biophilic Design</h3>
+            <p data-aos="fade-up">Biophilic design focuses on connecting indoor spaces with nature. This trend incorporates natural elements like indoor plants, natural light, water features, and organic materials. The result is a calming, rejuvenating environment that promotes well-being and reduces stress.</p>
+
+            <div class="blog-image" data-aos="fade-up">
+              <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80" alt="Biophilic Design">
+              <div class="caption">Biophilic design brings nature indoors for a calming effect</div>
+            </div>
+
+            <h3 data-aos="fade-up">3. Warm Neutrals</h3>
+            <p data-aos="fade-up">While cool grays have dominated for years, warm neutrals are making a strong comeback. Shades like beige, cream, terracotta, and warm taupe create inviting, cozy atmospheres that feel both sophisticated and welcoming. These colors pair beautifully with natural wood tones and textured fabrics.</p>
+
+            <div class="pull-quote" data-aos="fade-up">
+              <p>"Design is not just what it looks like and feels like. Design is how it works."</p>
+              <span class="quote-author">— Steve Jobs</span>
+            </div>
+
+            <h3 data-aos="fade-up">4. Multifunctional Spaces</h3>
+            <p data-aos="fade-up">With more people working from home, multifunctional spaces have become essential. Designers are creating rooms that serve multiple purposes—home offices that convert to guest rooms, living areas with dedicated work zones, and kitchens that double as social hubs.</p>
+
+            <h3 data-aos="fade-up">5. Statement Lighting</h3>
+            <p data-aos="fade-up">Lighting is no longer just functional—it's a key design element. Oversized pendant lights, sculptural chandeliers, and unique floor lamps are being used as statement pieces that add drama and personality to rooms.</p>
+
+            <div class="blog-image" data-aos="fade-up">
+              <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=800&q=80" alt="Statement Lighting">
+              <div class="caption">Statement lighting adds drama and elegance to modern interiors</div>
+            </div>
+
+            <h3 data-aos="fade-up">6. Natural Textures</h3>
+            <p data-aos="fade-up">Texture is taking center stage in modern interior design. From jute rugs and linen upholstery to rattan furniture and exposed brick walls, natural textures add depth, warmth, and visual interest to spaces.</p>
+
+            <h3 data-aos="fade-up">7. Bold Accents</h3>
+            <p data-aos="fade-up">While neutral tones form the base, bold accents are being used to add personality. Vibrant colors, geometric patterns, and unexpected art pieces are being incorporated through accessories, accent walls, and furniture pieces.</p>
+
+            <h3 data-aos="fade-up">8. Integrated Technology</h3>
+            <p data-aos="fade-up">Smart home technology is being seamlessly integrated into interior design. From motorized blinds and smart lighting to hidden charging stations and voice-controlled systems, technology is becoming an invisible but essential part of modern homes.</p>
+
+            <h3 data-aos="fade-up">9. Artisanal Details</h3>
+            <p data-aos="fade-up">Handcrafted elements are gaining popularity as people seek authenticity and uniqueness. Handmade ceramics, artisanal textiles, and custom furniture pieces add a personal touch that mass-produced items cannot replicate.</p>
+
+            <h3 data-aos="fade-up">10. Indoor-Outdoor Flow</h3>
+            <p data-aos="fade-up">Creating a seamless connection between indoor and outdoor spaces is a growing trend. Large sliding doors, outdoor living rooms, and consistent flooring materials help blur the boundaries between inside and outside, expanding living spaces and bringing in natural light.</p>
+
+            <div class="blog-image" data-aos="fade-up">
+              <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&q=80" alt="Indoor-Outdoor Living">
+              <div class="caption">Seamless indoor-outdoor living with large glass doors</div>
+            </div>
+
+            <p data-aos="fade-up">These trends reflect a broader shift towards spaces that are not just beautiful but also functional, sustainable, and deeply personal. Whether you're planning a full renovation or simply looking to refresh a room, incorporating some of these trends can help you create a home that feels modern, comfortable, and uniquely yours.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== RELATED POSTS CAROUSEL ===== -->
+  <section class="related-posts">
+    <div class="container">
+      <div class="section-title text-center" data-aos="fade-up">
+        <h2>Continue <span class="gold-text">Reading</span></h2>
+        <div class="gold-divider-center"></div>
+        <p class="text-muted">More articles you might find interesting</p>
+      </div>
+
+      <div id="relatedCarousel" class="carousel slide related-carousel" data-bs-ride="carousel" data-bs-interval="5000">
+        <div class="carousel-indicators">
+          <button type="button" data-bs-target="#relatedCarousel" data-bs-slide-to="0" class="active"></button>
+          <button type="button" data-bs-target="#relatedCarousel" data-bs-slide-to="1"></button>
+          <button type="button" data-bs-target="#relatedCarousel" data-bs-slide-to="2"></button>
+        </div>
+        <div class="carousel-inner">
+          <!-- Slide 1 -->
+          <div class="carousel-item active">
+            <div class="row g-4">
+              <div class="col-md-4" data-aos="fade-up" data-aos-delay="0">
+                <div class="related-card-unique">
+                  <div class="card-img-wrap">
+                    <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&q=80" alt="Blog Post">
+                    <div class="card-badge">
+                      <span class="category-tag">Plywood</span>
+                    </div>
+                  </div>
+                  <div class="card-body-unique">
+                    <div class="post-meta">
+                      <span><i class="bi bi-calendar3"></i> June 12, 2024</span>
+                      <span><i class="bi bi-clock"></i> 5 min read</span>
+                    </div>
+                    <h5>How to Choose the Perfect Plywood for Your Home</h5>
+                    <p>Learn the key factors to consider when selecting plywood for your interior projects.</p>
+                    <a href="#" class="read-link">Read More <i class="bi bi-arrow-right"></i></a>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                <div class="related-card-unique">
+                  <div class="card-img-wrap">
+                    <img src="https://images.unsplash.com/photo-1618220179428-22790b461013?w=600&q=80" alt="Blog Post">
+                    <div class="card-badge">
+                      <span class="category-tag">Veneers</span>
+                    </div>
+                  </div>
+                  <div class="card-body-unique">
+                    <div class="post-meta">
+                      <span><i class="bi bi-calendar3"></i> June 10, 2024</span>
+                      <span><i class="bi bi-clock"></i> 6 min read</span>
+                    </div>
+                    <h5>Natural Veneers: Adding Warmth to Modern Interiors</h5>
+                    <p>Explore how natural wood veneers can bring warmth and elegance to contemporary spaces.</p>
+                    <a href="#" class="read-link">Read More <i class="bi bi-arrow-right"></i></a>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                <div class="related-card-unique">
+                  <div class="card-img-wrap">
+                    <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=600&q=80" alt="Blog Post">
+                    <div class="card-badge">
+                      <span class="category-tag">Laminates</span>
+                    </div>
+                  </div>
+                  <div class="card-body-unique">
+                    <div class="post-meta">
+                      <span><i class="bi bi-calendar3"></i> June 8, 2024</span>
+                      <span><i class="bi bi-clock"></i> 7 min read</span>
+                    </div>
+                    <h5>Laminates vs. Veneers: Which is Right for You?</h5>
+                    <p>A comprehensive comparison to help you make the right choice for your design project.</p>
+                    <a href="#" class="read-link">Read More <i class="bi bi-arrow-right"></i></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Slide 2 -->
+          <div class="carousel-item">
+            <div class="row g-4">
+              <div class="col-md-4">
+                <div class="related-card-unique">
+                  <div class="card-img-wrap">
+                    <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=600&q=80" alt="Blog Post">
+                    <div class="card-badge">
+                      <span class="category-tag">Design Tips</span>
+                    </div>
+                  </div>
+                  <div class="card-body-unique">
+                    <div class="post-meta">
+                      <span><i class="bi bi-calendar3"></i> June 5, 2024</span>
+                      <span><i class="bi bi-clock"></i> 4 min read</span>
+                    </div>
+                    <h5>5 Tips for a Sustainable Interior Design</h5>
+                    <p>Discover practical tips for creating an eco-friendly interior design that's beautiful.</p>
+                    <a href="#" class="read-link">Read More <i class="bi bi-arrow-right"></i></a>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="related-card-unique">
+                  <div class="card-img-wrap">
+                    <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&q=80" alt="Blog Post">
+                    <div class="card-badge">
+                      <span class="category-tag">Kitchen</span>
+                    </div>
+                  </div>
+                  <div class="card-body-unique">
+                    <div class="post-meta">
+                      <span><i class="bi bi-calendar3"></i> June 3, 2024</span>
+                      <span><i class="bi bi-clock"></i> 8 min read</span>
+                    </div>
+                    <h5>Modern Kitchen Design: Trends and Tips</h5>
+                    <p>Explore the latest trends in modern kitchen design, from materials to layout solutions.</p>
+                    <a href="#" class="read-link">Read More <i class="bi bi-arrow-right"></i></a>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="related-card-unique">
+                  <div class="card-img-wrap">
+                    <img src="https://images.unsplash.com/photo-1618220179428-22790b461013?w=600&q=80" alt="Blog Post">
+                    <div class="card-badge">
+                      <span class="category-tag">Materials</span>
+                    </div>
+                  </div>
+                  <div class="card-body-unique">
+                    <div class="post-meta">
+                      <span><i class="bi bi-calendar3"></i> June 1, 2024</span>
+                      <span><i class="bi bi-clock"></i> 6 min read</span>
+                    </div>
+                    <h5>Plywood Grades Explained: What You Need to Know</h5>
+                    <p>Understand the different grades of plywood and how to choose the right one.</p>
+                    <a href="#" class="read-link">Read More <i class="bi bi-arrow-right"></i></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Slide 3 -->
+          <div class="carousel-item">
+            <div class="row g-4">
+              <div class="col-md-4">
+                <div class="related-card-unique">
+                  <div class="card-img-wrap">
+                    <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=600&q=80" alt="Blog Post">
+                    <div class="card-badge">
+                      <span class="category-tag">Space Planning</span>
+                    </div>
+                  </div>
+                  <div class="card-body-unique">
+                    <div class="post-meta">
+                      <span><i class="bi bi-calendar3"></i> May 28, 2024</span>
+                      <span><i class="bi bi-clock"></i> 5 min read</span>
+                    </div>
+                    <h5>How to Maximize Small Spaces with Smart Design</h5>
+                    <p>Learn practical tips to make the most of small spaces with intelligent design solutions.</p>
+                    <a href="#" class="read-link">Read More <i class="bi bi-arrow-right"></i></a>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="related-card-unique">
+                  <div class="card-img-wrap">
+                    <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&q=80" alt="Blog Post">
+                    <div class="card-badge">
+                      <span class="category-tag">Finishes</span>
+                    </div>
+                  </div>
+                  <div class="card-body-unique">
+                    <div class="post-meta">
+                      <span><i class="bi bi-calendar3"></i> May 25, 2024</span>
+                      <span><i class="bi bi-clock"></i> 7 min read</span>
+                    </div>
+                    <h5>Top Laminate Finishes for Modern Interiors</h5>
+                    <p>Explore the most popular laminate finishes that can transform your interiors with style.</p>
+                    <a href="#" class="read-link">Read More <i class="bi bi-arrow-right"></i></a>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="related-card-unique">
+                  <div class="card-img-wrap">
+                    <img src="https://images.unsplash.com/photo-1618220179428-22790b461013?w=600&q=80" alt="Blog Post">
+                    <div class="card-badge">
+                      <span class="category-tag">Hardware</span>
+                    </div>
+                  </div>
+                  <div class="card-body-unique">
+                    <div class="post-meta">
+                      <span><i class="bi bi-calendar3"></i> May 22, 2024</span>
+                      <span><i class="bi bi-clock"></i> 4 min read</span>
+                    </div>
+                    <h5>Choosing the Right Hardware for Your Furniture</h5>
+                    <p>Learn how to select the perfect hardware to complement your furniture and interior style.</p>
+                    <a href="#" class="read-link">Read More <i class="bi bi-arrow-right"></i></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#relatedCarousel" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon"></span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#relatedCarousel" data-bs-slide="next">
+          <span class="carousel-control-next-icon"></span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer-unique">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-lg-5">
+          <div class="footer-brand"><img src="images/headerlogo.png" alt="logo" class="img-fluid" style="max-width:150px; height:auto;"></div>
+          <p class="footer-desc mt-3">Total Interior Solutions since 2010. Premium plywood, veneers, laminates &amp; hardware for discerning clients who value quality and craftsmanship.</p>
+          <div class="footer-social mt-3">
+            <a href="#"><i class="bi bi-facebook"></i></a>
+            <a href="#"><i class="bi bi-instagram"></i></a>
+            <a href="#"><i class="bi bi-youtube"></i></a>
+            <a href="#"><i class="bi bi-linkedin"></i></a>
+            <a href="#"><i class="bi bi-pinterest"></i></a>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <h5 class="text-white mb-3" style="font-weight:600;">Get in Touch</h5>
+          <div class="footer-contact-item">
+            <i class="bi bi-geo-alt"></i>
+            <span>Ahmedabad, Gujarat, India</span>
+          </div>
+          <div class="footer-contact-item">
+            <i class="bi bi-telephone"></i>
+            <a href="tel:+919876543210">+91 98765 43210</a>
+          </div>
+          <div class="footer-contact-item">
+            <i class="bi bi-envelope"></i>
+            <a href="mailto:info@patelplywood.com">info@patelplywood.com</a>
+          </div>
+          <div class="footer-contact-item">
+            <i class="bi bi-clock"></i>
+            <span>Mon–Sat: 9:00 AM – 7:00 PM</span>
+          </div>
+        </div>
+        <div class="col-lg-3">
+          <h5 class="text-white mb-3" style="font-weight:600;">Quick Links</h5>
+          <div class="d-flex flex-column gap-2">
+            <a href="#" class="text-decoration-none" style="color:#bbb;transition:var(--transition);">About Us</a>
+            <a href="#" class="text-decoration-none" style="color:#bbb;transition:var(--transition);">Services</a>
+            <a href="#" class="text-decoration-none" style="color:#bbb;transition:var(--transition);">Projects</a>
+            <a href="#" class="text-decoration-none" style="color:#bbb;transition:var(--transition);">Blog</a>
+            <a href="#" class="text-decoration-none" style="color:#bbb;transition:var(--transition);">Contact</a>
+          </div>
+          <div class="mt-3">
+            <span class="footer-badge"><i class="bi bi-shield-check me-1"></i> ISO 9001:2021</span>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 Patel Plywood Centre. All rights reserved.</span>
+        <span>Made with ❤️ by <a href="#">MDIDM Infoway</a></span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===== SCRIPTS ===== -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    // Disable AOS on mobile for faster load
+    if (window.innerWidth <= 768) {
+      document.querySelectorAll('[data-aos]').forEach(el => {
+        el.removeAttribute('data-aos');
+        el.removeAttribute('data-aos-delay');
+        el.removeAttribute('data-aos-duration');
+      });
+    } else {
+      AOS.init({ duration: 800, once: true, offset: 40, disable: 'mobile' });
+    }
+
+    // Sticky header
+    window.addEventListener('scroll', function() {
+      const header = document.getElementById('mainHeader');
+      if (window.scrollY > 60) header.classList.add('scrolled');
+      else header.classList.remove('scrolled');
+    });
+
+    // Close mobile menu on link click
+    document.querySelectorAll('#mainNav .nav-link, #mainNav .dropdown-item, #mainNav .btn-nav').forEach(link => {
+      link.addEventListener('click', () => {
+        const menu = document.getElementById('mainNav');
+        if (menu.classList.contains('show')) {
+          const toggler = document.querySelector('.navbar-toggler');
+          toggler.click();
+        }
+      });
+    });
+  </script>
+</body>
+</html>

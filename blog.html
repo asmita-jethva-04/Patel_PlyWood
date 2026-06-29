@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+  <title>Blog · Patel Plywood Centre</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz@14..32&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* ===== BLOG PAGE UNIQUE STYLES ===== */
+    
+    /* Hero Section */
+    .blog-hero {
+      position: relative;
+      height: 400px;
+      min-height: 300px;
+      width: 100%;
+      overflow: hidden;
+      margin-top: -10px;
+      background: url('https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=1600&q=80') center/cover no-repeat;
+    }
+    .blog-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0.6) 100%);
+      z-index: 1;
+    }
+    .blog-hero .hero-content {
+      position: relative;
+      z-index: 2;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding-top: 70px;
+    }
+    .blog-hero .hero-content .hero-badge {
+      display: inline-block;
+      background: rgba(181,122,43,0.2);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(181,122,43,0.3);
+      padding: 8px 30px;
+      border-radius: 50px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--gold-light);
+      margin-bottom: 16px;
+    }
+    .blog-hero .hero-content h1 {
+      font-size: 4rem;
+      font-weight: 800;
+      color: #fff;
+      letter-spacing: -2px;
+      text-shadow: 0 4px 30px rgba(0,0,0,0.3);
+    }
+    .blog-hero .hero-content h1 .highlight {
+      background: var(--gold-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .blog-hero .hero-content .breadcrumb {
+      background: transparent;
+      padding: 0;
+      margin-top: 16px;
+    }
+    .blog-hero .hero-content .breadcrumb-item a {
+      color: rgba(255,255,255,0.7);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+    .blog-hero .hero-content .breadcrumb-item a:hover { color: var(--gold); }
+    .blog-hero .hero-content .breadcrumb-item.active {
+      color: var(--gold-light);
+    }
+    .blog-hero .hero-content .breadcrumb-item + .breadcrumb-item::before {
+      color: rgba(255,255,255,0.3);
+    }
+
+    /* Blog Grid - 2 per row */
+    .blog-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 30px;
+    }
+    .blog-card {
+      background: #fff;
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      transition: var(--transition);
+      border: 1px solid rgba(0,0,0,0.03);
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+    .blog-card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-hover);
+      border-color: rgba(181,122,43,0.1);
+    }
+    .blog-card .blog-img {
+      position: relative;
+      overflow: hidden;
+      height: 260px;
+    }
+    .blog-card .blog-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: var(--transition);
+    }
+    .blog-card:hover .blog-img img {
+      transform: scale(1.05);
+    }
+    .blog-card .blog-img .blog-badge {
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      background: var(--gold-gradient);
+      color: #fff;
+      padding: 4px 16px;
+      border-radius: 50px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .blog-card .blog-body {
+      padding: 24px 26px 28px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .blog-card .blog-body .blog-meta {
+      display: flex;
+      gap: 16px;
+      font-size: 0.8rem;
+      color: var(--paragraph);
+      margin-bottom: 10px;
+    }
+    .blog-card .blog-body .blog-meta span {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .blog-card .blog-body .blog-meta span i {
+      color: var(--gold);
+      font-size: 0.75rem;
+    }
+    .blog-card .blog-body h4 {
+      font-weight: 700;
+      font-size: 1.2rem;
+      margin-bottom: 10px;
+      transition: var(--transition);
+      line-height: 1.4;
+    }
+    .blog-card:hover .blog-body h4 {
+      color: var(--gold);
+    }
+    .blog-card .blog-body p {
+      color: var(--paragraph);
+      font-size: 0.95rem;
+      line-height: 1.7;
+      margin-bottom: 16px;
+      flex: 1;
+    }
+    .blog-card .blog-body .read-more {
+      color: var(--gold);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: auto;
+    }
+    .blog-card .blog-body .read-more:hover {
+      color: var(--gold-dark);
+      gap: 10px;
+    }
+
+    /* Pagination */
+    .pagination-custom {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      align-items: center;
+      margin-top: 50px;
+    }
+    .pagination-custom a,
+    .pagination-custom span {
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: var(--paragraph);
+      background: #fff;
+      border: 2px solid transparent;
+      transition: var(--transition);
+    }
+    .pagination-custom a:hover {
+      background: rgba(181,122,43,0.06);
+      color: var(--gold);
+      border-color: var(--gold);
+    }
+    .pagination-custom .active {
+      background: var(--gold-gradient);
+      color: #fff;
+      border-color: var(--gold);
+      box-shadow: 0 8px 25px rgba(181,122,43,0.25);
+    }
+    .pagination-custom .prev-next {
+      width: auto;
+      padding: 0 20px;
+      border-radius: 50px;
+      gap: 8px;
+    }
+
+    /* Newsletter CTA */
+    .newsletter-section {
+      background: var(--charcoal);
+      position: relative;
+      overflow: hidden;
+    }
+    .newsletter-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: var(--gold-gradient);
+    }
+    .newsletter-section h2 {
+      color: #fff;
+      font-weight: 800;
+    }
+    .newsletter-section p {
+      color: rgba(255,255,255,0.7);
+    }
+    .newsletter-section .form-control {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      color: #fff;
+      padding: 14px 20px;
+      border-radius: 50px;
+      font-size: 0.95rem;
+    }
+    .newsletter-section .form-control:focus {
+      background: rgba(255,255,255,0.1);
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3px rgba(181,122,43,0.15);
+    }
+    .newsletter-section .form-control::placeholder {
+      color: rgba(255,255,255,0.4);
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 1199.98px) {
+      .blog-hero .hero-content h1 { font-size: 3.5rem; }
+      .blog-grid { gap: 24px; }
+    }
+    @media (max-width: 991.98px) {
+      .blog-hero { height: 350px; }
+      .blog-hero .hero-content h1 { font-size: 3rem; }
+      .blog-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+      .blog-card .blog-img { height: 220px; }
+    }
+    @media (max-width: 767.98px) {
+      .blog-hero { height: 300px; min-height: 250px; }
+      .blog-hero .hero-content h1 { font-size: 2.4rem; }
+      .blog-hero .hero-content .hero-badge { font-size: 0.65rem; padding: 6px 20px; }
+      .blog-grid { grid-template-columns: 1fr 1fr; gap: 16px; }
+      .blog-card .blog-img { height: 170px; }
+      .blog-card .blog-body { padding: 14px 16px 18px; }
+      .blog-card .blog-body h4 { font-size: 0.95rem; }
+      .blog-card .blog-body p { font-size: 0.85rem; }
+      .blog-card .blog-body .blog-meta { font-size: 0.7rem; gap: 10px; }
+    }
+    @media (max-width: 575.98px) {
+      .blog-hero { height: 250px; min-height: 200px; }
+      .blog-hero .hero-content h1 { font-size: 2rem; }
+      .blog-grid { grid-template-columns: 1fr; gap: 20px; }
+      .blog-card .blog-img { height: 200px; }
+      .blog-card .blog-body { padding: 18px 20px 22px; }
+      .blog-card .blog-body h4 { font-size: 1.05rem; }
+      .blog-card .blog-body p { font-size: 0.9rem; }
+      .pagination-custom a,
+      .pagination-custom span { width: 36px; height: 36px; font-size: 0.8rem; }
+      .pagination-custom .prev-next { padding: 0 12px; font-size: 0.8rem; }
+      .newsletter-section .form-control { border-radius: 50px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== TOP BAR ===== -->
+  <div class="top-bar">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-md-8">
+          <div class="contact-info d-flex flex-wrap align-items-center gap-2 gap-lg-3">
+            <a href="#"><i class="bi bi-telephone-fill gold-text"></i> +91 98765 43210</a>
+            <span class="divider d-none d-sm-inline">|</span>
+            <a href="#"><i class="bi bi-envelope-fill gold-text"></i> info@patelplywood.com</a>
+            <span class="divider d-none d-sm-inline">|</span>
+            <a href="#"><i class="bi bi-geo-alt-fill gold-text"></i> Ahmedabad, India</a>
+            <span class="divider d-none d-sm-inline">|</span>
+            <span><i class="bi bi-clock-fill gold-text"></i> Mon–Sat 9:00–7:00</span>
+          </div>
+        </div>
+        <div class="col-md-4 d-flex justify-content-end">
+          <div class="social-icons d-flex gap-1">
+            <a href="#"><i class="bi bi-facebook"></i></a>
+            <a href="#"><i class="bi bi-instagram"></i></a>
+            <a href="#"><i class="bi bi-youtube"></i></a>
+            <a href="#"><i class="bi bi-linkedin"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== MAIN NAV ===== -->
+  <header class="navbar-main fixed-top" id="mainHeader">
+    <nav class="navbar navbar-expand-lg">
+      <div class="container">
+        <a class="navbar-brand" href="index.html">
+          <img src="images/headerlogo.png" alt="Patel Plywood Centre" class="brand-logo">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="mainNav">
+          <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+            <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+            <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+            <li class="nav-item"><a class="nav-link" href="services.html">Services</a></li>
+            <li class="nav-item dropdown-categories">
+              <a class="nav-link" href="category.html">Categories <i class="bi bi-chevron-down"></i></a>
+              <div class="dropdown-menu">
+                <a class="dropdown-item" href="#"><i class="bi bi-door-open"></i> Plywood Doors</a>
+                <a class="dropdown-item" href="#"><i class="bi bi-layers"></i> Veneers</a>
+                <a class="dropdown-item" href="#"><i class="bi bi-grid"></i> Laminates</a>
+                <a class="dropdown-item" href="#"><i class="bi bi-tree"></i> Sagwan Timber</a>
+                <a class="dropdown-item" href="#"><i class="bi bi-border-all"></i> Decorative Panels</a>
+                <a class="dropdown-item" href="#"><i class="bi bi-building"></i> ACP Sheets</a>
+                <a class="dropdown-item" href="#"><i class="bi bi-layers-half"></i> HPL & Cladding</a>
+                <a class="dropdown-item" href="#"><i class="bi bi-images"></i> Wallpapers</a>
+                <a class="dropdown-item" href="#"><i class="bi bi-grid-3x3-gap"></i> Mosaic Sheets</a>
+                <a class="dropdown-item" href="#"><i class="bi bi-window"></i> Acrylic Sheets</a>
+                <a class="dropdown-item" href="#"><i class="bi bi-flower1"></i> Green Grass</a>
+                <a class="dropdown-item" href="#"><i class="bi bi-flower2"></i> Decorative Flowers</a>
+                <a class="dropdown-item" href="#"><i class="bi bi-house"></i> Wooden Flooring</a>
+                <a class="dropdown-item" href="#"><i class="bi bi-grid-1x2"></i> Vinyl Flooring</a>
+                <a class="dropdown-item" href="#"><i class="bi bi-border-width"></i> Exterior Planks</a>
+                <a class="dropdown-item" href="#"><i class="bi bi-tools"></i> Hardware</a>
+                <a class="dropdown-item" href="#"><i class="bi bi-box"></i> WPC Chokat</a>
+                <a class="dropdown-item" href="#"><i class="bi bi-box-seam"></i> Zero Wood NFC</a>
+                <a class="dropdown-item" href="#"><i class="bi bi-layers"></i> MDF Boards</a>
+                <a class="dropdown-item" href="#"><i class="bi bi-palette"></i> CNC Design Panels</a>
+                <a class="dropdown-item" href="#"><i class="bi bi-droplet"></i> Fevicol</a>
+              </div>
+            </li>
+            <li class="nav-item"><a class="nav-link" href="projects.html">Projects</a></li>
+            <li class="nav-item"><a class="nav-link active" href="#">Blog</a></li>
+            <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
+          </ul>
+          <div class="nav-actions d-flex gap-2">
+            <a href="#" class="btn-nav btn-nav-call"><i class="bi bi-telephone-fill"></i>Call Now</a>
+            <a href="#" class="btn-nav btn-nav-quote">Get Quote</a>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <!-- ===== BLOG HERO ===== -->
+  <section class="blog-hero">
+    <div class="container hero-content">
+      <span class="hero-badge" data-aos="fade-up"><i class="bi bi-pencil-square me-2"></i>Our Blog</span>
+      <h1 data-aos="fade-up" data-aos-delay="50">Interior <span class="highlight">Insights</span></h1>
+      <nav aria-label="breadcrumb" data-aos="fade-up" data-aos-delay="100">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Blog</li>
+        </ol>
+      </nav>
+    </div>
+  </section>
+
+  <!-- ===== BLOG CONTENT ===== -->
+  <section class="section-padding bg-white">
+    <div class="container">
+      <!-- Blog Grid - 2 per row -->
+      <div class="blog-grid">
+        <!-- Post 1 -->
+        <div class="blog-card" data-aos="fade-up" data-aos-delay="0">
+          <div class="blog-img">
+            <img src="https://images.unsplash.com/photo-1618220179428-22790b461013?w=600&q=80" alt="Blog Post">
+            <span class="blog-badge">Interior Design</span>
+          </div>
+          <div class="blog-body">
+            <div class="blog-meta">
+              <span><i class="bi bi-calendar3"></i> June 15, 2024</span>
+              <span><i class="bi bi-person"></i> Admin</span>
+            </div>
+            <h4>10 Interior Design Trends for Modern Homes</h4>
+            <p>Discover the latest interior design trends that are shaping modern homes. From sustainable materials to bold color choices.</p>
+            <a href="#" class="read-more">Read More <i class="bi bi-arrow-right"></i></a>
+          </div>
+        </div>
+        <!-- Post 2 -->
+        <div class="blog-card" data-aos="fade-up" data-aos-delay="100">
+          <div class="blog-img">
+            <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&q=80" alt="Blog Post">
+            <span class="blog-badge">Veneers</span>
+          </div>
+          <div class="blog-body">
+            <div class="blog-meta">
+              <span><i class="bi bi-calendar3"></i> June 12, 2024</span>
+              <span><i class="bi bi-person"></i> Admin</span>
+            </div>
+            <h4>Natural Veneers: Adding Warmth to Modern Interiors</h4>
+            <p>Explore how natural wood veneers can bring warmth, texture, and elegance to contemporary interior spaces.</p>
+            <a href="#" class="read-more">Read More <i class="bi bi-arrow-right"></i></a>
+          </div>
+        </div>
+        <!-- Post 3 -->
+        <div class="blog-card" data-aos="fade-up" data-aos-delay="200">
+          <div class="blog-img">
+            <img src="https://images.unsplash.com/photo-1618220179428-22790b461013?w=600&q=80" alt="Blog Post">
+            <span class="blog-badge">Laminates</span>
+          </div>
+          <div class="blog-body">
+            <div class="blog-meta">
+              <span><i class="bi bi-calendar3"></i> June 10, 2024</span>
+              <span><i class="bi bi-person"></i> Admin</span>
+            </div>
+            <h4>Laminates vs. Veneers: Which is Right for You?</h4>
+            <p>A comprehensive comparison of laminates and veneers to help you make the right choice for your interior design project.</p>
+            <a href="#" class="read-more">Read More <i class="bi bi-arrow-right"></i></a>
+          </div>
+        </div>
+        <!-- Post 4 -->
+        <div class="blog-card" data-aos="fade-up" data-aos-delay="300">
+          <div class="blog-img">
+            <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=600&q=80" alt="Blog Post">
+            <span class="blog-badge">Tips & Ideas</span>
+          </div>
+          <div class="blog-body">
+            <div class="blog-meta">
+              <span><i class="bi bi-calendar3"></i> June 8, 2024</span>
+              <span><i class="bi bi-person"></i> Admin</span>
+            </div>
+            <h4>5 Tips for a Sustainable Interior Design</h4>
+            <p>Discover practical tips for creating an eco-friendly interior design that's both beautiful and sustainable.</p>
+            <a href="#" class="read-more">Read More <i class="bi bi-arrow-right"></i></a>
+          </div>
+        </div>
+        <!-- Post 5 -->
+        <div class="blog-card" data-aos="fade-up" data-aos-delay="400">
+          <div class="blog-img">
+            <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=600&q=80" alt="Blog Post">
+            <span class="blog-badge">Interior Design</span>
+          </div>
+          <div class="blog-body">
+            <div class="blog-meta">
+              <span><i class="bi bi-calendar3"></i> June 5, 2024</span>
+              <span><i class="bi bi-person"></i> Admin</span>
+            </div>
+            <h4>Modern Kitchen Design: Trends and Tips</h4>
+            <p>Explore the latest trends in modern kitchen design, from materials to layout and storage solutions.</p>
+            <a href="#" class="read-more">Read More <i class="bi bi-arrow-right"></i></a>
+          </div>
+        </div>
+        <!-- Post 6 -->
+        <div class="blog-card" data-aos="fade-up" data-aos-delay="500">
+          <div class="blog-img">
+            <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&q=80" alt="Blog Post">
+            <span class="blog-badge">Plywood</span>
+          </div>
+          <div class="blog-body">
+            <div class="blog-meta">
+              <span><i class="bi bi-calendar3"></i> June 3, 2024</span>
+              <span><i class="bi bi-person"></i> Admin</span>
+            </div>
+            <h4>Plywood Grades Explained: What You Need to Know</h4>
+            <p>Understand the different grades of plywood and how to choose the right one for your specific project needs.</p>
+            <a href="#" class="read-more">Read More <i class="bi bi-arrow-right"></i></a>
+          </div>
+        </div>
+        <!-- Post 7 -->
+        <div class="blog-card" data-aos="fade-up" data-aos-delay="600">
+          <div class="blog-img">
+            <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=600&q=80" alt="Blog Post">
+            <span class="blog-badge">Tips & Ideas</span>
+          </div>
+          <div class="blog-body">
+            <div class="blog-meta">
+              <span><i class="bi bi-calendar3"></i> June 1, 2024</span>
+              <span><i class="bi bi-person"></i> Admin</span>
+            </div>
+            <h4>How to Maximize Small Spaces with Smart Design</h4>
+            <p>Learn practical tips and tricks to make the most of small spaces with intelligent interior design solutions.</p>
+            <a href="#" class="read-more">Read More <i class="bi bi-arrow-right"></i></a>
+          </div>
+        </div>
+        <!-- Post 8 -->
+        <div class="blog-card" data-aos="fade-up" data-aos-delay="700">
+          <div class="blog-img">
+            <img src="https://images.unsplash.com/photo-1618220179428-22790b461013?w=600&q=80" alt="Blog Post">
+            <span class="blog-badge">Laminates</span>
+          </div>
+          <div class="blog-body">
+            <div class="blog-meta">
+              <span><i class="bi bi-calendar3"></i> May 28, 2024</span>
+              <span><i class="bi bi-person"></i> Admin</span>
+            </div>
+            <h4>Top Laminate Finishes for Modern Interiors</h4>
+            <p>Explore the most popular laminate finishes that can transform your interiors with style and durability.</p>
+            <a href="#" class="read-more">Read More <i class="bi bi-arrow-right"></i></a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pagination -->
+      <div class="pagination-custom">
+        <a href="#" class="prev-next"><i class="bi bi-chevron-left"></i> Previous</a>
+        <span class="active">1</span>
+        <a href="#">2</a>
+        <a href="#">3</a>
+        <a href="#">...</a>
+        <a href="#">8</a>
+        <a href="#" class="prev-next">Next <i class="bi bi-chevron-right"></i></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== NEWSLETTER CTA ===== -->
+  <section class="newsletter-section section-padding">
+    <div class="container">
+      <div class="row justify-content-center text-center">
+        <div class="col-lg-8">
+          <h2 data-aos="fade-up">Subscribe to Our <span class="gold-text">Newsletter</span></h2>
+          <p data-aos="fade-up" data-aos-delay="50" class="mb-4">Get the latest interior design tips, product updates, and exclusive offers delivered to your inbox.</p>
+          <form data-aos="fade-up" data-aos-delay="100" class="row g-2 justify-content-center">
+            <div class="col-md-7">
+              <input type="email" class="form-control" placeholder="Enter your email address">
+            </div>
+            <div class="col-md-3">
+              <button class="btn btn-gold w-100">Subscribe Now</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer-unique">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-lg-5">
+          <div class="footer-brand"><img src="images/headerlogo.png" alt="logo" class="img-fluid" style="max-width:150px; height:auto;"></div>
+          <p class="footer-desc mt-3">Total Interior Solutions since 2010. Premium plywood, veneers, laminates &amp; hardware for discerning clients who value quality and craftsmanship.</p>
+          <div class="footer-social mt-3">
+            <a href="#"><i class="bi bi-facebook"></i></a>
+            <a href="#"><i class="bi bi-instagram"></i></a>
+            <a href="#"><i class="bi bi-youtube"></i></a>
+            <a href="#"><i class="bi bi-linkedin"></i></a>
+            <a href="#"><i class="bi bi-pinterest"></i></a>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <h5 class="text-white mb-3" style="font-weight:600;">Get in Touch</h5>
+          <div class="footer-contact-item">
+            <i class="bi bi-geo-alt"></i>
+            <span>Ahmedabad, Gujarat, India</span>
+          </div>
+          <div class="footer-contact-item">
+            <i class="bi bi-telephone"></i>
+            <a href="tel:+919876543210">+91 98765 43210</a>
+          </div>
+          <div class="footer-contact-item">
+            <i class="bi bi-envelope"></i>
+            <a href="mailto:info@patelplywood.com">info@patelplywood.com</a>
+          </div>
+          <div class="footer-contact-item">
+            <i class="bi bi-clock"></i>
+            <span>Mon–Sat: 9:00 AM – 7:00 PM</span>
+          </div>
+        </div>
+        <div class="col-lg-3">
+          <h5 class="text-white mb-3" style="font-weight:600;">Quick Links</h5>
+          <div class="d-flex flex-column gap-2">
+            <a href="#" class="text-decoration-none" style="color:#bbb;transition:var(--transition);">About Us</a>
+            <a href="#" class="text-decoration-none" style="color:#bbb;transition:var(--transition);">Services</a>
+            <a href="#" class="text-decoration-none" style="color:#bbb;transition:var(--transition);">Projects</a>
+            <a href="#" class="text-decoration-none" style="color:#bbb;transition:var(--transition);">Blog</a>
+            <a href="#" class="text-decoration-none" style="color:#bbb;transition:var(--transition);">Contact</a>
+          </div>
+          <div class="mt-3">
+            <span class="footer-badge"><i class="bi bi-shield-check me-1"></i> ISO 9001:2021</span>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 Patel Plywood Centre. All rights reserved.</span>
+        <span>Made with ❤️ by <a href="#">MDIDM Infoway</a></span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===== SCRIPTS ===== -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    // Disable AOS on mobile for faster load
+    if (window.innerWidth <= 768) {
+      document.querySelectorAll('[data-aos]').forEach(el => {
+        el.removeAttribute('data-aos');
+        el.removeAttribute('data-aos-delay');
+        el.removeAttribute('data-aos-duration');
+      });
+    } else {
+      AOS.init({ duration: 800, once: true, offset: 40, disable: 'mobile' });
+    }
+
+    // Sticky header
+    window.addEventListener('scroll', function() {
+      const header = document.getElementById('mainHeader');
+      if (window.scrollY > 60) header.classList.add('scrolled');
+      else header.classList.remove('scrolled');
+    });
+
+    // Close mobile menu on link click
+    document.querySelectorAll('#mainNav .nav-link, #mainNav .dropdown-item, #mainNav .btn-nav').forEach(link => {
+      link.addEventListener('click', () => {
+        const menu = document.getElementById('mainNav');
+        if (menu.classList.contains('show')) {
+          const toggler = document.querySelector('.navbar-toggler');
+          toggler.click();
+        }
+      });
+    });
+  </script>
+</body>
+</html>

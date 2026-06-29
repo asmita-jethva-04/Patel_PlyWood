@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+  <title>About Us · Patel Plywood Centre</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz@14..32&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* ===== ABOUT PAGE SPECIFIC STYLES ===== */
+    
+    /* Hero Section */
+    .about-hero {
+      position: relative;
+      height: 400px;
+      min-height: 300px;
+      width: 100%;
+      overflow: hidden;
+      margin-top: -10px;
+      background: url('https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=1600&q=80') center/cover no-repeat;
+    }
+    .about-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.6) 100%);
+      z-index: 1;
+    }
+    .about-hero .hero-content {
+      position: relative;
+      z-index: 2;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding-top: 70px;
+    }
+    .about-hero .hero-content h1 {
+      font-size: 4rem;
+      font-weight: 800;
+      color: #fff;
+      letter-spacing: -2px;
+    }
+    .about-hero .hero-content h1 .highlight {
+      background: var(--gold-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .about-hero .hero-content .breadcrumb {
+      background: transparent;
+      padding: 0;
+      margin-top: 16px;
+    }
+    .about-hero .hero-content .breadcrumb-item a {
+      color: rgba(255,255,255,0.7);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+    .about-hero .hero-content .breadcrumb-item a:hover { color: var(--gold); }
+    .about-hero .hero-content .breadcrumb-item.active {
+      color: var(--gold-light);
+    }
+    .about-hero .hero-content .breadcrumb-item + .breadcrumb-item::before {
+      color: rgba(255,255,255,0.3);
+    }
+
+    /* Stats Section */
+    .about-stats {
+      background: var(--charcoal);
+      padding: 60px 0;
+      position: relative;
+    }
+    .about-stats::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: var(--gold-gradient);
+    }
+    .about-stats .stat-item {
+      text-align: center;
+      padding: 20px;
+    }
+    .about-stats .stat-item .number {
+      font-size: 3.5rem;
+      font-weight: 800;
+      color: var(--gold);
+      display: block;
+      line-height: 1;
+    }
+    .about-stats .stat-item .label {
+      color: rgba(255,255,255,0.7);
+      font-size: 0.95rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-top: 8px;
+      display: block;
+    }
+    .about-stats .stat-item .number .plus-sign {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--gold);
+    }
+
+    /* Mission Vision Section */
+    .mission-vision {
+      background: #fff;
+    }
+    .mission-vision .mv-card {
+      padding: 40px 30px;
+      border-radius: var(--radius);
+      background: var(--bg-light);
+      transition: var(--transition);
+      height: 100%;
+      border-bottom: 4px solid transparent;
+    }
+    .mission-vision .mv-card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-hover);
+      border-bottom-color: var(--gold);
+    }
+    .mission-vision .mv-card .icon-wrap {
+      width: 70px;
+      height: 70px;
+      background: var(--gold-gradient);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+    .mission-vision .mv-card .icon-wrap i {
+      font-size: 2rem;
+      color: #fff;
+    }
+    .mission-vision .mv-card h4 {
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+    .mission-vision .mv-card p {
+      color: var(--paragraph);
+      line-height: 1.8;
+      margin-bottom: 0;
+    }
+
+    /* Team Section */
+    .team-section {
+      background: var(--bg-light);
+    }
+    .team-card {
+      background: #fff;
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      transition: var(--transition);
+      height: 100%;
+    }
+    .team-card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-hover);
+    }
+    .team-card img {
+      width: 100%;
+      height: 280px;
+      object-fit: cover;
+    }
+    .team-card .team-info {
+      padding: 24px 20px;
+      text-align: center;
+    }
+    .team-card .team-info h5 {
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .team-card .team-info .position {
+      color: var(--gold);
+      font-size: 0.85rem;
+      font-weight: 500;
+    }
+    .team-card .team-info p {
+      font-size: 0.9rem;
+      color: var(--paragraph);
+      margin-top: 10px;
+      margin-bottom: 0;
+    }
+
+    /* Timeline Section */
+    .timeline-section {
+      background: #fff;
+    }
+    .timeline-item {
+      display: flex;
+      gap: 24px;
+      margin-bottom: 40px;
+      position: relative;
+    }
+    .timeline-item:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      left: 19px;
+      top: 50px;
+      bottom: -40px;
+      width: 2px;
+      background: var(--gold);
+      opacity: 0.3;
+    }
+    .timeline-item .year {
+      min-width: 70px;
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--gold);
+      line-height: 1;
+    }
+    .timeline-item .year .year-badge {
+      display: inline-block;
+      background: var(--gold-gradient);
+      color: #fff;
+      padding: 4px 16px;
+      border-radius: 50px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-top: 4px;
+    }
+    .timeline-item .content {
+      padding-top: 4px;
+    }
+    .timeline-item .content h5 {
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    .timeline-item .content p {
+      color: var(--paragraph);
+      line-height: 1.8;
+      margin-bottom: 0;
+    }
+    .timeline-item .content .timeline-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(181,122,43,0.1);
+      color: var(--gold);
+      font-size: 1.2rem;
+      margin-bottom: 10px;
+    }
+
+    /* CTA Section */
+    .about-cta {
+      background: var(--charcoal);
+      position: relative;
+      overflow: hidden;
+    }
+    .about-cta::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: var(--gold-gradient);
+    }
+    .about-cta h2 {
+      color: #fff;
+      font-weight: 800;
+    }
+    .about-cta p {
+      color: rgba(255,255,255,0.7);
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 991.98px) {
+      .about-hero .hero-content h1 { font-size: 3rem; }
+      .about-stats .stat-item .number { font-size: 2.8rem; }
+      .about-stats .stat-item .number .plus-sign { font-size: 2rem; }
+    }
+    @media (max-width: 767.98px) {
+      .about-hero { height: 300px; min-height: 250px; }
+      .about-hero .hero-content h1 { font-size: 2.2rem; }
+      .about-stats .stat-item { padding: 12px; }
+      .about-stats .stat-item .number { font-size: 2.2rem; }
+      .about-stats .stat-item .number .plus-sign { font-size: 1.6rem; }
+      .timeline-item { flex-direction: column; gap: 12px; }
+      .timeline-item:not(:last-child)::after { display: none; }
+      .timeline-item .year { font-size: 1.5rem; }
+      .team-card img { height: 220px; }
+    }
+    @media (max-width: 575.98px) {
+      .about-hero .hero-content h1 { font-size: 1.8rem; }
+      .about-stats .stat-item .number { font-size: 1.8rem; }
+      .about-stats .stat-item .number .plus-sign { font-size: 1.3rem; }
+      .about-stats .stat-item .label { font-size: 0.75rem; }
+      .mission-vision .mv-card { padding: 28px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== TOP BAR ===== -->
+  <div class="top-bar">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-md-8">
+          <div class="contact-info d-flex flex-wrap align-items-center gap-2 gap-lg-3">
+            <a href="#"><i class="bi bi-telephone-fill gold-text"></i> +91 98765 43210</a>
+            <span class="divider d-none d-sm-inline">|</span>
+            <a href="#"><i class="bi bi-envelope-fill gold-text"></i> info@patelplywood.com</a>
+            <span class="divider d-none d-sm-inline">|</span>
+            <a href="#"><i class="bi bi-geo-alt-fill gold-text"></i> Ahmedabad, India</a>
+            <span class="divider d-none d-sm-inline">|</span>
+            <span><i class="bi bi-clock-fill gold-text"></i> Mon–Sat 9:00–7:00</span>
+          </div>
+        </div>
+        <div class="col-md-4 d-flex justify-content-end">
+          <div class="social-icons d-flex gap-1">
+            <a href="#"><i class="bi bi-facebook"></i></a>
+            <a href="#"><i class="bi bi-instagram"></i></a>
+            <a href="#"><i class="bi bi-youtube"></i></a>
+            <a href="#"><i class="bi bi-linkedin"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== MAIN NAV ===== -->
+  <header class="navbar-main fixed-top" id="mainHeader">
+    <nav class="navbar navbar-expand-lg">
+      <div class="container">
+        <a class="navbar-brand" href="index.html">
+          <img src="images/headerlogo.png" alt="Patel Plywood Centre" class="brand-logo">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="mainNav">
+          <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+            <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+            <li class="nav-item"><a class="nav-link active" href="#">About</a></li>
+            <li class="nav-item"><a class="nav-link" href="#">Services</a></li>
+            <li class="nav-item dropdown-categories">
+              <a class="nav-link" href="#">Categories <i class="bi bi-chevron-down"></i></a>
+              <div class="dropdown-menu">
+                <a class="dropdown-item" href="#"><i class="bi bi-door-open"></i> Plywood Doors</a>
+                <a class="dropdown-item" href="#"><i class="bi bi-layers"></i> Veneers</a>
+                <a class="dropdown-item" href="#"><i class="bi bi-grid"></i> Laminates</a>
+                <a class="dropdown-item" href="#"><i class="bi bi-tree"></i> Sagwan Timber</a>
+                <a class="dropdown-item" href="#"><i class="bi bi-border-all"></i> Decorative Panels</a>
+                <a class="dropdown-item" href="#"><i class="bi bi-building"></i> ACP Sheets</a>
+                <a class="dropdown-item" href="#"><i class="bi bi-layers-half"></i> HPL & Cladding</a>
+                <a class="dropdown-item" href="#"><i class="bi bi-images"></i> Wallpapers</a>
+                <a class="dropdown-item" href="#"><i class="bi bi-grid-3x3-gap"></i> Mosaic Sheets</a>
+                <a class="dropdown-item" href="#"><i class="bi bi-window"></i> Acrylic Sheets</a>
+                <a class="dropdown-item" href="#"><i class="bi bi-flower1"></i> Green Grass</a>
+                <a class="dropdown-item" href="#"><i class="bi bi-flower2"></i> Decorative Flowers</a>
+                <a class="dropdown-item" href="#"><i class="bi bi-house"></i> Wooden Flooring</a>
+                <a class="dropdown-item" href="#"><i class="bi bi-grid-1x2"></i> Vinyl Flooring</a>
+                <a class="dropdown-item" href="#"><i class="bi bi-border-width"></i> Exterior Planks</a>
+                <a class="dropdown-item" href="#"><i class="bi bi-tools"></i> Hardware</a>
+                <a class="dropdown-item" href="#"><i class="bi bi-box"></i> WPC Chokat</a>
+                <a class="dropdown-item" href="#"><i class="bi bi-box-seam"></i> Zero Wood NFC</a>
+                <a class="dropdown-item" href="#"><i class="bi bi-layers"></i> MDF Boards</a>
+                <a class="dropdown-item" href="#"><i class="bi bi-palette"></i> CNC Design Panels</a>
+                <a class="dropdown-item" href="#"><i class="bi bi-droplet"></i> Fevicol</a>
+              </div>
+            </li>
+            <li class="nav-item"><a class="nav-link" href="#">Projects</a></li>
+            <li class="nav-item"><a class="nav-link" href="#">Blog</a></li>
+            <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
+          </ul>
+          <div class="nav-actions d-flex gap-2">
+            <a href="#" class="btn-nav btn-nav-call"><i class="bi bi-telephone-fill"></i>Call Now</a>
+            <a href="#" class="btn-nav btn-nav-quote">Get Quote</a>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <!-- ===== ABOUT HERO ===== -->
+  <section class="about-hero">
+    <div class="container hero-content">
+      <h1 data-aos="fade-up">About <span class="highlight">Patel Plywood</span></h1>
+      <nav aria-label="breadcrumb" data-aos="fade-up" data-aos-delay="100">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+          <li class="breadcrumb-item active" aria-current="page">About</li>
+        </ol>
+      </nav>
+    </div>
+  </section>
+
+  <!-- ===== ABOUT STORY ===== -->
+  <section class="section-padding bg-white">
+    <div class="container">
+      <div class="row align-items-center g-5">
+        <div class="col-lg-6" data-aos="fade-right">
+          <span class="section-subtitle">Our Story</span>
+          <h2 class="section-title">Crafting Premium <span class="gold-text">Interior Solutions</span> Since 2010</h2>
+          <div class="gold-divider-center" style="margin-left:0;"></div>
+          <p style="line-height:1.9; font-size:1.05rem; color:var(--paragraph);">
+            Patel Plywood Centre was founded in 2010 with a simple yet powerful vision: to provide the finest quality plywood, veneers, laminates, and interior solutions to architects, designers, and homeowners who refuse to compromise on quality.
+          </p>
+          <p style="line-height:1.9; font-size:1.05rem; color:var(--paragraph);">
+            Over the past 14+ years, we have grown from a small local supplier to a trusted name in the interior industry, serving over 850+ happy clients across India. Our commitment to excellence, genuine branded materials, and expert guidance has made us the preferred choice for residential and commercial projects.
+          </p>
+          <div class="d-flex gap-4 mt-4 flex-wrap">
+            <div>
+              <span class="display-6 fw-bold gold-text">14+</span>
+              <span class="d-block text-muted small">Years of Excellence</span>
+            </div>
+            <div>
+              <span class="display-6 fw-bold gold-text">850+</span>
+              <span class="d-block text-muted small">Happy Clients</span>
+            </div>
+            <div>
+              <span class="display-6 fw-bold gold-text">520+</span>
+              <span class="d-block text-muted small">Projects Delivered</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6" data-aos="fade-left">
+          <div class="about-image-block">
+            <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=900&q=80" alt="About Patel Plywood" class="img-fluid">
+            <div class="floating-badge">
+              <span class="number">14+</span>
+              <span class="label">Years Excellence</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== STATS SECTION ===== -->
+  <section class="about-stats">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-6 col-md-3" data-aos="fade-up" data-aos-delay="0">
+          <div class="stat-item">
+            <span class="number"><span class="counter-value" data-count="14">0</span><span class="plus-sign">+</span></span>
+            <span class="label">Years of Excellence</span>
+          </div>
+        </div>
+        <div class="col-6 col-md-3" data-aos="fade-up" data-aos-delay="100">
+          <div class="stat-item">
+            <span class="number"><span class="counter-value" data-count="850">0</span><span class="plus-sign">+</span></span>
+            <span class="label">Happy Clients</span>
+          </div>
+        </div>
+        <div class="col-6 col-md-3" data-aos="fade-up" data-aos-delay="200">
+          <div class="stat-item">
+            <span class="number"><span class="counter-value" data-count="520">0</span><span class="plus-sign">+</span></span>
+            <span class="label">Projects Delivered</span>
+          </div>
+        </div>
+        <div class="col-6 col-md-3" data-aos="fade-up" data-aos-delay="300">
+          <div class="stat-item">
+            <span class="number"><span class="counter-value" data-count="21">0</span><span class="plus-sign">+</span></span>
+            <span class="label">Product Categories</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== MISSION & VISION ===== -->
+  <section class="mission-vision section-padding">
+    <div class="container">
+      <div class="text-center mb-5">
+        <span class="section-subtitle">Our Purpose</span>
+        <h2 class="section-title">Mission <span class="gold-text">&amp; Vision</span></h2>
+        <div class="gold-divider-center"></div>
+      </div>
+      <div class="row g-4">
+        <div class="col-md-6" data-aos="fade-right">
+          <div class="mv-card">
+            <div class="icon-wrap"><i class="bi bi-bullseye"></i></div>
+            <h4>Our Mission</h4>
+            <p>To provide world-class interior solutions that combine premium quality, innovative design, and exceptional value. We are committed to transforming residential and commercial spaces into timeless masterpieces through our curated range of products and expert guidance.</p>
+          </div>
+        </div>
+        <div class="col-md-6" data-aos="fade-left">
+          <div class="mv-card">
+            <div class="icon-wrap"><i class="bi bi-eye"></i></div>
+            <h4>Our Vision</h4>
+            <p>To become India's most trusted destination for premium interior solutions, recognized for our unwavering commitment to quality, innovation, and customer satisfaction. We envision a future where every space reflects excellence and craftsmanship.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== TIMELINE ===== -->
+  <section class="timeline-section section-padding">
+    <div class="container">
+      <div class="text-center mb-5">
+        <span class="section-subtitle">Our Journey</span>
+        <h2 class="section-title">The <span class="gold-text">Patel Plywood</span> Story</h2>
+        <div class="gold-divider-center"></div>
+      </div>
+      <div class="row justify-content-center">
+        <div class="col-lg-8">
+          <div class="timeline-item" data-aos="fade-up">
+            <div class="year">
+              2010
+              <span class="year-badge">Founded</span>
+            </div>
+            <div class="content">
+              <div class="timeline-icon"><i class="bi bi-rocket-takeoff"></i></div>
+              <h5>Humble Beginnings</h5>
+              <p>Patel Plywood Centre was established in Ahmedabad with a small showroom and a big dream to revolutionize the interior industry with premium quality products.</p>
+            </div>
+          </div>
+          <div class="timeline-item" data-aos="fade-up" data-aos-delay="100">
+            <div class="year">
+              2014
+              <span class="year-badge">Growth</span>
+            </div>
+            <div class="content">
+              <div class="timeline-icon"><i class="bi bi-graph-up-arrow"></i></div>
+              <h5>Expansion &amp; Recognition</h5>
+              <p>Expanded our product range to include laminates, veneers, and decorative panels. Gained recognition as a trusted supplier for architects and interior designers.</p>
+            </div>
+          </div>
+          <div class="timeline-item" data-aos="fade-up" data-aos-delay="200">
+            <div class="year">
+              2018
+              <span class="year-badge">Innovation</span>
+            </div>
+            <div class="content">
+              <div class="timeline-icon"><i class="bi bi-lightbulb"></i></div>
+              <h5>Innovation &amp; Diversification</h5>
+              <p>Introduced cutting-edge products including WPC, MDF, CNC design panels, and sustainable flooring solutions. Became a one-stop destination for all interior needs.</p>
+            </div>
+          </div>
+          <div class="timeline-item" data-aos="fade-up" data-aos-delay="300">
+            <div class="year">
+              2024
+              <span class="year-badge">Today</span>
+            </div>
+            <div class="content">
+              <div class="timeline-icon"><i class="bi bi-trophy"></i></div>
+              <h5>Leading Interior Solutions Provider</h5>
+              <p>Today, Patel Plywood Centre serves over 850+ satisfied clients, offers 21+ product categories, and continues to set new standards of excellence in the interior industry.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== WHY CHOOSE US ===== -->
+  <section class="section-padding bg-soft-gold">
+    <div class="container">
+      <div class="text-center mb-5">
+        <span class="section-subtitle">Why Choose Us</span>
+        <h2 class="section-title">Built on <span class="gold-text">Trust &amp; Quality</span></h2>
+        <div class="gold-divider-center"></div>
+      </div>
+      <div class="row g-4">
+        <div class="col-md-4" data-aos="fade-up">
+          <div class="card-premium p-4 text-start">
+            <div class="card-icon-wrap"><i class="bi bi-gem gold-text"></i></div>
+            <h5>Premium Quality</h5>
+            <p class="text-muted">Best-in-class materials sourced globally. Every product meets the highest standards of quality and durability.</p>
+          </div>
+        </div>
+        <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+          <div class="card-premium p-4 text-start">
+            <div class="card-icon-wrap"><i class="bi bi-award gold-text"></i></div>
+            <h5>Trusted Brand</h5>
+            <p class="text-muted">14+ years of excellence and reliability. Trusted by architects, designers, and homeowners across India.</p>
+          </div>
+        </div>
+        <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+          <div class="card-premium p-4 text-start">
+            <div class="card-icon-wrap"><i class="bi bi-people gold-text"></i></div>
+            <h5>Expert Guidance</h5>
+            <p class="text-muted">Professional design consultation and technical support to help you make the right choices for your project.</p>
+          </div>
+        </div>
+        <div class="col-md-4" data-aos="fade-up">
+          <div class="card-premium p-4 text-start">
+            <div class="card-icon-wrap"><i class="bi bi-grid-3x3-gap gold-text"></i></div>
+            <h5>Wide Range</h5>
+            <p class="text-muted">Over 21 categories and 1000+ products to meet every interior requirement, from flooring to hardware.</p>
+          </div>
+        </div>
+        <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+          <div class="card-premium p-4 text-start">
+            <div class="card-icon-wrap"><i class="bi bi-tag gold-text"></i></div>
+            <h5>Competitive Pricing</h5>
+            <p class="text-muted">Best value without compromising on quality. Transparent pricing with no hidden costs.</p>
+          </div>
+        </div>
+        <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+          <div class="card-premium p-4 text-start">
+            <div class="card-icon-wrap"><i class="bi bi-truck gold-text"></i></div>
+            <h5>Fast Delivery</h5>
+            <p class="text-muted">Pan-India delivery with reliable logistics and site support to ensure your project stays on schedule.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== TEAM SECTION ===== -->
+  <section class="team-section section-padding">
+    <div class="container">
+      <div class="text-center mb-5">
+        <span class="section-subtitle">Our Team</span>
+        <h2 class="section-title">Meet Our <span class="gold-text">Experts</span></h2>
+        <div class="gold-divider-center"></div>
+        <p class="text-muted">The passionate professionals behind our success</p>
+      </div>
+      <div class="row g-4">
+        <div class="col-md-3 col-6" data-aos="flip-up">
+          <div class="team-card">
+            <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&q=80" alt="Team Member">
+            <div class="team-info">
+              <h5>Mr. Patel</h5>
+              <span class="position">Founder &amp; CEO</span>
+              <p>14+ years of experience in the interior industry</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3 col-6" data-aos="flip-up" data-aos-delay="100">
+          <div class="team-card">
+            <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&q=80" alt="Team Member">
+            <div class="team-info">
+              <h5>Ms. Mehta</h5>
+              <span class="position">Head of Design</span>
+              <p>Interior design expert with 10+ years of experience</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3 col-6" data-aos="flip-up" data-aos-delay="200">
+          <div class="team-card">
+            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=80" alt="Team Member">
+            <div class="team-info">
+              <h5>Mr. Shah</h5>
+              <span class="position">Operations Manager</span>
+              <p>Ensuring seamless supply chain and delivery</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3 col-6" data-aos="flip-up" data-aos-delay="300">
+          <div class="team-card">
+            <img src="https://images.unsplash.com/photo-1580618672591-eb180b1a973f?w=400&q=80" alt="Team Member">
+            <div class="team-info">
+              <h5>Ms. Desai</h5>
+              <span class="position">Customer Relations</span>
+              <p>Dedicated to providing exceptional client service</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CTA SECTION ===== -->
+  <section class="about-cta section-padding">
+    <div class="container text-center">
+      <h2 class="display-4 fw-bold" data-aos="fade-up">Let's Work <span class="gold-text">Together</span></h2>
+      <p class="lead mx-auto" style="max-width:600px; color:rgba(255,255,255,0.7);" data-aos="fade-up" data-aos-delay="100">
+        Have a project in mind? We'd love to hear about it. Let's create something extraordinary together.
+      </p>
+      <div class="d-flex flex-wrap gap-3 justify-content-center mt-4" data-aos="fade-up" data-aos-delay="200">
+        <a href="#" class="btn btn-gold"><i class="bi bi-envelope me-2"></i>Contact Us</a>
+        <a href="#" class="btn btn-outline-gold" style="border-color:rgba(255,255,255,0.3); color:#fff;"><i class="bi bi-telephone me-2"></i>+91 98765 43210</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer-unique">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-lg-5">
+          <div class="footer-brand"><img src="images/headerlogo.png" alt="logo" class="img-fluid" style="max-width:150px; height:auto;"></div>
+          <p class="footer-desc mt-3">Total Interior Solutions since 2010. Premium plywood, veneers, laminates &amp; hardware for discerning clients who value quality and craftsmanship.</p>
+          <div class="footer-social mt-3">
+            <a href="#"><i class="bi bi-facebook"></i></a>
+            <a href="#"><i class="bi bi-instagram"></i></a>
+            <a href="#"><i class="bi bi-youtube"></i></a>
+            <a href="#"><i class="bi bi-linkedin"></i></a>
+            <a href="#"><i class="bi bi-pinterest"></i></a>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <h5 class="text-white mb-3" style="font-weight:600;">Get in Touch</h5>
+          <div class="footer-contact-item">
+            <i class="bi bi-geo-alt"></i>
+            <span>Ahmedabad, Gujarat, India</span>
+          </div>
+          <div class="footer-contact-item">
+            <i class="bi bi-telephone"></i>
+            <a href="tel:+919876543210">+91 98765 43210</a>
+          </div>
+          <div class="footer-contact-item">
+            <i class="bi bi-envelope"></i>
+            <a href="mailto:info@patelplywood.com">info@patelplywood.com</a>
+          </div>
+          <div class="footer-contact-item">
+            <i class="bi bi-clock"></i>
+            <span>Mon–Sat: 9:00 AM – 7:00 PM</span>
+          </div>
+        </div>
+        <div class="col-lg-3">
+          <h5 class="text-white mb-3" style="font-weight:600;">Quick Links</h5>
+          <div class="d-flex flex-column gap-2">
+            <a href="#" class="text-decoration-none" style="color:#bbb;transition:var(--transition);">About Us</a>
+            <a href="#" class="text-decoration-none" style="color:#bbb;transition:var(--transition);">Services</a>
+            <a href="#" class="text-decoration-none" style="color:#bbb;transition:var(--transition);">Projects</a>
+            <a href="#" class="text-decoration-none" style="color:#bbb;transition:var(--transition);">Blog</a>
+            <a href="#" class="text-decoration-none" style="color:#bbb;transition:var(--transition);">Contact</a>
+          </div>
+          <div class="mt-3">
+            <span class="footer-badge"><i class="bi bi-shield-check me-1"></i> ISO 9001:2021</span>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 Patel Plywood Centre. All rights reserved.</span>
+        <span>Made with ❤️ by <a href="#">MDIDM Infoway</a></span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===== SCRIPTS ===== -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    // Disable AOS on mobile for faster load
+    if (window.innerWidth <= 768) {
+      document.querySelectorAll('[data-aos]').forEach(el => {
+        el.removeAttribute('data-aos');
+        el.removeAttribute('data-aos-delay');
+        el.removeAttribute('data-aos-duration');
+      });
+    } else {
+      AOS.init({ duration: 800, once: true, offset: 40, disable: 'mobile' });
+    }
+
+    // Sticky header
+    window.addEventListener('scroll', function() {
+      const header = document.getElementById('mainHeader');
+      if (window.scrollY > 60) header.classList.add('scrolled');
+      else header.classList.remove('scrolled');
+    });
+
+    // Counter animation
+    function animateCounters() {
+      document.querySelectorAll('.counter-value').forEach(el => {
+        const target = parseInt(el.getAttribute('data-count'));
+        let current = 0;
+        const increment = Math.ceil(target / 60);
+        const timer = setInterval(() => {
+          current += increment;
+          if (current >= target) { el.textContent = target; clearInterval(timer); }
+          else el.textContent = current;
+        }, 25);
+      });
+    }
+    window.addEventListener('load', animateCounters);
+
+    // Close mobile menu on link click
+    document.querySelectorAll('#mainNav .nav-link, #mainNav .dropdown-item, #mainNav .btn-nav').forEach(link => {
+      link.addEventListener('click', () => {
+        const menu = document.getElementById('mainNav');
+        if (menu.classList.contains('show')) {
+          const toggler = document.querySelector('.navbar-toggler');
+          toggler.click();
+        }
+      });
+    });
+  </script>
+</body>
+</html>

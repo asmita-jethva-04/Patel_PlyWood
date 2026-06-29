@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+  <title>Product Categories · Patel Plywood Centre</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz@14..32&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* ===== CATEGORY PAGE SPECIFIC STYLES ===== */
+    
+    /* Hero Section */
+    .category-hero {
+      position: relative;
+      height: 400px;
+      min-height: 300px;
+      width: 100%;
+      overflow: hidden;
+      margin-top: -10px;
+      background: url('https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=1600&q=80') center/cover no-repeat;
+    }
+    .category-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.6) 100%);
+      z-index: 1;
+    }
+    .category-hero .hero-content {
+      position: relative;
+      z-index: 2;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding-top: 70px;
+    }
+    .category-hero .hero-content .hero-badge {
+      display: inline-block;
+      background: rgba(181,122,43,0.2);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(181,122,43,0.3);
+      padding: 6px 24px;
+      border-radius: 50px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gold-light);
+      margin-bottom: 16px;
+    }
+    .category-hero .hero-content h1 {
+      font-size: 4rem;
+      font-weight: 800;
+      color: #fff;
+      letter-spacing: -2px;
+    }
+    .category-hero .hero-content h1 .highlight {
+      background: var(--gold-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .category-hero .hero-content .breadcrumb {
+      background: transparent;
+      padding: 0;
+      margin-top: 16px;
+    }
+    .category-hero .hero-content .breadcrumb-item a {
+      color: rgba(255,255,255,0.7);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+    .category-hero .hero-content .breadcrumb-item a:hover { color: var(--gold); }
+    .category-hero .hero-content .breadcrumb-item.active {
+      color: var(--gold-light);
+    }
+    .category-hero .hero-content .breadcrumb-item + .breadcrumb-item::before {
+      color: rgba(255,255,255,0.3);
+    }
+
+    /* Category Cards - Enhanced */
+    .category-card-enhanced {
+      background: #fff;
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      transition: var(--transition);
+      height: 100%;
+      position: relative;
+    }
+    .category-card-enhanced:hover {
+      transform: translateY(-10px);
+      box-shadow: var(--shadow-hover);
+    }
+    .category-card-enhanced .card-img-wrap {
+      position: relative;
+      overflow: hidden;
+      height: 220px;
+    }
+    .category-card-enhanced .card-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: var(--transition);
+    }
+    .category-card-enhanced:hover .card-img-wrap img {
+      transform: scale(1.05);
+    }
+    .category-card-enhanced .card-img-wrap .card-badge {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: var(--gold-gradient);
+      color: #fff;
+      padding: 4px 14px;
+      border-radius: 50px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+    .category-card-enhanced .card-img-wrap .card-badge.badge-new {
+      background: linear-gradient(135deg, #2ECC71, #27AE60);
+    }
+    .category-card-enhanced .card-img-wrap .card-badge.badge-sale {
+      background: linear-gradient(135deg, #E74C3C, #C0392B);
+    }
+    .category-card-enhanced .card-img-wrap .card-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.3);
+      opacity: 0;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .category-card-enhanced:hover .card-img-wrap .card-overlay {
+      opacity: 1;
+    }
+    .category-card-enhanced .card-img-wrap .card-overlay a {
+      background: var(--gold-gradient);
+      color: #fff;
+      padding: 10px 28px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.85rem;
+      transition: var(--transition);
+      transform: translateY(20px);
+    }
+    .category-card-enhanced:hover .card-img-wrap .card-overlay a {
+      transform: translateY(0);
+    }
+    .category-card-enhanced .card-img-wrap .card-overlay a:hover {
+      transform: scale(1.05);
+    }
+    .category-card-enhanced .card-body {
+      padding: 20px 22px;
+      text-align: center;
+    }
+    .category-card-enhanced .card-body h5 {
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .category-card-enhanced .card-body .product-count {
+      color: var(--gold);
+      font-size: 0.85rem;
+      font-weight: 500;
+    }
+    .category-card-enhanced .card-body .category-desc {
+      color: var(--paragraph);
+      font-size: 0.9rem;
+      line-height: 1.6;
+      margin-top: 8px;
+      margin-bottom: 0;
+    }
+
+    /* Featured Categories */
+    .featured-category {
+      background: var(--bg-light);
+      border-radius: var(--radius);
+      padding: 40px;
+      transition: var(--transition);
+      height: 100%;
+      border-bottom: 4px solid transparent;
+    }
+    .featured-category:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-hover);
+      border-bottom-color: var(--gold);
+    }
+    .featured-category .icon-wrap {
+      width: 70px;
+      height: 70px;
+      background: var(--gold-gradient);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+      transition: var(--transition);
+    }
+    .featured-category:hover .icon-wrap {
+      transform: scale(1.05) rotate(-5deg);
+      box-shadow: 0 15px 40px rgba(181,122,43,0.25);
+    }
+    .featured-category .icon-wrap i {
+      font-size: 2rem;
+      color: #fff;
+    }
+    .featured-category h4 {
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .featured-category p {
+      color: var(--paragraph);
+      line-height: 1.7;
+      margin-bottom: 16px;
+    }
+
+    /* Stats Bar */
+    .category-stats {
+      background: var(--charcoal);
+      padding: 40px 0;
+      position: relative;
+    }
+    .category-stats::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: var(--gold-gradient);
+    }
+    .category-stats .stat-item {
+      text-align: center;
+    }
+    .category-stats .stat-item .number {
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: var(--gold);
+      display: block;
+      line-height: 1;
+    }
+    .category-stats .stat-item .label {
+      color: rgba(255,255,255,0.7);
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-top: 8px;
+      display: block;
+    }
+
+    /* CTA Section */
+    .category-cta {
+      background: var(--charcoal);
+      position: relative;
+      overflow: hidden;
+    }
+    .category-cta::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: var(--gold-gradient);
+    }
+    .category-cta h2 {
+      color: #fff;
+      font-weight: 800;
+    }
+    .category-cta p {
+      color: rgba(255,255,255,0.7);
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 991.98px) {
+      .category-hero .hero-content h1 { font-size: 3rem; }
+      .category-card-enhanced .card-img-wrap { height: 200px; }
+    }
+    @media (max-width: 767.98px) {
+      .category-hero { height: 300px; min-height: 250px; }
+      .category-hero .hero-content h1 { font-size: 2.2rem; }
+      .category-card-enhanced .card-img-wrap { height: 180px; }
+      .featured-category { padding: 25px; }
+      .category-stats .stat-item .number { font-size: 2rem; }
+      .category-stats .stat-item .label { font-size: 0.75rem; }
+    }
+    @media (max-width: 575.98px) {
+      .category-hero .hero-content h1 { font-size: 1.8rem; }
+      .category-card-enhanced .card-img-wrap { height: 160px; }
+      .category-card-enhanced .card-body { padding: 16px; }
+      .category-stats .stat-item .number { font-size: 1.6rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== TOP BAR ===== -->
+  <div class="top-bar">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-md-8">
+          <div class="contact-info d-flex flex-wrap align-items-center gap-2 gap-lg-3">
+            <a href="#"><i class="bi bi-telephone-fill gold-text"></i> +91 98765 43210</a>
+            <span class="divider d-none d-sm-inline">|</span>
+            <a href="#"><i class="bi bi-envelope-fill gold-text"></i> info@patelplywood.com</a>
+            <span class="divider d-none d-sm-inline">|</span>
+            <a href="#"><i class="bi bi-geo-alt-fill gold-text"></i> Ahmedabad, India</a>
+            <span class="divider d-none d-sm-inline">|</span>
+            <span><i class="bi bi-clock-fill gold-text"></i> Mon–Sat 9:00–7:00</span>
+          </div>
+        </div>
+        <div class="col-md-4 d-flex justify-content-end">
+          <div class="social-icons d-flex gap-1">
+            <a href="#"><i class="bi bi-facebook"></i></a>
+            <a href="#"><i class="bi bi-instagram"></i></a>
+            <a href="#"><i class="bi bi-youtube"></i></a>
+            <a href="#"><i class="bi bi-linkedin"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== MAIN NAV ===== -->
+  <header class="navbar-main fixed-top" id="mainHeader">
+    <nav class="navbar navbar-expand-lg">
+      <div class="container">
+        <a class="navbar-brand" href="index.html">
+          <img src="images/headerlogo.png" alt="Patel Plywood Centre" class="brand-logo">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="mainNav">
+          <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+            <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+            <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+            <li class="nav-item"><a class="nav-link" href="services.html">Services</a></li>
+            <li class="nav-item dropdown-categories">
+              <a class="nav-link active" href="#">Categories <i class="bi bi-chevron-down"></i></a>
+              <div class="dropdown-menu">
+                <a class="dropdown-item" href="#"><i class="bi bi-door-open"></i> Plywood Doors</a>
+                <a class="dropdown-item" href="#"><i class="bi bi-layers"></i> Veneers</a>
+                <a class="dropdown-item" href="#"><i class="bi bi-grid"></i> Laminates</a>
+                <a class="dropdown-item" href="#"><i class="bi bi-tree"></i> Sagwan Timber</a>
+                <a class="dropdown-item" href="#"><i class="bi bi-border-all"></i> Decorative Panels</a>
+                <a class="dropdown-item" href="#"><i class="bi bi-building"></i> ACP Sheets</a>
+                <a class="dropdown-item" href="#"><i class="bi bi-layers-half"></i> HPL & Cladding</a>
+                <a class="dropdown-item" href="#"><i class="bi bi-images"></i> Wallpapers</a>
+                <a class="dropdown-item" href="#"><i class="bi bi-grid-3x3-gap"></i> Mosaic Sheets</a>
+                <a class="dropdown-item" href="#"><i class="bi bi-window"></i> Acrylic Sheets</a>
+                <a class="dropdown-item" href="#"><i class="bi bi-flower1"></i> Green Grass</a>
+                <a class="dropdown-item" href="#"><i class="bi bi-flower2"></i> Decorative Flowers</a>
+                <a class="dropdown-item" href="#"><i class="bi bi-house"></i> Wooden Flooring</a>
+                <a class="dropdown-item" href="#"><i class="bi bi-grid-1x2"></i> Vinyl Flooring</a>
+                <a class="dropdown-item" href="#"><i class="bi bi-border-width"></i> Exterior Planks</a>
+                <a class="dropdown-item" href="#"><i class="bi bi-tools"></i> Hardware</a>
+                <a class="dropdown-item" href="#"><i class="bi bi-box"></i> WPC Chokat</a>
+                <a class="dropdown-item" href="#"><i class="bi bi-box-seam"></i> Zero Wood NFC</a>
+                <a class="dropdown-item" href="#"><i class="bi bi-layers"></i> MDF Boards</a>
+                <a class="dropdown-item" href="#"><i class="bi bi-palette"></i> CNC Design Panels</a>
+                <a class="dropdown-item" href="#"><i class="bi bi-droplet"></i> Fevicol</a>
+              </div>
+            </li>
+            <li class="nav-item"><a class="nav-link" href="#">Projects</a></li>
+            <li class="nav-item"><a class="nav-link" href="#">Blog</a></li>
+            <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
+          </ul>
+          <div class="nav-actions d-flex gap-2">
+            <a href="#" class="btn-nav btn-nav-call"><i class="bi bi-telephone-fill"></i>Call Now</a>
+            <a href="#" class="btn-nav btn-nav-quote">Get Quote</a>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <!-- ===== CATEGORY HERO ===== -->
+  <section class="category-hero">
+    <div class="container hero-content">
+      <span class="hero-badge" data-aos="fade-up"><i class="bi bi-grid-3x3-gap-fill me-2"></i>Browse by Category</span>
+      <h1 data-aos="fade-up" data-aos-delay="50">Our <span class="highlight">Product Range</span></h1>
+      <nav aria-label="breadcrumb" data-aos="fade-up" data-aos-delay="100">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Categories</li>
+        </ol>
+      </nav>
+    </div>
+  </section>
+
+  <!-- ===== STATS BAR ===== -->
+  <section class="category-stats">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-6 col-md-3" data-aos="fade-up" data-aos-delay="0">
+          <div class="stat-item">
+            <span class="number">21+</span>
+            <span class="label">Product Categories</span>
+          </div>
+        </div>
+        <div class="col-6 col-md-3" data-aos="fade-up" data-aos-delay="100">
+          <div class="stat-item">
+            <span class="number">1000+</span>
+            <span class="label">Products Available</span>
+          </div>
+        </div>
+        <div class="col-6 col-md-3" data-aos="fade-up" data-aos-delay="200">
+          <div class="stat-item">
+            <span class="number">50+</span>
+            <span class="label">Trusted Brands</span>
+          </div>
+        </div>
+        <div class="col-6 col-md-3" data-aos="fade-up" data-aos-delay="300">
+          <div class="stat-item">
+            <span class="number">14+</span>
+            <span class="label">Years Experience</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== ALL CATEGORIES ===== -->
+  <section class="section-padding bg-white">
+    <div class="container">
+      <div class="text-center mb-5">
+        <span class="section-subtitle">Premium Selection</span>
+        <h2 class="section-title">Complete <span class="gold-text">Product Range</span></h2>
+        <div class="gold-divider-center"></div>
+        <p class="text-muted mx-auto" style="max-width:680px;">Explore our extensive collection of premium interior products across 21+ categories, carefully curated for quality and style</p>
+      </div>
+      <div class="row g-4">
+        <!-- Category 1 -->
+        <div class="col-md-4 col-sm-6" data-aos="fade-up" data-aos-delay="0">
+          <div class="category-card-enhanced">
+            <div class="card-img-wrap">
+              <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=600&q=80" alt="Plywood Doors">
+              <span class="card-badge">Popular</span>
+              <div class="card-overlay">
+                <a href="#">Explore Now</a>
+              </div>
+            </div>
+            <div class="card-body">
+              <h5>Plywood Doors</h5>
+              <span class="product-count">12 Products</span>
+              <p class="category-desc">Premium quality plywood doors with superior durability and elegant finishes.</p>
+            </div>
+          </div>
+        </div>
+        <!-- Category 2 -->
+        <div class="col-md-4 col-sm-6" data-aos="fade-up" data-aos-delay="100">
+          <div class="category-card-enhanced">
+            <div class="card-img-wrap">
+              <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&q=80" alt="Veneers">
+              <span class="card-badge badge-new">Best Seller</span>
+              <div class="card-overlay">
+                <a href="#">Explore Now</a>
+              </div>
+            </div>
+            <div class="card-body">
+              <h5>Veneers</h5>
+              <span class="product-count">8 Products</span>
+              <p class="category-desc">Natural wood veneers with stunning grain patterns for premium interiors.</p>
+            </div>
+          </div>
+        </div>
+        <!-- Category 3 -->
+        <div class="col-md-4 col-sm-6" data-aos="fade-up" data-aos-delay="200">
+          <div class="category-card-enhanced">
+            <div class="card-img-wrap">
+              <img src="https://images.unsplash.com/photo-1618220179428-22790b461013?w=600&q=80" alt="Laminates">
+              <span class="card-badge badge-new">New</span>
+              <div class="card-overlay">
+                <a href="#">Explore Now</a>
+              </div>
+            </div>
+            <div class="card-body">
+              <h5>Laminates</h5>
+              <span class="product-count">15 Products</span>
+              <p class="category-desc">High-quality laminates in a wide range of colors, textures, and finishes.</p>
+            </div>
+          </div>
+        </div>
+        <!-- Category 4 -->
+        <div class="col-md-4 col-sm-6" data-aos="fade-up" data-aos-delay="300">
+          <div class="category-card-enhanced">
+            <div class="card-img-wrap">
+              <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=600&q=80" alt="Timber">
+              <div class="card-overlay">
+                <a href="#">Explore Now</a>
+              </div>
+            </div>
+            <div class="card-body">
+              <h5>Sagwan Timber</h5>
+              <span class="product-count">6 Products</span>
+              <p class="category-desc">Premium quality Sagwan (Teak) timber for durable and elegant furniture.</p>
+            </div>
+          </div>
+        </div>
+        <!-- Category 5 -->
+        <div class="col-md-4 col-sm-6" data-aos="fade-up" data-aos-delay="400">
+          <div class="category-card-enhanced">
+            <div class="card-img-wrap">
+              <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=600&q=80" alt="Flooring">
+              <div class="card-overlay">
+                <a href="#">Explore Now</a>
+              </div>
+            </div>
+            <div class="card-body">
+              <h5>Wooden Flooring</h5>
+              <span class="product-count">10 Products</span>
+              <p class="category-desc">Elegant wooden flooring solutions that add warmth and sophistication.</p>
+            </div>
+          </div>
+        </div>
+        <!-- Category 6 -->
+        <div class="col-md-4 col-sm-6" data-aos="fade-up" data-aos-delay="500">
+          <div class="category-card-enhanced">
+            <div class="card-img-wrap">
+              <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&q=80" alt="Hardware">
+              <div class="card-overlay">
+                <a href="#">Explore Now</a>
+              </div>
+            </div>
+            <div class="card-body">
+              <h5>Hardware</h5>
+              <span class="product-count">20 Products</span>
+              <p class="category-desc">Premium hardware solutions including hinges, handles, locks and more.</p>
+            </div>
+          </div>
+        </div>
+        <!-- Category 7 -->
+        <div class="col-md-4 col-sm-6" data-aos="fade-up" data-aos-delay="600">
+          <div class="category-card-enhanced">
+            <div class="card-img-wrap">
+              <img src="https://images.unsplash.com/photo-1618220179428-22790b461013?w=600&q=80" alt="Panels">
+              <div class="card-overlay">
+                <a href="#">Explore Now</a>
+              </div>
+            </div>
+            <div class="card-body">
+              <h5>Decorative Panels</h5>
+              <span class="product-count">14 Products</span>
+              <p class="category-desc">Beautiful decorative panels for walls, ceilings, and feature elements.</p>
+            </div>
+          </div>
+        </div>
+        <!-- Category 8 -->
+        <div class="col-md-4 col-sm-6" data-aos="fade-up" data-aos-delay="700">
+          <div class="category-card-enhanced">
+            <div class="card-img-wrap">
+              <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=600&q=80" alt="MDF">
+              <div class="card-overlay">
+                <a href="#">Explore Now</a>
+              </div>
+            </div>
+            <div class="card-body">
+              <h5>MDF Boards</h5>
+              <span class="product-count">9 Products</span>
+              <p class="category-desc">High-quality MDF boards for versatile interior applications.</p>
+            </div>
+          </div>
+        </div>
+        <!-- Category 9 -->
+        <div class="col-md-4 col-sm-6" data-aos="fade-up" data-aos-delay="800">
+          <div class="category-card-enhanced">
+            <div class="card-img-wrap">
+              <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=600&q=80" alt="ACP">
+              <div class="card-overlay">
+                <a href="#">Explore Now</a>
+              </div>
+            </div>
+            <div class="card-body">
+              <h5>ACP Sheets</h5>
+              <span class="product-count">7 Products</span>
+              <p class="category-desc">Durable and stylish Aluminium Composite Panels for modern architecture.</p>
+            </div>
+          </div>
+        </div>
+        <!-- Category 10 -->
+        <div class="col-md-4 col-sm-6" data-aos="fade-up" data-aos-delay="900">
+          <div class="category-card-enhanced">
+            <div class="card-img-wrap">
+              <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&q=80" alt="Wallpapers">
+              <div class="card-overlay">
+                <a href="#">Explore Now</a>
+              </div>
+            </div>
+            <div class="card-body">
+              <h5>Wallpapers</h5>
+              <span class="product-count">25 Products</span>
+              <p class="category-desc">Premium wallpapers in diverse patterns, textures, and styles.</p>
+            </div>
+          </div>
+        </div>
+        <!-- Category 11 -->
+        <div class="col-md-4 col-sm-6" data-aos="fade-up" data-aos-delay="1000">
+          <div class="category-card-enhanced">
+            <div class="card-img-wrap">
+              <img src="https://images.unsplash.com/photo-1618220179428-22790b461013?w=600&q=80" alt="Vinyl Flooring">
+              <div class="card-overlay">
+                <a href="#">Explore Now</a>
+              </div>
+            </div>
+            <div class="card-body">
+              <h5>Vinyl Flooring</h5>
+              <span class="product-count">8 Products</span>
+              <p class="category-desc">Durable and stylish vinyl flooring options for residential and commercial spaces.</p>
+            </div>
+          </div>
+        </div>
+        <!-- Category 12 -->
+        <div class="col-md-4 col-sm-6" data-aos="fade-up" data-aos-delay="1100">
+          <div class="category-card-enhanced">
+            <div class="card-img-wrap">
+              <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=600&q=80" alt="WPC">
+              <div class="card-overlay">
+                <a href="#">Explore Now</a>
+              </div>
+            </div>
+            <div class="card-body">
+              <h5>WPC Chokat</h5>
+              <span class="product-count">6 Products</span>
+              <p class="category-desc">Water-resistant WPC chokat for durable and stylish interiors.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FEATURED CATEGORIES ===== -->
+  <section class="section-padding bg-soft-gold">
+    <div class="container">
+      <div class="text-center mb-5">
+        <span class="section-subtitle">Featured Selection</span>
+        <h2 class="section-title">Most <span class="gold-text">Popular</span> Categories</h2>
+        <div class="gold-divider-center"></div>
+        <p class="text-muted mx-auto" style="max-width:600px;">Our most sought-after categories, loved by architects, designers, and homeowners</p>
+      </div>
+      <div class="row g-4">
+        <div class="col-md-4" data-aos="flip-up" data-aos-delay="0">
+          <div class="featured-category">
+            <div class="icon-wrap"><i class="bi bi-door-open"></i></div>
+            <h4>Plywood Doors</h4>
+            <p>Premium quality plywood doors with superior durability, elegant finishes, and excellent insulation properties.</p>
+            <a href="#" class="btn btn-outline-gold btn-sm">View Collection <i class="bi bi-arrow-right ms-1"></i></a>
+          </div>
+        </div>
+        <div class="col-md-4" data-aos="flip-up" data-aos-delay="100">
+          <div class="featured-category">
+            <div class="icon-wrap"><i class="bi bi-layers"></i></div>
+            <h4>Veneers & Laminates</h4>
+            <p>Natural wood veneers and high-quality laminates in a wide range of colors, textures, and finishes for every style.</p>
+            <a href="#" class="btn btn-outline-gold btn-sm">View Collection <i class="bi bi-arrow-right ms-1"></i></a>
+          </div>
+        </div>
+        <div class="col-md-4" data-aos="flip-up" data-aos-delay="200">
+          <div class="featured-category">
+            <div class="icon-wrap"><i class="bi bi-house"></i></div>
+            <h4>Flooring Solutions</h4>
+            <p>Elegant wooden and vinyl flooring solutions that add warmth, sophistication, and durability to any space.</p>
+            <a href="#" class="btn btn-outline-gold btn-sm">View Collection <i class="bi bi-arrow-right ms-1"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CTA SECTION ===== -->
+  <section class="category-cta section-padding">
+    <div class="container text-center">
+      <h2 class="display-4 fw-bold" data-aos="fade-up">Need Help Finding the <span class="gold-text">Right Product?</span></h2>
+      <p class="lead mx-auto" style="max-width:600px; color:rgba(255,255,255,0.7);" data-aos="fade-up" data-aos-delay="100">
+        Our experts are here to guide you through our extensive product range. Contact us for personalized assistance.
+      </p>
+      <div class="d-flex flex-wrap gap-3 justify-content-center mt-4" data-aos="fade-up" data-aos-delay="200">
+        <a href="#" class="btn btn-gold"><i class="bi bi-envelope me-2"></i>Contact Us</a>
+        <a href="#" class="btn btn-outline-gold" style="border-color:rgba(255,255,255,0.3); color:#fff;"><i class="bi bi-telephone me-2"></i>+91 98765 43210</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer-unique">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-lg-5">
+          <div class="footer-brand"><img src="images/headerlogo.png" alt="logo" class="img-fluid" style="max-width:150px; height:auto;"></div>
+          <p class="footer-desc mt-3">Total Interior Solutions since 2010. Premium plywood, veneers, laminates &amp; hardware for discerning clients who value quality and craftsmanship.</p>
+          <div class="footer-social mt-3">
+            <a href="#"><i class="bi bi-facebook"></i></a>
+            <a href="#"><i class="bi bi-instagram"></i></a>
+            <a href="#"><i class="bi bi-youtube"></i></a>
+            <a href="#"><i class="bi bi-linkedin"></i></a>
+            <a href="#"><i class="bi bi-pinterest"></i></a>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <h5 class="text-white mb-3" style="font-weight:600;">Get in Touch</h5>
+          <div class="footer-contact-item">
+            <i class="bi bi-geo-alt"></i>
+            <span>Ahmedabad, Gujarat, India</span>
+          </div>
+          <div class="footer-contact-item">
+            <i class="bi bi-telephone"></i>
+            <a href="tel:+919876543210">+91 98765 43210</a>
+          </div>
+          <div class="footer-contact-item">
+            <i class="bi bi-envelope"></i>
+            <a href="mailto:info@patelplywood.com">info@patelplywood.com</a>
+          </div>
+          <div class="footer-contact-item">
+            <i class="bi bi-clock"></i>
+            <span>Mon–Sat: 9:00 AM – 7:00 PM</span>
+          </div>
+        </div>
+        <div class="col-lg-3">
+          <h5 class="text-white mb-3" style="font-weight:600;">Quick Links</h5>
+          <div class="d-flex flex-column gap-2">
+            <a href="#" class="text-decoration-none" style="color:#bbb;transition:var(--transition);">About Us</a>
+            <a href="#" class="text-decoration-none" style="color:#bbb;transition:var(--transition);">Services</a>
+            <a href="#" class="text-decoration-none" style="color:#bbb;transition:var(--transition);">Projects</a>
+            <a href="#" class="text-decoration-none" style="color:#bbb;transition:var(--transition);">Blog</a>
+            <a href="#" class="text-decoration-none" style="color:#bbb;transition:var(--transition);">Contact</a>
+          </div>
+          <div class="mt-3">
+            <span class="footer-badge"><i class="bi bi-shield-check me-1"></i> ISO 9001:2021</span>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 Patel Plywood Centre. All rights reserved.</span>
+        <span>Made with ❤️ by <a href="#">MDIDM Infoway</a></span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===== SCRIPTS ===== -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    // Disable AOS on mobile for faster load
+    if (window.innerWidth <= 768) {
+      document.querySelectorAll('[data-aos]').forEach(el => {
+        el.removeAttribute('data-aos');
+        el.removeAttribute('data-aos-delay');
+        el.removeAttribute('data-aos-duration');
+      });
+    } else {
+      AOS.init({ duration: 800, once: true, offset: 40, disable: 'mobile' });
+    }
+
+    // Sticky header
+    window.addEventListener('scroll', function() {
+      const header = document.getElementById('mainHeader');
+      if (window.scrollY > 60) header.classList.add('scrolled');
+      else header.classList.remove('scrolled');
+    });
+
+    // Close mobile menu on link click
+    document.querySelectorAll('#mainNav .nav-link, #mainNav .dropdown-item, #mainNav .btn-nav').forEach(link => {
+      link.addEventListener('click', () => {
+        const menu = document.getElementById('mainNav');
+        if (menu.classList.contains('show')) {
+          const toggler = document.querySelector('.navbar-toggler');
+          toggler.click();
+        }
+      });
+    });
+  </script>
+</body>
+</html>
